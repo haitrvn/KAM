@@ -29,3 +29,6 @@ jobs:
     
     - name: Build iOS Library
       run: ./gradlew :shared:linkDebugFrameworkIosX64
+
+    - name: Build ALL
+      run: ./gradlew :shared:build
