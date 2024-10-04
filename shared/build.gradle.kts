@@ -36,6 +36,8 @@ kotlin {
     
     sourceSets {
         commonMain.dependencies {
+            implementation(compose.runtime)
+            implementation(compose.ui)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
