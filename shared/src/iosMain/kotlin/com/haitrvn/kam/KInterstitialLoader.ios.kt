@@ -2,7 +2,7 @@ package com.haitrvn.kam
 
 import com.haitrvn.kam.KInterstitial
 import cocoapods.Google_Mobile_Ads_SDK.GADMobileAds
-import cocoapods.Google_Mobile_Ads_SDK.GADInterstitial
+import cocoapods.Google_Mobile_Ads_SDK.GADInterstitialAd
 import com.haitrvn.kam.core.KAMLoadAdError
 import com.haitrvn.kam.core.KAdRequest
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -15,7 +15,7 @@ actual class KInterstitialLoader {
         adUnitId: String,
         kadsRequest: KAdRequest,
     ): KInterstitial? = suspendCancellableCoroutine { continuation ->
-        GADInterstitial.loadWithAdUnitID(adUnitId, kadsRequest) { ad, error ->
+        GADInterstitialAd.loadWithAdUnitID(adUnitId, kadsRequest) { ad, error ->
             when {
                 ad != null -> continuation.resume(ad)
                 else -> continuation.resume(null)
@@ -28,7 +28,7 @@ actual class KInterstitialLoader {
         kadsRequest: KAdRequest,
         callback: (KInterstitial?, KAMLoadAdError?) -> Unit
     ) {
-        GADInterstitial.loadWithAdUnitID(adUnitId, kadsRequest) { ad, error ->
+        GADInterstitialAd.loadWithAdUnitID(adUnitId, kadsRequest) { ad, error ->
             //TODO convert error to kmm error
             callback(ad, null)
         }

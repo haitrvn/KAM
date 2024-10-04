@@ -24,11 +24,11 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     
-    - name: Build Android Library
-      run: ./gradlew :shared:assembleDebug
+    # - name: Build Android Library
+    #   run: ./gradlew :shared:assembleDebug
     
-    - name: Build iOS Library
-      run: ./gradlew :shared:linkDebugFrameworkIosX64
+    # - name: Build iOS Library
+    #   run: ./gradlew :shared:linkDebugFrameworkIosX64
 
     - name: Build ALL
       run: ./gradlew :shared:build
