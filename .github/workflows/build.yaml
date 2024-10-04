@@ -1,4 +1,4 @@
-name: Build KMM Library
+name: Build KMM Librari
 
 on:
   push:
