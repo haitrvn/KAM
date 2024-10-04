@@ -1,3 +1,5 @@
 package com.haitrvn.kam.core
 
-actual class RootView
+import platform.UIKit.UIViewController
+
+actual typealias RootView = UIViewController
