@@ -9,5 +9,5 @@ actual typealias KInterstitial = GADInterstitialAd
 
 @ExperimentalForeignApi
 actual fun KInterstitial.showAd(rootView: RootView) {
-    present(rootView)
+    presentFromRootViewController(rootView)
 }
