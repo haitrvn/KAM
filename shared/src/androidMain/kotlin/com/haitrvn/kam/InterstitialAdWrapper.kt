@@ -5,7 +5,7 @@ import com.google.android.gms.ads.OnPaidEventListener
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.haitrvn.kam.core.RootView
 
-open class InterstitialAdWrapper(
+class InterstitialAdWrapper(
     private val interstitialAd: InterstitialAd
 ) : InterstitialAd() {
     override fun show(activity: RootView) {
