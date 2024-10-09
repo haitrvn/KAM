@@ -23,41 +23,18 @@ actual class KamInterstitial(
     }
 
     actual fun setFullScreenContentCallback(callback: KamFullScreenContentCallBack) {
-        interstitialAd.fullScreenContentDelegate = object : GADFullScreenContentDelegate() {
-            override fun adDidRecordClick() {
-                callback.onAdClicked()
-            }
-
-            override fun adDidDismissFullScreenContent() {
-                callback.onAdDismissedFullScreenContent()
-            }
-
-            override fun didFailToPresentFullScreenContentWithError(error: AdError) {
-                callback.onAdFailedToShowFullScreenContent(error.toKamError())
-            }
-
-            override fun adDidRecordImpression() {
-                callback.onAdImpression()
-            }
-
-            override fun adDidPresentFullScreenContent() {
-                callback.onAdShowedFullScreenContent()
-            }
-        }
     }
 
     actual fun setOnPaidEventListener(callback: (KamAdValue) -> Unit) {
-        interstitialAd.paidEventHandler = object: GADPaidEventHandler() { adValue ->
-            callback(adValue.toKamAdValue())
-        }
     }
 
     private fun GADAdValue.toKamAdValue(): KamAdValue {
-        return KamAdValue(
-            precisionType = com.haitrvn.kam.core.PrecisionType.entries.firstOrNull { it.type == precisionType }
-                ?: com.haitrvn.kam.core.PrecisionType.UNKNOWN,
-            valueMicros = valueMicros,
-            currencyCode = currencyCode
-        )
+//        return KamAdValue(
+//            precisionType = com.haitrvn.kam.core.PrecisionType.entries.firstOrNull { it.type == precisionType }
+//                ?: com.haitrvn.kam.core.PrecisionType.UNKNOWN,
+//            valueMicros = valueMicros,
+//            currencyCode = currencyCode
+//        )
+        TODO()
     }
 }

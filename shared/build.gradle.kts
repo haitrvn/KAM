@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.compose.multiplatform)
     id("maven-publish")
+    id("signing")
 }
 
 group = "com.haitrvn"
@@ -38,7 +39,7 @@ kotlin {
             extraOpts += listOf("-compiler-option", "-fmodules")
         }
     }
-    
+
     sourceSets {
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -71,16 +72,40 @@ android {
 }
 
 publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = "com.haitrvn"
-            artifactId = "kam"
-            version = "1.0.0"
+    publications.withType<MavenPublication> {
+        artifact(tasks.register("${name}JavadocJar", Jar::class) {
+            archiveClassifier.set("javadoc")
+            archiveAppendix.set(this@withType.name)
+        })
 
-            from(components["kotlin"])
+        pom {
+            name.set("KAM (Kotlin AdMob)")
+            description.set("Admob for Compose Multiplatform")
+            url.set("https://github.com/haitrvn/KAM")
+
+            licenses {
+                license {
+                    name.set("Apache")
+                    url.set("https://opensource.org/license/apache-2-0")
+                }
+            }
+            developers {
+                developer {
+                    id.set("haitrvn")
+                    name.set("Hai Tran")
+                    organizationUrl.set("https://github.com/haitrvn")
+                }
+            }
+            scm {
+                url.set("https://github.com/haitrvn/KAM")
+            }
         }
     }
-    repositories {
-        mavenLocal()
+}
+
+signing {
+    if (project.hasProperty("signing.gnupg.keyName")) {
+        useGpgCmd()
+        sign(publishing.publications)
     }
 }
