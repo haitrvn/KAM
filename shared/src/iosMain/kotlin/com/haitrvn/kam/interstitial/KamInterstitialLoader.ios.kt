@@ -13,12 +13,13 @@ actual class KamInterstitialLoader {
         adUnitId: String,
         request: KamRequest,
     ): KamInterstitial? = suspendCancellableCoroutine { continuation ->
-        GADInterstitialAd.loadWithAdUnitID(adUnitId, request) { ad, error ->
-            when {
-                ad != null -> continuation.resume(ad)
-                else -> continuation.resume(null)
-            }
-        }
+//        GADInterstitialAd.loadWithAdUnitID(adUnitId, request) { ad, error ->
+//            when {
+//                ad != null -> continuation.resume(ad)
+//                else -> continuation.resume(null)
+//            }
+//        }
+        TODO()
     }
 
     actual suspend fun load(
@@ -26,9 +27,10 @@ actual class KamInterstitialLoader {
         request: KamRequest,
         callback: (KamInterstitial?, KamAdError?) -> Unit
     ) {
-        GADInterstitialAd.loadWithAdUnitID(adUnitId, request) { ad, error ->
-            //TODO convert error to kmm error
-            callback(ad, null)
-        }
+//        GADInterstitialAd.loadWithAdUnitID(adUnitId, request) { ad, error ->
+//            //TODO convert error to kmm error
+//            callback(ad, null)
+//        }
+        TODO()
     }
 }
