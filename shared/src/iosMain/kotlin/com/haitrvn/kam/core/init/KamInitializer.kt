@@ -9,4 +9,13 @@ actual class KamInitializer {
         GADMobileAds.sharedInstance().startWithCompletionHandler {
         }
     }
+
+    actual fun disableMediationAdapterInitialization() {
+    }
+
+    actual fun setRequestConfiguration(requestConfiguration: RequestConfiguration) {
+    }
+
+    internal actual fun startPreload() {
+    }
 }
