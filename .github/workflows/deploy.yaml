@@ -9,7 +9,7 @@ permissions:
 
 jobs:
     build:
-        uses: ./.github/workflows/gradle.yml
+        uses: ./.github/workflows/gradle.yaml
     deploy:
         needs: build
         strategy:
