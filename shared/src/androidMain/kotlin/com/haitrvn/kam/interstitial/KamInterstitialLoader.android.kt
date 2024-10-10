@@ -1,26 +1,26 @@
-package com.haitrvn.kam
+package com.haitrvn.kam.interstitial
 
 import android.content.Context
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
-import com.haitrvn.kam.core.KAMLoadAdError
-import com.haitrvn.kam.core.KAdRequest
+import com.haitrvn.kam.core.model.KamAdError
+import com.haitrvn.kam.core.request.KamRequest
+import com.haitrvn.kam.extension.toKamError
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
-
-actual class KInterstitialLoader(
+actual class KamInterstitialLoader(
     private val context: Context
 ) {
     actual suspend fun load(
         adUnitId: String,
-        kadsRequest: KAdRequest,
-    ): KInterstitial? = suspendCancellableCoroutine { continuation ->
+        request: KamRequest,
+    ): KamInterstitial? = suspendCancellableCoroutine { continuation ->
         InterstitialAd.load(
             context,
             adUnitId,
-            kadsRequest,
+            request,
             object : InterstitialAdLoadCallback() {
                 override fun onAdFailedToLoad(loadAdError: LoadAdError) {
                     super.onAdFailedToLoad(loadAdError)
@@ -29,7 +29,7 @@ actual class KInterstitialLoader(
 
                 override fun onAdLoaded(interstitialAd: InterstitialAd) {
                     super.onAdLoaded(interstitialAd)
-                    continuation.resume(KInterstitial(interstitialAd))
+                    continuation.resume(KamInterstitial(interstitialAd))
                 }
             }
         )
@@ -37,13 +37,13 @@ actual class KInterstitialLoader(
 
     actual suspend fun load(
         adUnitId: String,
-        kadsRequest: KAdRequest,
-        callback: (KInterstitial?, KAMLoadAdError?) -> Unit
+        request: KamRequest,
+        callback: (KamInterstitial?, KamAdError?) -> Unit
     ) {
         InterstitialAd.load(
             context,
             adUnitId,
-            kadsRequest,
+            request,
             object : InterstitialAdLoadCallback() {
                 override fun onAdFailedToLoad(loadAdError: LoadAdError) {
                     super.onAdFailedToLoad(loadAdError)
@@ -52,13 +52,9 @@ actual class KInterstitialLoader(
 
                 override fun onAdLoaded(interstitialAd: InterstitialAd) {
                     super.onAdLoaded(interstitialAd)
-                    callback(KInterstitial(interstitialAd), null)
+                    callback(KamInterstitial(interstitialAd), null)
                 }
             }
         )
-    }
-
-    private fun LoadAdError.toKamError(): KAMLoadAdError {
-        TODO()
     }
 }

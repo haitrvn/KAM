@@ -4,7 +4,11 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.compose.multiplatform)
+    id("maven-publish")
 }
+
+group = "com.haitrvn"
+version = "1.0.0"
 
 kotlin {
     androidTarget {
@@ -13,6 +17,7 @@ kotlin {
                 jvmTarget = "1.8"
             }
         }
+        publishLibraryVariants("release", "debug")
     }
     iosX64()
     iosArm64()
@@ -37,18 +42,23 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(compose.runtime)
+            implementation(compose.foundation)
             implementation(compose.ui)
+            implementation(compose.animation)
+            implementation(compose.components.resources)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
         androidMain.dependencies {
+            implementation("androidx.startup:startup-runtime:1.2.0")
             implementation("com.google.android.gms:play-services-ads:23.4.0")
         }
     }
 }
 
 android {
+    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     namespace = "com.haitrvn.kam"
     compileSdk = 34
     defaultConfig {
@@ -57,5 +67,20 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "com.haitrvn"
+            artifactId = "kam"
+            version = "1.0.0"
+
+            from(components["kotlin"])
+        }
+    }
+    repositories {
+        mavenLocal()
     }
 }

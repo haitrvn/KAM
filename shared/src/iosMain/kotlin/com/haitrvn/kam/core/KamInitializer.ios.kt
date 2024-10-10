@@ -1,3 +1,3 @@
 package com.haitrvn.kam.core
 
-expect class KAdRequest
+actual class OsBuilder
