@@ -2,8 +2,8 @@ package com.haitrvn.kam.interstitial
 
 import com.haitrvn.kam.core.RootView
 import cocoapods.Google_Mobile_Ads_SDK.GADInterstitialAd
-import cocoapods.Google_Mobile_Ads_SDK.GADFullScreenContentDelegate
-import cocoapods.Google_Mobile_Ads_SDK.GADPaidEventHandler
+//import cocoapods.Google_Mobile_Ads_SDK.GADFullScreenContentDelegate
+//import cocoapods.Google_Mobile_Ads_SDK.GADPaidEventHandler
 import cocoapods.Google_Mobile_Ads_SDK.GADAdValue
 import com.haitrvn.kam.core.model.KamAdValue
 import com.haitrvn.kam.core.callback.KamFullScreenContentCallBack

@@ -1,5 +1,6 @@
 package com.haitrvn.kam.core.init
 
+import cocoapods.Google_Mobile_Ads_SDK.GADMobileAds
 import kotlinx.cinterop.ExperimentalForeignApi
 
 @OptIn(ExperimentalForeignApi::class)
