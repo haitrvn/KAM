@@ -1,6 +1,8 @@
 name: Deploy to central
 
-on: workflow_dispatch
+on:
+  pull_request:
+    branches: [ main ]
 
 permissions:
     contents: read
