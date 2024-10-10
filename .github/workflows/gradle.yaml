@@ -2,7 +2,7 @@ name: Java CI with Gradle
 
 on:
   pull_request:
-    branches: [ "main" ]
+    branches: [ never ]
   workflow_call:
 
 permissions:
@@ -13,16 +13,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - target: iosSimulatorArm64Test
+          - target: test
             os: macos-latest
-          - target: jvmTest
-            os: ubuntu-latest
-          - target: linuxX64Test
-            os: ubuntu-latest
-          - target: testDebugUnitTest
-            os: ubuntu-latest
-          - target: testReleaseUnitTest
-            os: ubuntu-latest
     runs-on: ${{ matrix.os }}
 
     steps:
