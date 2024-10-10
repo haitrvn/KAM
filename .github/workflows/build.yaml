@@ -2,7 +2,7 @@ name: Build KMM Librari
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ never ]
 
 jobs:
   build:

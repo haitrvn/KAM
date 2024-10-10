@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.haitrvn"
-version = "1.0.0"
+version = "0.0.1-alpha-android-only"
 
 kotlin {
     androidTarget {
@@ -54,6 +54,14 @@ kotlin {
         androidMain.dependencies {
             implementation("androidx.startup:startup-runtime:1.2.0")
             implementation("com.google.android.gms:play-services-ads:23.4.0")
+        }
+    }
+
+    targets.configureEach {
+        compilations.configureEach {
+            compileTaskProvider.get().compilerOptions {
+                freeCompilerArgs.add("-Xexpect-actual-classes")
+            }
         }
     }
 }
