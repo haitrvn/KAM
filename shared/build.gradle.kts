@@ -1,15 +1,16 @@
+import com.vanniktech.maven.publish.SonatypeHost
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlinCocoapods)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.compose.multiplatform)
-    id("maven-publish")
-    id("signing")
+    id("com.vanniktech.maven.publish") version "0.28.0"
 }
 
 group = "com.haitrvn"
-version = "0.0.1-alpha-android-only"
+version = "0.0.1-alpha"
 
 kotlin {
     androidTarget {
@@ -79,41 +80,33 @@ android {
     }
 }
 
-publishing {
-    publications.withType<MavenPublication> {
-        artifact(tasks.register("${name}JavadocJar", Jar::class) {
-            archiveClassifier.set("javadoc")
-            archiveAppendix.set(this@withType.name)
-        })
-
-        pom {
-            name.set("KAM (Kotlin AdMob)")
-            description.set("Admob for Compose Multiplatform")
-            url.set("https://github.com/haitrvn/KAM")
-
-            licenses {
-                license {
-                    name.set("Apache")
-                    url.set("https://opensource.org/license/apache-2-0")
-                }
-            }
-            developers {
-                developer {
-                    id.set("haitrvn")
-                    name.set("Hai Tran")
-                    organizationUrl.set("https://github.com/haitrvn")
-                }
-            }
-            scm {
-                url.set("https://github.com/haitrvn/KAM")
+mavenPublishing {
+    coordinates(
+        groupId = "io.github.haitrvn",
+        artifactId = "kam",
+        version = "0.0.1"
+    )
+    pom {
+        name.set("KAM (Kotlin AdMob)")
+        description.set("Admob for Compose Multiplatform")
+        url.set("https://github.com/haitrvn/KAM")
+        licenses {
+            license {
+                name.set("Apache")
+                url.set("https://opensource.org/license/apache-2-0")
             }
         }
+        developers {
+            developer {
+                id.set("haitrvn")
+                name.set("Hai Tran")
+                organizationUrl.set("https://github.com/haitrvn")
+            }
+        }
+        scm {
+            url.set("https://github.com/haitrvn/KAM")
+        }
     }
-}
-
-signing {
-    if (project.hasProperty("signing.gnupg.keyName")) {
-        useGpgCmd()
-        sign(publishing.publications)
-    }
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    signAllPublications()
 }
