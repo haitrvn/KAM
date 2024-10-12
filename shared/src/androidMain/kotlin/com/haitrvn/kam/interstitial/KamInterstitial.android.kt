@@ -14,7 +14,7 @@ actual class KamInterstitial(
         interstitialAd.show(rootView)
     }
 
-    actual fun setImmersiveMode(immersive: Boolean) {
+    internal actual fun setImmersiveMode(immersive: Boolean) {
         interstitialAd.setImmersiveMode(immersive)
     }
 
@@ -22,7 +22,7 @@ actual class KamInterstitial(
         interstitialAd.fullScreenContentCallback = FullScreenContentCallbackImpl(callback)
     }
 
-    actual fun setOnPaidEventListener(callback: (KamAdValue) -> Unit) {
+    actual fun setOnPaidEventListener(callback: (KamAdValue?) -> Unit) {
         interstitialAd.setOnPaidEventListener { adValue ->
             callback(adValue.toKamAdValue())
         }

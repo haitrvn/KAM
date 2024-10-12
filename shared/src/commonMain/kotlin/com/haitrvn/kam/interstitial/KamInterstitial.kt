@@ -7,6 +7,6 @@ import com.haitrvn.kam.core.RootView
 expect class KamInterstitial {
     fun showAd(rootView: RootView)
     fun setFullScreenContentCallback(callback: KamFullScreenContentCallBack)
-    fun setImmersiveMode(immersive: Boolean)
-    fun setOnPaidEventListener(callback: (KamAdValue) -> Unit)
+    fun setOnPaidEventListener(callback: (KamAdValue?) -> Unit)
+    internal fun setImmersiveMode(immersive: Boolean)
 }

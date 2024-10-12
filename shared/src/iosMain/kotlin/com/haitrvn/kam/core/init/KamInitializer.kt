@@ -11,6 +11,7 @@ actual class KamInitializer {
     }
 
     actual fun disableMediationAdapterInitialization() {
+        GADMobileAds.sharedInstance().disableMediationInitialization()
     }
 
     actual fun setRequestConfiguration(requestConfiguration: RequestConfiguration) {

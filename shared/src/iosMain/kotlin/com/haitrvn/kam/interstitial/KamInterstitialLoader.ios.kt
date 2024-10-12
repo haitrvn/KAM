@@ -3,9 +3,10 @@ package com.haitrvn.kam.interstitial
 import cocoapods.Google_Mobile_Ads_SDK.GADInterstitialAd
 import com.haitrvn.kam.core.model.KamAdError
 import com.haitrvn.kam.core.request.KamRequest
-import kotlinx.coroutines.suspendCancellableCoroutine
-import kotlin.coroutines.resume
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.coroutines.suspendCancellableCoroutine
+import platform.Foundation.NSError
+import kotlin.coroutines.resume
 
 @ExperimentalForeignApi
 actual class KamInterstitialLoader {
@@ -13,13 +14,12 @@ actual class KamInterstitialLoader {
         adUnitId: String,
         request: KamRequest,
     ): KamInterstitial? = suspendCancellableCoroutine { continuation ->
-//        GADInterstitialAd.loadWithAdUnitID(adUnitId, request) { ad, error ->
-//            when {
-//                ad != null -> continuation.resume(ad)
-//                else -> continuation.resume(null)
-//            }
-//        }
-        TODO()
+        GADInterstitialAd.loadWithAdUnitID(adUnitId, request) { ad, error ->
+            when {
+                ad != null -> continuation.resume(KamInterstitial(ad))
+                else -> continuation.resume(null)
+            }
+        }
     }
 
     actual suspend fun load(
@@ -27,10 +27,20 @@ actual class KamInterstitialLoader {
         request: KamRequest,
         callback: (KamInterstitial?, KamAdError?) -> Unit
     ) {
-//        GADInterstitialAd.loadWithAdUnitID(adUnitId, request) { ad, error ->
-//            //TODO convert error to kmm error
-//            callback(ad, null)
-//        }
-        TODO()
+        GADInterstitialAd.loadWithAdUnitID(adUnitId, request) { ad, error ->
+            when {
+                ad != null -> callback(KamInterstitial(ad), null)
+                else -> callback(null, error?.toKamAdError())
+            }
+        }
+    }
+
+    private fun NSError.toKamAdError(): KamAdError {
+        return KamAdError(
+            code = code.toInt(),
+            cause = localizedFailureReason().orEmpty(),
+            domain = domain.toString(),
+            message = localizedDescription
+        )
     }
 }
