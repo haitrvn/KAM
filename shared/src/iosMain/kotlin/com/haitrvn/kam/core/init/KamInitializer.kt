@@ -8,6 +8,7 @@ actual class KamInitializer {
     actual fun initialize(onComplete: () -> Unit) {
         GADMobileAds.sharedInstance().startWithCompletionHandler {
         }
+        GADMobileAds.sharedInstance().requestConfiguration
     }
 
     actual fun disableMediationAdapterInitialization() {
@@ -18,5 +19,17 @@ actual class KamInitializer {
     }
 
     internal actual fun startPreload() {
+    }
+
+    actual fun setApplicationVolume(volume: Float) {
+        GADMobileAds.sharedInstance().setApplicationVolume(volume)
+    }
+
+    actual fun getVersion(): String {
+        return GADMobileAds.sharedInstance().versionNumber().toString()
+    }
+
+    actual fun setMuted(muted: Boolean) {
+        GADMobileAds.sharedInstance().setApplicationMuted(muted)
     }
 }

@@ -11,6 +11,14 @@ actual class KamInitializer(private val context: Context) {
         }
     }
 
+    actual fun setApplicationVolume(volume: Float) {
+        MobileAds.setAppVolume(volume)
+    }
+
+    actual fun setMuted(muted: Boolean) {
+        MobileAds.setAppMuted(muted)
+    }
+
     actual fun disableMediationAdapterInitialization() {
         MobileAds.disableMediationAdapterInitialization(context)
     }
@@ -20,6 +28,9 @@ actual class KamInitializer(private val context: Context) {
     }
 
     internal actual fun startPreload() {
-        TODO("Support android only")
+    }
+
+    actual fun getVersion(): String {
+        return MobileAds.getVersion().toString()
     }
 }
