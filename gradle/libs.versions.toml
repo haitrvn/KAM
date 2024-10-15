@@ -6,6 +6,7 @@ compose-material3 = "1.1.2"
 androidx-activityCompose = "1.8.0"
 composeMultiplatform = "1.7.0-alpha01"
 runtimeAndroid = "1.7.3"
+nexus-publish = "2.0.0-rc-1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
