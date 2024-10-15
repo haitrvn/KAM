@@ -1,3 +1,5 @@
+import com.vanniktech.maven.publish.JavadocJar
+import com.vanniktech.maven.publish.KotlinMultiplatform
 import com.vanniktech.maven.publish.SonatypeHost
 
 plugins {
@@ -6,12 +8,11 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.compose.multiplatform)
-    id("com.vanniktech.maven.publish") version "0.28.0"
-    signing
+    id("com.vanniktech.maven.publish") version "0.30.0"
 }
 
-group = "com.haitrvn"
-version = "0.0.1-alpha"
+group = "io.github.haitrvn"
+version = "0.0.1"
 
 kotlin {
     androidTarget {
@@ -20,7 +21,7 @@ kotlin {
                 jvmTarget = "1.8"
             }
         }
-        publishLibraryVariants("release", "debug")
+        publishAllLibraryVariants()
     }
     iosX64()
     iosArm64()
@@ -82,6 +83,13 @@ android {
 }
 
 mavenPublishing {
+    configure(
+        KotlinMultiplatform(
+            javadocJar = JavadocJar.Empty(),
+            sourcesJar = true,
+            androidVariantsToPublish = listOf("debug", "release"),
+        )
+    )
     coordinates(
         groupId = "io.github.haitrvn",
         artifactId = "kam",
@@ -91,10 +99,12 @@ mavenPublishing {
         name.set("KAM (Kotlin AdMob)")
         description.set("Admob for Compose Multiplatform")
         url.set("https://github.com/haitrvn/KAM")
+        inceptionYear.set("2024")
         licenses {
             license {
                 name.set("Apache")
                 url.set("https://opensource.org/license/apache-2-0")
+                distribution.set("https://opensource.org/license/apache-2-0")
             }
         }
         developers {
@@ -109,8 +119,5 @@ mavenPublishing {
         }
     }
     publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
-}
-
-signing {
-    sign(publishing.publications)
+    signAllPublications()
 }
