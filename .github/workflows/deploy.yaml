@@ -1,7 +1,7 @@
 name: Publish Artifacts
 on:
   pull_request:
-    branches: [ "main" ]
+    branches: [ "develop" ]
 jobs:
   build:
     name: Build
