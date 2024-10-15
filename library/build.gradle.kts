@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.compose.multiplatform)
     id("com.vanniktech.maven.publish") version "0.28.0"
+    signing
 }
 
 group = "com.haitrvn"
@@ -108,5 +109,8 @@ mavenPublishing {
         }
     }
     publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
-    signAllPublications()
+}
+
+signing {
+    sign(publishing.publications)
 }
