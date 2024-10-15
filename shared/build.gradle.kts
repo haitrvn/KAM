@@ -1,4 +1,6 @@
 import com.vanniktech.maven.publish.SonatypeHost
+import com.vanniktech.maven.publish.JavadocJar
+import com.vanniktech.maven.publish.KotlinMultiplatform
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -10,8 +12,8 @@ plugins {
     signing
 }
 
-group = "com.haitrvn"
-version = "0.0.1-alpha"
+group = "io.github.haitrvn"
+version = "0.0.1"
 
 kotlin {
     androidTarget {
@@ -82,6 +84,10 @@ android {
 }
 
 mavenPublishing {
+    configure(KotlinMultiplatform(
+        javadocJar = JavadocJar.Empty(),
+        sourcesJar = true,
+    ))
     coordinates(
         groupId = "io.github.haitrvn",
         artifactId = "kam",
