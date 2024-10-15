@@ -109,13 +109,5 @@ mavenPublishing {
         }
     }
     publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
-}
-
-signing {
-    sign(publishing.publications)
-}
-
-getTasksByName("publishAndReleaseToMavenCentral", true).onEach {
-    val signingTasks = tasks.withType<Sign>()
-    it.mustRunAfter(signingTasks)
+        signAllPublications()
 }
