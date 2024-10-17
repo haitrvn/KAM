@@ -2,6 +2,8 @@ name: Publish
 on:
   release:
     types: [released, prereleased]
+  pull_request:
+    branches: [ "develop" ]
 jobs:
   publish:
     name: Release build and publish
