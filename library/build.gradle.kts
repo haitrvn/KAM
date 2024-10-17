@@ -1,5 +1,3 @@
-import com.vanniktech.maven.publish.JavadocJar
-import com.vanniktech.maven.publish.KotlinMultiplatform
 import com.vanniktech.maven.publish.SonatypeHost
 
 plugins {
@@ -8,7 +6,7 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.compose.multiplatform)
-    id("com.vanniktech.maven.publish") version "0.30.0"
+    alias(libs.plugins.vanniktech.mavenPublish)
 }
 
 group = "io.github.haitrvn"
@@ -55,8 +53,8 @@ kotlin {
             implementation(libs.kotlin.test)
         }
         androidMain.dependencies {
-            implementation("androidx.startup:startup-runtime:1.2.0")
-            implementation("com.google.android.gms:play-services-ads:23.4.0")
+            implementation(libs.startup.runtime)
+            implementation(libs.play.services.ads)
         }
     }
 
@@ -83,41 +81,30 @@ android {
 }
 
 mavenPublishing {
-    configure(
-        KotlinMultiplatform(
-            javadocJar = JavadocJar.Empty(),
-            sourcesJar = true,
-            androidVariantsToPublish = listOf("debug", "release"),
-        )
-    )
-    coordinates(
-        groupId = "io.github.haitrvn",
-        artifactId = "kam",
-        version = "0.0.1"
-    )
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    signAllPublications()
+    coordinates(group.toString(), "fibonacci", version.toString())
     pom {
-        name.set("KAM (Kotlin AdMob)")
-        description.set("Admob for Compose Multiplatform")
-        url.set("https://github.com/haitrvn/KAM")
-        inceptionYear.set("2024")
+        name = "KAM (Kotlin AdMob)"
+        description = "Admob for Compose Multiplatform"
+        inceptionYear = "2024"
+        url = "https://github.com/haitrvn/kam"
         licenses {
             license {
-                name.set("Apache")
-                url.set("https://opensource.org/license/apache-2-0")
-                distribution.set("https://opensource.org/license/apache-2-0")
+                name = "The Apache License, Version 2.0"
+                url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                distribution = "http://www.apache.org/licenses/LICENSE-2.0.txt"
             }
         }
         developers {
             developer {
-                id.set("haitrvn")
-                name.set("Hai Tran")
-                organizationUrl.set("https://github.com/haitrvn")
+                id = "haitrvn"
+                name = "Tran Van Hai"
+                url = "https://github.com/haitrvn/"
             }
         }
         scm {
             url.set("https://github.com/haitrvn/KAM")
         }
     }
-    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
-    signAllPublications()
 }
