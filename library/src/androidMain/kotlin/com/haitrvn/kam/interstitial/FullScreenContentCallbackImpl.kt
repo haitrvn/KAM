@@ -6,7 +6,7 @@ import com.haitrvn.kam.core.callback.KamFullScreenContentCallBack
 import com.haitrvn.kam.extension.toKamError
 
 class FullScreenContentCallbackImpl(
-    private val callback: KamFullScreenContentCallBack
+    val callback: KamFullScreenContentCallBack
 ) : FullScreenContentCallback() {
     override fun onAdClicked() {
         super.onAdClicked()

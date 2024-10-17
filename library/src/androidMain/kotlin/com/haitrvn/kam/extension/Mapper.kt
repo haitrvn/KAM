@@ -1,12 +1,16 @@
 package com.haitrvn.kam.extension
 
 import com.google.android.gms.ads.AdError
-import com.haitrvn.kam.core.model.KamAdError
+import com.google.android.gms.ads.RequestConfiguration.PublisherPrivacyPersonalizationState.DEFAULT
+import com.google.android.gms.ads.RequestConfiguration.PublisherPrivacyPersonalizationState.DISABLED
+import com.google.android.gms.ads.RequestConfiguration.PublisherPrivacyPersonalizationState.ENABLED
 import com.haitrvn.kam.core.init.PublisherPrivacyPersonalizationState
 import com.haitrvn.kam.core.init.RequestConfiguration
-import com.google.android.gms.ads.RequestConfiguration.PublisherPrivacyPersonalizationState.DEFAULT
-import com.google.android.gms.ads.RequestConfiguration.PublisherPrivacyPersonalizationState.ENABLED
-import com.google.android.gms.ads.RequestConfiguration.PublisherPrivacyPersonalizationState.DISABLED
+import com.haitrvn.kam.core.model.KamAdError
+import com.google.android.gms.ads.RequestConfiguration as AndroidRequestConfiguration
+import com.google.android.gms.ads.RequestConfiguration.PublisherPrivacyPersonalizationState as AndroidState
+
+
 fun AdError.toKamError(): KamAdError {
     return KamAdError(
         code = code,
@@ -16,8 +20,8 @@ fun AdError.toKamError(): KamAdError {
     )
 }
 
-fun RequestConfiguration.toPlatformConfiguration(): com.google.android.gms.ads.RequestConfiguration {
-    return com.google.android.gms.ads.RequestConfiguration.Builder()
+fun RequestConfiguration.toPlatformConfiguration(): AndroidRequestConfiguration {
+    return AndroidRequestConfiguration.Builder()
         .setMaxAdContentRating(maxAdContentRating)
         .setTagForUnderAgeOfConsent(tagForUnderAgeOfConsent)
         .setTagForChildDirectedTreatment(tagForChildDirectedTreatment)
@@ -26,10 +30,30 @@ fun RequestConfiguration.toPlatformConfiguration(): com.google.android.gms.ads.R
         .build()
 }
 
-private fun PublisherPrivacyPersonalizationState.toPlatformState(): com.google.android.gms.ads.RequestConfiguration.PublisherPrivacyPersonalizationState {
+
+fun AndroidRequestConfiguration.toCommonConfiguration(): RequestConfiguration {
+    return RequestConfiguration(
+        maxAdContentRating = maxAdContentRating,
+        tagForUnderAgeOfConsent = tagForUnderAgeOfConsent,
+        tagForChildDirectedTreatment = tagForChildDirectedTreatment,
+        testDeviceIds = testDeviceIds,
+        publisherPrivacyPersonalizationState = publisherPrivacyPersonalizationState.toCommonState()
+    )
+
+}
+
+private fun PublisherPrivacyPersonalizationState.toPlatformState(): AndroidState {
     return when (this) {
         PublisherPrivacyPersonalizationState.DEFAULT -> DEFAULT
         PublisherPrivacyPersonalizationState.ENABLED -> ENABLED
         PublisherPrivacyPersonalizationState.DISABLED -> DISABLED
+    }
+}
+
+private fun AndroidState.toCommonState(): PublisherPrivacyPersonalizationState {
+    return when (this) {
+        DEFAULT -> PublisherPrivacyPersonalizationState.DEFAULT
+        ENABLED -> PublisherPrivacyPersonalizationState.ENABLED
+        DISABLED -> PublisherPrivacyPersonalizationState.DISABLED
     }
 }

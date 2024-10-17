@@ -8,6 +8,7 @@ import com.haitrvn.kam.core.RootView
 import com.haitrvn.kam.core.callback.KamFullScreenContentCallBack
 import com.haitrvn.kam.core.model.KamAdValue
 import com.haitrvn.kam.core.model.PrecisionType
+import com.haitrvn.kam.core.model.ResponseInfo
 import kotlinx.cinterop.BetaInteropApi
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.ExperimentalForeignApi
@@ -21,7 +22,7 @@ actual class KamInterstitial(
 ) {
     private var immersive: Boolean = false
 
-    actual fun showAd(rootView: RootView) {
+    actual fun show(rootView: RootView) {
         interstitialAd.presentFromRootViewController(rootView)
     }
 
@@ -47,6 +48,28 @@ actual class KamInterstitial(
             valueMicros = value.longValue,
             currencyCode = currencyCode
         )
+    }
+
+    internal actual fun getAdUnitId(): String {
+        TODO("Not yet implemented")
+    }
+
+    internal actual fun getFullScreenContentCallback(): KamFullScreenContentCallBack {
+        TODO("Not yet implemented")
+    }
+
+    internal actual fun getResponseInfo(): ResponseInfo {
+        TODO("Not yet implemented")
+    }
+
+    actual companion object {
+        internal actual fun isAdAvailable(adUnitId: String): Boolean {
+            TODO("Not yet implemented")
+        }
+
+        internal actual fun pollAd(adUnitId: String): KamInterstitial? {
+            TODO("Not yet implemented")
+        }
     }
 }
 

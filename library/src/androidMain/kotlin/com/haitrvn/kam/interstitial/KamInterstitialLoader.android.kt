@@ -13,48 +13,5 @@ import kotlin.coroutines.resume
 actual class KamInterstitialLoader(
     private val context: Context
 ) {
-    actual suspend fun load(
-        adUnitId: String,
-        request: KamRequest,
-    ): KamInterstitial? = suspendCancellableCoroutine { continuation ->
-        InterstitialAd.load(
-            context,
-            adUnitId,
-            request,
-            object : InterstitialAdLoadCallback() {
-                override fun onAdFailedToLoad(loadAdError: LoadAdError) {
-                    super.onAdFailedToLoad(loadAdError)
-                    continuation.resume(null)
-                }
 
-                override fun onAdLoaded(interstitialAd: InterstitialAd) {
-                    super.onAdLoaded(interstitialAd)
-                    continuation.resume(KamInterstitial(interstitialAd))
-                }
-            }
-        )
-    }
-
-    actual suspend fun load(
-        adUnitId: String,
-        request: KamRequest,
-        callback: (KamInterstitial?, KamAdError?) -> Unit
-    ) {
-        InterstitialAd.load(
-            context,
-            adUnitId,
-            request,
-            object : InterstitialAdLoadCallback() {
-                override fun onAdFailedToLoad(loadAdError: LoadAdError) {
-                    super.onAdFailedToLoad(loadAdError)
-                    callback(null, loadAdError.toKamError())
-                }
-
-                override fun onAdLoaded(interstitialAd: InterstitialAd) {
-                    super.onAdLoaded(interstitialAd)
-                    callback(KamInterstitial(interstitialAd), null)
-                }
-            }
-        )
-    }
 }
