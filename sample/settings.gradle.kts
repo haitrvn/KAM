@@ -14,8 +14,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "KAM"
-include(":library")
-include(":sample")
-include(":sample:shared")
-include(":sample:androidApp")
+rootProject.name = "sample"
+include(":androidApp")
+include(":shared")
