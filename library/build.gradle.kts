@@ -83,7 +83,7 @@ android {
 mavenPublishing {
     publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
     signAllPublications()
-    coordinates(group.toString(), "fibonacci", version.toString())
+    coordinates(group.toString(), "kam", version.toString())
     pom {
         name = "KAM (Kotlin AdMob)"
         description = "Admob for Compose Multiplatform"
