@@ -1,17 +1,15 @@
 [versions]
 agp = "8.5.0"
 kotlin = "2.1.0-Beta1"
-compose = "1.5.4"
-compose-material3 = "1.1.2"
-androidx-activityCompose = "1.8.0"
 composeMultiplatform = "1.7.0-alpha01"
-runtimeAndroid = "1.7.3"
-nexus-publish = "2.0.0-rc-1"
+playServicesAds = "23.4.0"
+startupRuntime = "1.2.0"
+mavenPublish = "0.29.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-runtime-android = { group = "androidx.compose.runtime", name = "runtime-android", version.ref = "runtimeAndroid" }
-nexus-publish = { module = "io.github.gradle-nexus.publish-plugin:io.github.gradle-nexus.publish-plugin.gradle.plugin", version.ref = "nexus-publish" }
+play-services-ads = { module = "com.google.android.gms:play-services-ads", version.ref = "playServicesAds" }
+startup-runtime = { module = "androidx.startup:startup-runtime", version.ref = "startupRuntime" }
 
 [plugins]
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
@@ -19,3 +17,4 @@ kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref =
 kotlinCocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }
+vanniktech-mavenPublish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }
