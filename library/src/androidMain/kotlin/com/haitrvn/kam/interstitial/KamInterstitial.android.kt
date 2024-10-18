@@ -33,6 +33,7 @@ actual class KamInterstitial(
 
     actual fun setOnPaidEventListener(callback: (KamAdValue?) -> Unit) {
         interstitialAd.setOnPaidEventListener { adValue ->
+            println("haitrvn setOnPaidEventListener $adValue")
             callback(adValue.toKamAdValue())
         }
     }

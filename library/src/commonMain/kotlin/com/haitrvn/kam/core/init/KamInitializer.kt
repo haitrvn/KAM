@@ -6,6 +6,8 @@ import com.haitrvn.kam.core.model.InitializationStatus
 import com.haitrvn.kam.core.model.RequestConfiguration
 import kotlin.reflect.KClass
 
+expect fun KamInitializer(): KamInitializer
+
 expect class KamInitializer {
     fun initialize(onComplete: () -> Unit = {})
     fun disableMediationAdapterInitialization()

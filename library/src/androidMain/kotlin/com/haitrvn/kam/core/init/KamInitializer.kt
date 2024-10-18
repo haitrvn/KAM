@@ -14,7 +14,13 @@ import com.haitrvn.kam.extension.toPlatformConfiguration
 import kotlin.reflect.KClass
 import com.google.android.gms.ads.initialization.AdapterStatus.State as AndroidState
 
-actual class KamInitializer(private val context: Context) {
+actual fun KamInitializer(): KamInitializer {
+    return KamInitializer(context = ContextProvider.applicationContext)
+}
+
+actual class KamInitializer(
+    private val context: Context
+) {
     actual fun initialize(onComplete: () -> Unit) {
         MobileAds.initialize(context) {
             onComplete()

@@ -8,8 +8,14 @@ import com.haitrvn.kam.core.model.RequestConfiguration
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlin.reflect.KClass
 
+actual fun KamInitializer(): KamInitializer {
+    return KamInitializer(Any())
+}
+
 @OptIn(ExperimentalForeignApi::class)
-actual class KamInitializer {
+actual class KamInitializer(
+    private val dummyObject: Any
+) {
     actual fun initialize(onComplete: () -> Unit) {
         GADMobileAds.sharedInstance().startWithCompletionHandler {
         }

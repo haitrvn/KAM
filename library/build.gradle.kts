@@ -43,18 +43,18 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.ui)
-            implementation(compose.animation)
-            implementation(compose.components.resources)
+            api(compose.runtime)
+            api(compose.foundation)
+            api(compose.ui)
+            api(compose.animation)
+            api(compose.components.resources)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
         androidMain.dependencies {
-            implementation(libs.startup.runtime)
-            implementation(libs.play.services.ads)
+            api(libs.startup.runtime)
+            api(libs.play.services.ads)
         }
     }
 

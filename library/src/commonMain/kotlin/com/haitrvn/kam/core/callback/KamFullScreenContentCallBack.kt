@@ -9,3 +9,20 @@ interface KamFullScreenContentCallBack {
     fun onAdImpression()
     fun onAdShowedFullScreenContent()
 }
+
+open class DefaultKamFullScreenContentCallBack : KamFullScreenContentCallBack {
+    override fun onAdClicked() {
+    }
+
+    override fun onAdDismissedFullScreenContent() {
+    }
+
+    override fun onAdFailedToShowFullScreenContent(error: KamAdError) {
+    }
+
+    override fun onAdImpression() {
+    }
+
+    override fun onAdShowedFullScreenContent() {
+    }
+}
