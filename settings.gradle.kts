@@ -17,5 +17,4 @@ dependencyResolutionManagement {
 rootProject.name = "KAM"
 include(":library")
 include(":sample")
-include(":sample:shared")
-include(":sample:androidApp")
+include(":sample:composeApp")
