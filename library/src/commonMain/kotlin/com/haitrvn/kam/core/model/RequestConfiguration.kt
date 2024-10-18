@@ -1,4 +1,4 @@
-package com.haitrvn.kam.core.init
+package com.haitrvn.kam.core.model
 
 data class RequestConfiguration(
     val maxAdContentRating: String,

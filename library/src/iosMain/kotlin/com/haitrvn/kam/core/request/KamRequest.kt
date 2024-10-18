@@ -5,3 +5,7 @@ import kotlinx.cinterop.ExperimentalForeignApi
 
 @OptIn(ExperimentalForeignApi::class)
 actual typealias KamRequest = GADRequest
+
+actual fun KamRequest(): KamRequest {
+    TODO()
+}

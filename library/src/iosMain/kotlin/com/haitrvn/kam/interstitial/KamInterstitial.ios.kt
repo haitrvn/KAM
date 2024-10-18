@@ -6,15 +6,21 @@ import cocoapods.Google_Mobile_Ads_SDK.GADFullScreenPresentingAdProtocol
 import cocoapods.Google_Mobile_Ads_SDK.GADInterstitialAd
 import com.haitrvn.kam.core.RootView
 import com.haitrvn.kam.core.callback.KamFullScreenContentCallBack
+import com.haitrvn.kam.core.model.KamAdError
 import com.haitrvn.kam.core.model.KamAdValue
 import com.haitrvn.kam.core.model.PrecisionType
 import com.haitrvn.kam.core.model.ResponseInfo
+import com.haitrvn.kam.core.request.KamRequest
 import kotlinx.cinterop.BetaInteropApi
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCClass
+import kotlinx.coroutines.suspendCancellableCoroutine
+import platform.Foundation.NSError
 import platform.darwin.NSUInteger
+import kotlin.coroutines.resume
 import kotlin.math.absoluteValue
+import cocoapods.Google_Mobile_Ads_SDK.GADInterstitialAd
 
 @ExperimentalForeignApi
 actual class KamInterstitial(
@@ -63,6 +69,39 @@ actual class KamInterstitial(
     }
 
     actual companion object {
+        actual suspend fun load(
+            adUnitId: String,
+            request: KamRequest,
+        ): KamInterstitial? = suspendCancellableCoroutine { continuation ->
+            GADInterstitialAd.loadWithAdUnitID(adUnitId, request) { ad, error ->
+                when {
+                    ad != null -> continuation.resume(KamInterstitial(ad))
+                    else -> continuation.resume(null)
+                }
+            }
+        }
+
+        actual suspend fun load(
+            adUnitId: String,
+            request: KamRequest,
+            callback: (KamInterstitial?, KamAdError?) -> Unit
+        ) {
+            GADInterstitialAd.loadWithAdUnitID(adUnitId, request) { ad, error ->
+                when {
+                    ad != null -> callback(KamInterstitial(ad), null)
+                    else -> callback(null, error?.toKamAdError())
+                }
+            }
+        }
+
+        private fun NSError.toKamAdError(): KamAdError {
+            return KamAdError(
+                code = code.toInt(),
+                cause = localizedFailureReason().orEmpty(),
+                domain = domain.toString(),
+                message = localizedDescription
+            )
+        }
         internal actual fun isAdAvailable(adUnitId: String): Boolean {
             TODO("Not yet implemented")
         }

@@ -4,8 +4,8 @@ import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.RequestConfiguration.PublisherPrivacyPersonalizationState.DEFAULT
 import com.google.android.gms.ads.RequestConfiguration.PublisherPrivacyPersonalizationState.DISABLED
 import com.google.android.gms.ads.RequestConfiguration.PublisherPrivacyPersonalizationState.ENABLED
-import com.haitrvn.kam.core.init.PublisherPrivacyPersonalizationState
-import com.haitrvn.kam.core.init.RequestConfiguration
+import com.haitrvn.kam.core.model.PublisherPrivacyPersonalizationState
+import com.haitrvn.kam.core.model.RequestConfiguration
 import com.haitrvn.kam.core.model.KamAdError
 import com.google.android.gms.ads.RequestConfiguration as AndroidRequestConfiguration
 import com.google.android.gms.ads.RequestConfiguration.PublisherPrivacyPersonalizationState as AndroidState

@@ -1,7 +1,10 @@
 package com.haitrvn.kam.core.init
 
 import cocoapods.Google_Mobile_Ads_SDK.GADMobileAds
+import com.haitrvn.kam.core.callback.CustomTabsCallback
+import com.haitrvn.kam.core.callback.CustomTabsClient
 import com.haitrvn.kam.core.model.InitializationStatus
+import com.haitrvn.kam.core.model.RequestConfiguration
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlin.reflect.KClass
 

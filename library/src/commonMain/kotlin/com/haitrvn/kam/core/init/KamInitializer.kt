@@ -1,6 +1,9 @@
 package com.haitrvn.kam.core.init
 
+import com.haitrvn.kam.core.callback.CustomTabsCallback
+import com.haitrvn.kam.core.callback.CustomTabsClient
 import com.haitrvn.kam.core.model.InitializationStatus
+import com.haitrvn.kam.core.model.RequestConfiguration
 import kotlin.reflect.KClass
 
 expect class KamInitializer {
