@@ -20,7 +20,6 @@ import platform.Foundation.NSError
 import platform.darwin.NSUInteger
 import kotlin.coroutines.resume
 import kotlin.math.absoluteValue
-import cocoapods.Google_Mobile_Ads_SDK.GADInterstitialAd
 
 @ExperimentalForeignApi
 actual class KamInterstitial(
