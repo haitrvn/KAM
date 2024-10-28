@@ -10,6 +10,7 @@
 #import "GAMRequest.h"
 
 @class GAMInterstitialAd;
+
 typedef void (^GAMInterstitialAdLoadCompletionHandler)(GAMInterstitialAd *_Nullable interstitialAd,
                                                        NSError *_Nullable error);
 
@@ -18,20 +19,42 @@ typedef void (^GAMInterstitialAdLoadCompletionHandler)(GAMInterstitialAd *_Nulla
 @interface GAMInterstitialAd : GADInterstitialAd
 
 /// Optional delegate that is notified when creatives send app events.
-@property(nonatomic, weak, nullable) id<GADAppEventDelegate> appEventDelegate;
+@property(nonatomic, weak, nullable) id <GADAppEventDelegate> appEventDelegate;
 
 /// Loads an interstitial ad.
 ///
 /// @param adUnitID An ad unit ID created in the Ad Manager UI.
 /// @param request An ad request object. If nil, a default ad request object is used.
 /// @param completionHandler A handler to execute when the load operation finishes or times out.
-+ (void)loadWithAdManagerAdUnitID:(nonnull NSString *)adUnitID
-                          request:(nullable GAMRequest *)request
-                completionHandler:(nonnull GAMInterstitialAdLoadCompletionHandler)completionHandler;
++ (void)loadWithAdManagerAdUnitID:(nonnull NSString
 
-+ (void)loadWithAdUnitID:(nonnull NSString *)adUnitID
-                 request:(nullable GADRequest *)request
-       completionHandler:(nonnull GADInterstitialAdLoadCompletionHandler)completionHandler
-    NS_UNAVAILABLE;
+*)
+adUnitID
+        request
+:(
+nullable GAMRequest
+*)
+request
+        completionHandler
+:(
+nonnull GAMInterstitialAdLoadCompletionHandler
+)
+completionHandler;
+
++ (void)loadWithAdUnitID:(nonnull NSString
+
+*)
+adUnitID
+        request
+:(
+nullable GADRequest
+*)
+request
+        completionHandler
+:(
+nonnull GADInterstitialAdLoadCompletionHandler
+)
+completionHandler
+        NS_UNAVAILABLE;
 
 @end

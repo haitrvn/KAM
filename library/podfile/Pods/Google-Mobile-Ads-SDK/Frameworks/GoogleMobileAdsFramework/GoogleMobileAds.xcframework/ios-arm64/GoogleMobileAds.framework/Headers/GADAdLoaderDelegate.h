@@ -14,12 +14,22 @@
 @protocol GADAdLoaderDelegate <NSObject>
 
 /// Called when adLoader fails to load an ad.
-- (void)adLoader:(nonnull GADAdLoader *)adLoader
-    didFailToReceiveAdWithError:(nonnull NSError *)error;
+- (void)adLoader:(nonnull GADAdLoader
+
+*)
+adLoader
+        didFailToReceiveAdWithError
+:(
+nonnull NSError
+*)
+error;
 
 @optional
 
 /// Called after adLoader has finished loading.
-- (void)adLoaderDidFinishLoading:(nonnull GADAdLoader *)adLoader;
+- (void)adLoaderDidFinishLoading:(nonnull GADAdLoader
+
+*)
+adLoader;
 
 @end

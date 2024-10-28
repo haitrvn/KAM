@@ -18,20 +18,33 @@
 /// networks will have access to the basic settings you've set in this GADRequest. If you register
 /// an extras object that is the same class as one you have registered before, the previous extras
 /// will be overwritten.
-- (void)registerAdNetworkExtras:(nonnull id<GADAdNetworkExtras>)extras;
+- (void)registerAdNetworkExtras:(nonnull id
+
+<GADAdNetworkExtras>)
+extras;
 
 /// Returns the network extras defined for an ad network.
-- (nullable id<GADAdNetworkExtras>)adNetworkExtrasFor:(nonnull Class<GADAdNetworkExtras>)aClass;
+- (nullable id
+
+<GADAdNetworkExtras>)adNetworkExtrasFor:(
+nonnull Class
+<GADAdNetworkExtras>)
+aClass;
 
 /// Removes the extras for an ad network. |aClass| is the class which represents that network's
 /// extras type.
-- (void)removeAdNetworkExtrasFor:(nonnull Class<GADAdNetworkExtras>)aClass;
+- (void)removeAdNetworkExtrasFor:(nonnull Class
+
+<GADAdNetworkExtras>)
+aClass;
 
 #pragma mark Publisher Provided
 
 /// Scene object. Used in multiscene apps to request ads of the appropriate size. If this is nil,
 /// uses the application's key window scene.
-@property(nonatomic, nullable, weak) UIWindowScene *scene API_AVAILABLE(ios(13.0));
+@property(nonatomic, nullable, weak) UIWindowScene *scene
+API_AVAILABLE(ios(13.0)
+);
 
 #pragma mark Contextual Information
 
@@ -76,6 +89,8 @@
 #pragma mark Initialization
 
 /// Initialization is only available from a subclass.
-- (nonnull instancetype)init NS_UNAVAILABLE;
+- (nonnull instancetype)init
+
+NS_UNAVAILABLE;
 
 @end

@@ -9,29 +9,37 @@
 #import "GoogleMobileAdsDefines.h"
 
 /// Maximum ad content rating.
-typedef NSString *GADMaxAdContentRating NS_TYPED_ENUM;
+typedef NSString *GADMaxAdContentRating
+NS_TYPED_ENUM;
 
 /// Rating for content suitable for general audiences, including families.
-FOUNDATION_EXPORT GADMaxAdContentRating _Nonnull const GADMaxAdContentRatingGeneral;
+FOUNDATION_EXPORT GADMaxAdContentRating
+_Nonnull const GADMaxAdContentRatingGeneral;
 /// Rating for content suitable for most audiences with parental guidance.
-FOUNDATION_EXPORT GADMaxAdContentRating _Nonnull const GADMaxAdContentRatingParentalGuidance;
+FOUNDATION_EXPORT GADMaxAdContentRating
+_Nonnull const GADMaxAdContentRatingParentalGuidance;
 /// Rating for content suitable for teen and older audiences.
-FOUNDATION_EXPORT GADMaxAdContentRating _Nonnull const GADMaxAdContentRatingTeen;
+FOUNDATION_EXPORT GADMaxAdContentRating
+_Nonnull const GADMaxAdContentRatingTeen;
 /// Rating for content suitable only for mature audiences.
-FOUNDATION_EXPORT GADMaxAdContentRating _Nonnull const GADMaxAdContentRatingMatureAudience;
+FOUNDATION_EXPORT GADMaxAdContentRating
+_Nonnull const GADMaxAdContentRatingMatureAudience;
 
 /// Add this constant to the testDevices property's array to receive test ads on the simulator.
-FOUNDATION_EXPORT NSString *_Nonnull const GADSimulatorID GAD_DEPRECATED_MSG_ATTRIBUTE(
-    "Deprecated. Simulators are already in test mode by default.");
+FOUNDATION_EXPORT NSString
+*
+_Nonnull const GADSimulatorID GAD_DEPRECATED_MSG_ATTRIBUTE(
+        "Deprecated. Simulators are already in test mode by default.");
 
 /// Publisher privacy treatment personalization states.
-typedef NS_ENUM(NSInteger, GADPublisherPrivacyPersonalizationState) {
-  /// Indicates that ad requests should receive the default publisher privacy treatment.
-  GADPublisherPrivacyPersonalizationStateDefault = 0,
-  /// Indicates that ad requests should receive personalized publisher privacy treatment.
-  GADPublisherPrivacyPersonalizationStateEnabled = 1,
-  /// Indicates that ad requests should receive non-personalized publisher privacy treatment.
-  GADPublisherPrivacyPersonalizationStateDisabled = 2,
+typedef NS_ENUM(NSInteger, GADPublisherPrivacyPersonalizationState
+) {
+/// Indicates that ad requests should receive the default publisher privacy treatment.
+GADPublisherPrivacyPersonalizationStateDefault = 0,
+/// Indicates that ad requests should receive personalized publisher privacy treatment.
+GADPublisherPrivacyPersonalizationStateEnabled = 1,
+/// Indicates that ad requests should receive non-personalized publisher privacy treatment.
+GADPublisherPrivacyPersonalizationStateDisabled = 2,
 };
 
 /// Request configuration. The settings in this class will apply to all ad requests.

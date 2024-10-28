@@ -15,7 +15,7 @@
 @interface GADAudioVideoManager : NSObject
 
 /// Delegate for receiving video and audio updates.
-@property(nonatomic, weak, nullable) id<GADAudioVideoManagerDelegate> delegate;
+@property(nonatomic, weak, nullable) id <GADAudioVideoManagerDelegate> delegate;
 
 /// Indicates whether the application wishes to manage audio session. If set as YES, the Google
 /// Mobile Ads SDK will stop managing AVAudioSession during the video playback lifecycle. If set as

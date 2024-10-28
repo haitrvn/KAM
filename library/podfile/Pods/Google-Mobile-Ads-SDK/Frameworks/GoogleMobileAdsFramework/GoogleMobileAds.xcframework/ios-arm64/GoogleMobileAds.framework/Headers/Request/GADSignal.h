@@ -15,6 +15,8 @@
 #pragma mark Initialization
 
 /// Unavailable. An instance of this class will be returned when generating a signal.
-- (nonnull instancetype)init NS_UNAVAILABLE;
+- (nonnull instancetype)init
+
+NS_UNAVAILABLE;
 
 @end

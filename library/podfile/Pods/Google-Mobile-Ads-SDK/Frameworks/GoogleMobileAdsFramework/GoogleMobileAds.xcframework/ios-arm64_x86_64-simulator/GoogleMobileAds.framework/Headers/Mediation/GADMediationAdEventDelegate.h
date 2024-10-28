@@ -25,7 +25,10 @@
 - (void)willPresentFullScreenView;
 
 /// Notifies Google Mobile Ads SDK that the GADMediationAd failed to present with an error.
-- (void)didFailToPresentWithError:(nonnull NSError *)error;
+- (void)didFailToPresentWithError:(nonnull NSError
+
+*)
+error;
 
 /// Notifies Google Mobile Ads SDK that the GADMediationAd will dismiss a full screen modal view.
 - (void)willDismissFullScreenView;

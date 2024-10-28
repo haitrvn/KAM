@@ -12,7 +12,10 @@
 
 /// Rendered rewarded ad.
 @protocol GADMediationRewardedAd <GADMediationAd>
-- (void)presentFromViewController:(nonnull UIViewController *)viewController;
+- (void)presentFromViewController:(nonnull UIViewController
+
+*)
+viewController;
 @end
 
 /// Rewarded ad configuration.

@@ -11,6 +11,9 @@
 
 /// Returns an app open signal request.
 /// @param signalType The type of signal to request.
-- (nonnull instancetype)initWithSignalType:(nonnull NSString *)signalType;
+- (nonnull instancetype)initWithSignalType:(nonnull NSString
+
+*)
+signalType;
 
 @end

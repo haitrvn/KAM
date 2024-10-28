@@ -7,15 +7,16 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger, GADAdValuePrecision) {
-  /// An ad value with unknown precision.
-  GADAdValuePrecisionUnknown = 0,
-  /// An ad value estimated from aggregated data.
-  GADAdValuePrecisionEstimated = 1,
-  /// A publisher-provided ad value, such as manual CPMs in a mediation group.
-  GADAdValuePrecisionPublisherProvided = 2,
-  /// The precise value paid for this ad.
-  GADAdValuePrecisionPrecise = 3
+typedef NS_ENUM(NSInteger, GADAdValuePrecision
+) {
+/// An ad value with unknown precision.
+GADAdValuePrecisionUnknown = 0,
+/// An ad value estimated from aggregated data.
+GADAdValuePrecisionEstimated = 1,
+/// A publisher-provided ad value, such as manual CPMs in a mediation group.
+GADAdValuePrecisionPublisherProvided = 2,
+/// The precise value paid for this ad.
+GADAdValuePrecisionPrecise = 3
 };
 
 @class GADAdValue;

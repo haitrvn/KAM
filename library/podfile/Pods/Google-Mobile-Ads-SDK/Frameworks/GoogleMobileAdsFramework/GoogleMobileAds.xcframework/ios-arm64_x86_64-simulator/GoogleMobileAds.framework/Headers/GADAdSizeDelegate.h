@@ -15,6 +15,11 @@
 @protocol GADAdSizeDelegate <NSObject>
 
 /// Called before the ad view changes to the new size.
-- (void)adView:(nonnull GADBannerView *)bannerView willChangeAdSizeTo:(GADAdSize)size;
+- (void)adView:(nonnull GADBannerView
+
+*)
+bannerView willChangeAdSizeTo
+:(GADAdSize)
+size;
 
 @end

@@ -15,10 +15,13 @@
 #import <UIKit/UIKit.h>
 
 /// Native ad custom click handler block. |assetID| is the ID of asset that has received a click.
-typedef void (^GADNativeAdCustomClickHandler)(NSString *_Nonnull assetID);
+typedef void (^GADNativeAdCustomClickHandler)(NSString * _Nonnull
+assetID);
 
 /// Asset key for the GADMediaView asset view.
-FOUNDATION_EXPORT NSString *_Nonnull const GADCustomNativeAdMediaViewKey;
+FOUNDATION_EXPORT NSString
+*
+_Nonnull const GADCustomNativeAdMediaViewKey;
 
 @protocol GADCustomNativeAdDelegate;
 
@@ -47,7 +50,7 @@ FOUNDATION_EXPORT NSString *_Nonnull const GADCustomNativeAdMediaViewKey;
 @property(nonatomic, readonly, nonnull) GADMediaContent *mediaContent;
 
 /// Optional delegate to receive state change notifications.
-@property(nonatomic, weak, nullable) id<GADCustomNativeAdDelegate> delegate;
+@property(nonatomic, weak, nullable) id <GADCustomNativeAdDelegate> delegate;
 
 /// Reference to a root view controller that is used by the ad to present full screen content after
 /// the user interacts with the ad. The root view controller is most commonly the view controller
@@ -59,15 +62,28 @@ FOUNDATION_EXPORT NSString *_Nonnull const GADCustomNativeAdMediaViewKey;
 
 /// Returns the native ad image corresponding to the specified key or nil if the image is not
 /// available.
-- (nullable GADNativeAdImage *)imageForKey:(nonnull NSString *)key;
+- (nullable GADNativeAdImage
+
+*)imageForKey:(
+nonnull NSString
+*)
+key;
 
 /// Returns the string corresponding to the specified key or nil if the string is not available.
-- (nullable NSString *)stringForKey:(nonnull NSString *)key;
+- (nullable NSString
+
+*)stringForKey:(
+nonnull NSString
+*)
+key;
 
 /// Call when the user clicks on the ad. Provide the asset key that best matches the asset the user
 /// interacted with. If this ad is configured with a custom click action, ensure the receiver's
 /// customClickHandler property is set before calling this method.
-- (void)performClickOnAssetWithKey:(nonnull NSString *)assetKey;
+- (void)performClickOnAssetWithKey:(nonnull NSString
+
+*)
+assetKey;
 
 /// Call when the ad is displayed on screen to the user. Can be called multiple times. Only the
 /// first impression is recorded.
@@ -83,10 +99,22 @@ FOUNDATION_EXPORT NSString *_Nonnull const GADCustomNativeAdMediaViewKey;
 
 /// Called when requesting an ad. Asks the delegate for an array of custom native ad format ID
 /// strings.
-- (nonnull NSArray<NSString *> *)customNativeAdFormatIDsForAdLoader:(nonnull GADAdLoader *)adLoader;
+- (nonnull NSArray
+
+<NSString *> *)customNativeAdFormatIDsForAdLoader:(
+nonnull GADAdLoader
+*)
+adLoader;
 
 /// Tells the delegate that a custom native ad was received.
-- (void)adLoader:(nonnull GADAdLoader *)adLoader
-    didReceiveCustomNativeAd:(nonnull GADCustomNativeAd *)customNativeAd;
+- (void)adLoader:(nonnull GADAdLoader
+
+*)
+adLoader
+        didReceiveCustomNativeAd
+:(
+nonnull GADCustomNativeAd
+*)
+customNativeAd;
 
 @end

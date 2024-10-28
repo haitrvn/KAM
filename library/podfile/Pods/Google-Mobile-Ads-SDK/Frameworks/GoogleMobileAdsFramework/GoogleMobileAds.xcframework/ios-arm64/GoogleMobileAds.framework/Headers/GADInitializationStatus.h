@@ -7,11 +7,12 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger, GADAdapterInitializationState) {
-  /// The mediation adapter is less likely to fill ad requests.
-  GADAdapterInitializationStateNotReady = 0,
-  /// The mediation adapter is ready to service ad requests.
-  GADAdapterInitializationStateReady = 1
+typedef NS_ENUM(NSInteger, GADAdapterInitializationState
+) {
+/// The mediation adapter is less likely to fill ad requests.
+GADAdapterInitializationStateNotReady = 0,
+/// The mediation adapter is ready to service ad requests.
+GADAdapterInitializationStateReady = 1
 };
 
 /// An immutable snapshot of a mediation adapter's initialization status.
@@ -34,6 +35,5 @@ typedef NS_ENUM(NSInteger, GADAdapterInitializationState) {
 /// Initialization status of each ad network available to the Google Mobile Ads SDK, keyed by its
 /// GADMAdapter's class name. The list of available ad networks may be incomplete during early
 /// phases of SDK initialization.
-@property(nonatomic, readonly, nonnull)
-    NSDictionary<NSString *, GADAdapterStatus *> *adapterStatusesByClassName;
+@property(nonatomic, readonly, nonnull) NSDictionary<NSString *, GADAdapterStatus *> *adapterStatusesByClassName;
 @end

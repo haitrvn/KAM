@@ -22,7 +22,7 @@
 /// rewardedInterstitialAd is non-nil and |error| is nil. On failure, rewardedInterstitialAd is nil
 /// and |error| is non-nil.
 typedef void (^GADRewardedInterstitialAdLoadCompletionHandler)(
-    GADRewardedInterstitialAd *_Nullable rewardedInterstitialAd, NSError *_Nullable error);
+        GADRewardedInterstitialAd *_Nullable rewardedInterstitialAd, NSError *_Nullable error);
 
 /// A rewarded interstitial ad. Rewarded Interstitial ads are full screen ads that can be presented
 /// without user-opt in and allow you to reward the user with in-app items.
@@ -39,11 +39,10 @@ typedef void (^GADRewardedInterstitialAdLoadCompletionHandler)(
 
 /// Options specified for server-side user reward verification. Must be set before presenting this
 /// ad.
-@property(nonatomic, copy, nullable)
-    GADServerSideVerificationOptions *serverSideVerificationOptions;
+@property(nonatomic, copy, nullable) GADServerSideVerificationOptions *serverSideVerificationOptions;
 
 /// Delegate for handling full screen content messages.
-@property(nonatomic, weak, nullable) id<GADFullScreenContentDelegate> fullScreenContentDelegate;
+@property(nonatomic, weak, nullable) id <GADFullScreenContentDelegate> fullScreenContentDelegate;
 
 /// Called when the ad is estimated to have earned money. Available for allowlisted accounts only.
 @property(nonatomic, nullable, copy) GADPaidEventHandler paidEventHandler;
@@ -53,24 +52,49 @@ typedef void (^GADRewardedInterstitialAdLoadCompletionHandler)(
 /// @param adUnitID An ad unit ID created in the AdMob or Ad Manager UI.
 /// @param request An ad request object. If nil, a default ad request object is used.
 /// @param completionHandler A handler to execute when the load operation finishes or times out.
-+ (void)loadWithAdUnitID:(nonnull NSString *)adUnitID
-                 request:(nullable GADRequest *)request
-       completionHandler:(nonnull GADRewardedInterstitialAdLoadCompletionHandler)completionHandler;
++ (void)loadWithAdUnitID:(nonnull NSString
+
+*)
+adUnitID
+        request
+:(
+nullable GADRequest
+*)
+request
+        completionHandler
+:(
+nonnull GADRewardedInterstitialAdLoadCompletionHandler
+)
+completionHandler;
 
 /// Loads a rewarded interstitial ad.
 ///
 /// @param adResponseString A server-to-server ad response string.
 /// @param completionHandler A handler to execute when the load operation finishes or times out.
-+ (void)loadWithAdResponseString:(nonnull NSString *)adResponseString
-               completionHandler:
-                   (nonnull GADRewardedInterstitialAdLoadCompletionHandler)completionHandler;
++ (void)loadWithAdResponseString:(nonnull NSString
+
+*)
+adResponseString
+        completionHandler
+:
+(
+nonnull GADRewardedInterstitialAdLoadCompletionHandler
+)
+completionHandler;
 
 /// Returns whether the rewarded interstitial ad can be presented from the provided root view
 /// controller. Sets the error out parameter if the ad can't be presented. Must be called on the
 /// main thread. If rootViewController is nil, uses the top view controller of the application's
 /// main window.
-- (BOOL)canPresentFromRootViewController:(nullable UIViewController *)rootViewController
-                                   error:(NSError *_Nullable __autoreleasing *_Nullable)error;
+- (BOOL)canPresentFromRootViewController:(nullable UIViewController
+
+*)
+rootViewController
+        error
+:(
+NSError *_Nullable
+__autoreleasing *_Nullable)
+error;
 
 /// Presents the rewarded interstitial ad. Must be called on the main thread.
 ///
@@ -78,7 +102,14 @@ typedef void (^GADRewardedInterstitialAdLoadCompletionHandler)(
 /// top view controller of the application's main window.
 /// @param userDidEarnRewardHandler A handler to execute when the user earns a reward. adReward
 /// contains the reward information.
-- (void)presentFromRootViewController:(nullable UIViewController *)viewController
-             userDidEarnRewardHandler:(nonnull GADUserDidEarnRewardHandler)userDidEarnRewardHandler;
+- (void)presentFromRootViewController:(nullable UIViewController
+
+*)
+viewController
+        userDidEarnRewardHandler
+:(
+nonnull GADUserDidEarnRewardHandler
+)
+userDidEarnRewardHandler;
 
 @end

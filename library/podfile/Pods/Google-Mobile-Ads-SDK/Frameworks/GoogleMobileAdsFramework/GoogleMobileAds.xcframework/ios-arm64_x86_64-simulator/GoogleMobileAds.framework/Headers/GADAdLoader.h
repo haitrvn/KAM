@@ -21,7 +21,7 @@
 
 /// Object notified when an ad request succeeds or fails. Must conform to requested ad types'
 /// delegate protocol. This property must be set before initiating ad requests.
-@property(nonatomic, weak, nullable) id<GADAdLoaderDelegate> delegate;
+@property(nonatomic, weak, nullable) id <GADAdLoaderDelegate> delegate;
 
 /// The ad loader's ad unit ID.
 @property(nonatomic, readonly, nonnull) NSString *adUnitID;
@@ -35,12 +35,30 @@
 /// @param adTypes An array of ad types. See GADAdLoaderAdTypes.h for available ad types.
 /// @param options An array of GADAdLoaderOptions objects to configure how ads are loaded, or nil
 /// to use default options. See each ad type's header for available GADAdLoaderOptions subclasses.
-- (nonnull instancetype)initWithAdUnitID:(nonnull NSString *)adUnitID
-                      rootViewController:(nullable UIViewController *)rootViewController
-                                 adTypes:(nonnull NSArray<GADAdLoaderAdType> *)adTypes
-                                 options:(nullable NSArray<GADAdLoaderOptions *> *)options;
+- (nonnull instancetype)initWithAdUnitID:(nonnull NSString
+
+*)
+adUnitID
+        rootViewController
+:(
+nullable UIViewController
+*)
+rootViewController
+        adTypes
+:(
+nonnull NSArray<GADAdLoaderAdType>
+*)
+adTypes
+        options
+:(
+nullable NSArray<GADAdLoaderOptions *>
+*)
+options;
 
 /// Loads the ad and informs the delegate of the outcome.
-- (void)loadRequest:(nullable GADRequest *)request;
+- (void)loadRequest:(nullable GADRequest
+
+*)
+request;
 
 @end

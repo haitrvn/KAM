@@ -23,6 +23,8 @@
                                           tapsAllowed:(BOOL)tapsAllowed NS_DESIGNATED_INITIALIZER;
 
 /// Unavailable.
-- (nonnull instancetype)init NS_UNAVAILABLE;
+- (nonnull instancetype)init
+
+NS_UNAVAILABLE;
 
 @end

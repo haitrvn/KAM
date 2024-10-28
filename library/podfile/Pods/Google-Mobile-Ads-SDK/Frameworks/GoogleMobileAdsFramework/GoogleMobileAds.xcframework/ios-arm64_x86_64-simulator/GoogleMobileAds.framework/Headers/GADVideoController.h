@@ -18,7 +18,7 @@
 @interface GADVideoController : NSObject
 
 /// Delegate for receiving video notifications.
-@property(nonatomic, weak, nullable) id<GADVideoControllerDelegate> delegate;
+@property(nonatomic, weak, nullable) id <GADVideoControllerDelegate> delegate;
 
 /// Indicates whether the video is muted.
 @property(nonatomic, readonly) BOOL isMuted;

@@ -26,8 +26,7 @@ kotlin {
     iosSimulatorArm64()
 
     cocoapods {
-        summary = "Some description for the Shared Module"
-        homepage = "Link to the Shared Module homepage"
+        noPodspec()
         version = "1.0"
         ios.deploymentTarget = "16.0"
         podfile = project.file("podfile/Podfile")
@@ -54,7 +53,8 @@ kotlin {
         }
         androidMain.dependencies {
             api(libs.startup.runtime)
-            api(libs.play.services.ads)
+//            api(libs.play.services.ads)
+            implementation("com.applovin:applovin-sdk:13.0.1")
         }
     }
 
@@ -69,7 +69,7 @@ kotlin {
 
 android {
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    namespace = "com.haitrvn.kam"
+    namespace = "com.haitrvn.kal"
     compileSdk = 34
     defaultConfig {
         minSdk = 24
@@ -83,12 +83,12 @@ android {
 mavenPublishing {
     publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
     signAllPublications()
-    coordinates(group.toString(), "kam", version.toString())
+    coordinates(group.toString(), "kal", version.toString())
     pom {
-        name = "KAM (Kotlin AdMob)"
+        name = "kal (Kotlin Applovin)"
         description = "Admob for Compose Multiplatform"
         inceptionYear = "2024"
-        url = "https://github.com/haitrvn/kam"
+        url = "https://github.com/haitrvn/kal"
         licenses {
             license {
                 name = "The Apache License, Version 2.0"
@@ -104,7 +104,7 @@ mavenPublishing {
             }
         }
         scm {
-            url.set("https://github.com/haitrvn/KAM")
+            url.set("https://github.com/haitrvn/kal")
         }
     }
 }

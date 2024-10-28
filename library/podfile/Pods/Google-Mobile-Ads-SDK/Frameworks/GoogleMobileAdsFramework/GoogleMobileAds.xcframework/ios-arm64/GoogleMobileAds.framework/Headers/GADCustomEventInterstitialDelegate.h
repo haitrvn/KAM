@@ -20,41 +20,71 @@ GAD_DEPRECATED_MSG_ATTRIBUTE("Use GADMediationInterstitialAdEventDelegate instea
 @protocol GADCustomEventInterstitialDelegate <NSObject>
 
 /// Your Custom Event object must call this when it receives or creates an interstitial ad.
-- (void)customEventInterstitialDidReceiveAd:(nonnull id<GADCustomEventInterstitial>)customEvent;
+- (void)customEventInterstitialDidReceiveAd:(nonnull id
+
+<GADCustomEventInterstitial>)
+customEvent;
 
 /// Your Custom Event object must call this when it fails to receive or create the ad. Pass along
 /// any error object sent from the ad network's SDK, or an NSError describing the error. Pass nil if
 /// not available.
-- (void)customEventInterstitial:(nonnull id<GADCustomEventInterstitial>)customEvent
-                      didFailAd:(nullable NSError *)error;
+- (void)customEventInterstitial:(nonnull id
+
+<GADCustomEventInterstitial>)
+customEvent
+        didFailAd
+:(
+nullable NSError
+*)
+error;
 
 /// Your Custom Event object should call this when the user touches or "clicks" the ad to initiate
 /// an action. When the SDK receives this callback, it reports the click back to the mediation
 /// server.
-- (void)customEventInterstitialWasClicked:(nonnull id<GADCustomEventInterstitial>)customEvent;
+- (void)customEventInterstitialWasClicked:(nonnull id
+
+<GADCustomEventInterstitial>)
+customEvent;
 
 // When you call any of the following methods, the call will be propagated back to the
 // GADInterstitialDelegate that you implemented and passed to GADInterstitial.
 
 /// Your Custom Event should call this when the interstitial is being displayed.
-- (void)customEventInterstitialWillPresent:(nonnull id<GADCustomEventInterstitial>)customEvent;
+- (void)customEventInterstitialWillPresent:(nonnull id
+
+<GADCustomEventInterstitial>)
+customEvent;
 
 /// Your Custom Event should call this when the interstitial is about to be dismissed.
-- (void)customEventInterstitialWillDismiss:(nonnull id<GADCustomEventInterstitial>)customEvent;
+- (void)customEventInterstitialWillDismiss:(nonnull id
+
+<GADCustomEventInterstitial>)
+customEvent;
 
 /// Your Custom Event should call this when the interstitial has been dismissed.
-- (void)customEventInterstitialDidDismiss:(nonnull id<GADCustomEventInterstitial>)customEvent;
+- (void)customEventInterstitialDidDismiss:(nonnull id
+
+<GADCustomEventInterstitial>)
+customEvent;
 
 #pragma mark Deprecated
 
 /// Deprecated. Use customEventInterstitialDidReceiveAd:.
-- (void)customEventInterstitial:(nonnull id<GADCustomEventInterstitial>)customEvent
-                   didReceiveAd:(nonnull NSObject *)ad
-    GAD_DEPRECATED_MSG_ATTRIBUTE("Use customEventInterstitialDidReceiveAd:.");
+- (void)customEventInterstitial:(nonnull id
+
+<GADCustomEventInterstitial>)
+customEvent
+        didReceiveAd
+:(
+nonnull NSObject
+*)ad
+GAD_DEPRECATED_MSG_ATTRIBUTE("Use customEventInterstitialDidReceiveAd:.");
 
 /// Deprecated. No replacement.
 - (void)customEventInterstitialWillLeaveApplication:
-    (nonnull id<GADCustomEventInterstitial>)customEvent
-    GAD_DEPRECATED_MSG_ATTRIBUTE("Deprecated. No replacement.");
+        (nonnull id
+
+<GADCustomEventInterstitial>)customEvent
+GAD_DEPRECATED_MSG_ATTRIBUTE("Deprecated. No replacement.");
 
 @end

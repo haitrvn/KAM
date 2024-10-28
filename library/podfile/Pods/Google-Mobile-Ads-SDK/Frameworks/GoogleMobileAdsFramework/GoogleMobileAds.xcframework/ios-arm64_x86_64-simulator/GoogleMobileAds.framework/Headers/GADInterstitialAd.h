@@ -34,7 +34,7 @@ typedef void (^GADInterstitialAdLoadCompletionHandler)(GADInterstitialAd *_Nulla
 @property(nonatomic, readonly, nonnull) GADResponseInfo *responseInfo;
 
 /// Delegate for handling full screen content messages.
-@property(nonatomic, weak, nullable) id<GADFullScreenContentDelegate> fullScreenContentDelegate;
+@property(nonatomic, weak, nullable) id <GADFullScreenContentDelegate> fullScreenContentDelegate;
 
 /// Called when the ad is estimated to have earned money. Available for allowlisted accounts only.
 @property(nonatomic, nullable, copy) GADPaidEventHandler paidEventHandler;
@@ -44,28 +44,56 @@ typedef void (^GADInterstitialAdLoadCompletionHandler)(GADInterstitialAd *_Nulla
 /// @param adUnitID An ad unit ID created in the AdMob or Ad Manager UI.
 /// @param request An ad request object. If nil, a default ad request object is used.
 /// @param completionHandler A handler to execute when the load operation finishes or times out.
-+ (void)loadWithAdUnitID:(nonnull NSString *)adUnitID
-                 request:(nullable GADRequest *)request
-       completionHandler:(nonnull GADInterstitialAdLoadCompletionHandler)completionHandler;
++ (void)loadWithAdUnitID:(nonnull NSString
+
+*)
+adUnitID
+        request
+:(
+nullable GADRequest
+*)
+request
+        completionHandler
+:(
+nonnull GADInterstitialAdLoadCompletionHandler
+)
+completionHandler;
 
 /// Loads an interstitial ad.
 ///
 /// @param adResponseString A server-to-server ad response string.
 /// @param completionHandler A handler to execute when the load operation finishes or times out.
-+ (void)loadWithAdResponseString:(nonnull NSString *)adResponseString
-               completionHandler:(nonnull GADInterstitialAdLoadCompletionHandler)completionHandler;
++ (void)loadWithAdResponseString:(nonnull NSString
+
+*)
+adResponseString
+        completionHandler
+:(
+nonnull GADInterstitialAdLoadCompletionHandler
+)
+completionHandler;
 
 /// Returns whether the interstitial ad can be presented from the provided root view
 /// controller. Sets the error out parameter if the ad can't be presented. Must be called on the
 /// main thread. If rootViewController is nil, uses the top view controller of the application's
 /// main window.
-- (BOOL)canPresentFromRootViewController:(nullable UIViewController *)rootViewController
-                                   error:(NSError *_Nullable __autoreleasing *_Nullable)error;
+- (BOOL)canPresentFromRootViewController:(nullable UIViewController
+
+*)
+rootViewController
+        error
+:(
+NSError *_Nullable
+__autoreleasing *_Nullable)
+error;
 
 /// Presents the interstitial ad. Must be called on the main thread.
 ///
 /// @param rootViewController A view controller to present the ad. If nil, attempts to present from
 /// the top view controller of the application's main window.
-- (void)presentFromRootViewController:(nullable UIViewController *)rootViewController;
+- (void)presentFromRootViewController:(nullable UIViewController
+
+*)
+rootViewController;
 
 @end

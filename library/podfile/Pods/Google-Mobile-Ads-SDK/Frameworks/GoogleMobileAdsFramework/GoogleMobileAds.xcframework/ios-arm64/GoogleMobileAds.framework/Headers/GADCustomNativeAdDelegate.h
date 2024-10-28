@@ -17,10 +17,16 @@
 #pragma mark Ad Lifecycle Events
 
 /// Called when an impression is recorded for a custom native ad.
-- (void)customNativeAdDidRecordImpression:(nonnull GADCustomNativeAd *)nativeAd;
+- (void)customNativeAdDidRecordImpression:(nonnull GADCustomNativeAd
+
+*)
+nativeAd;
 
 /// Called when a click is recorded for a custom native ad.
-- (void)customNativeAdDidRecordClick:(nonnull GADCustomNativeAd *)nativeAd;
+- (void)customNativeAdDidRecordClick:(nonnull GADCustomNativeAd
+
+*)
+nativeAd;
 
 #pragma mark Click-Time Lifecycle Notifications
 
@@ -31,13 +37,22 @@
 /// the customNativeAdDidDismissScreen: message. However, if the user hits the Home button or clicks
 /// on an App Store link, your application will end. The next method called will be the
 /// applicationWillResignActive: of your UIApplicationDelegate object.
-- (void)customNativeAdWillPresentScreen:(nonnull GADCustomNativeAd *)nativeAd;
+- (void)customNativeAdWillPresentScreen:(nonnull GADCustomNativeAd
+
+*)
+nativeAd;
 
 /// Called just before dismissing a full screen view.
-- (void)customNativeAdWillDismissScreen:(nonnull GADCustomNativeAd *)nativeAd;
+- (void)customNativeAdWillDismissScreen:(nonnull GADCustomNativeAd
+
+*)
+nativeAd;
 
 /// Called just after dismissing a full screen view. Use this opportunity to restart anything you
 /// may have stopped as part of customNativeAdWillPresentScreen:.
-- (void)customNativeAdDidDismissScreen:(nonnull GADCustomNativeAd *)nativeAd;
+- (void)customNativeAdDidDismissScreen:(nonnull GADCustomNativeAd
+
+*)
+nativeAd;
 
 @end

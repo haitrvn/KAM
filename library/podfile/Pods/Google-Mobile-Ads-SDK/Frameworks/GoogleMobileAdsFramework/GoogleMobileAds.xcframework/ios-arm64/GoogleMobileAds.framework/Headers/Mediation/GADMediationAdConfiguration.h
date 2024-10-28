@@ -28,7 +28,7 @@
 @property(nonatomic, readonly, nullable) NSData *watermark;
 
 /// Extras the publisher registered with -[GADRequest registerAdNetworkExtras:].
-@property(nonatomic, readonly, nullable) id<GADAdNetworkExtras> extras;
+@property(nonatomic, readonly, nullable) id <GADAdNetworkExtras> extras;
 
 /// Indicates whether the publisher is requesting test ads.
 @property(nonatomic, readonly) BOOL isTestRequest;

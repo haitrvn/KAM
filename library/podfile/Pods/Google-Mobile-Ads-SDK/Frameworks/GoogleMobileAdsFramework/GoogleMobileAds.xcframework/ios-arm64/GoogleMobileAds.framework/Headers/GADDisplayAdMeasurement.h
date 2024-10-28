@@ -18,6 +18,9 @@
 /// Starts OMID viewability measurement for display ads. Returns whether OMID viewability was
 /// started and sets |error| if unable to start. Once started, all subsequent calls return YES and
 /// have no effect. Must be called on the main thread.
-- (BOOL)startWithError:(NSError *_Nullable *_Nullable)error;
+- (BOOL)startWithError:(NSError *_Nullable
+
+*_Nullable)
+error;
 
 @end

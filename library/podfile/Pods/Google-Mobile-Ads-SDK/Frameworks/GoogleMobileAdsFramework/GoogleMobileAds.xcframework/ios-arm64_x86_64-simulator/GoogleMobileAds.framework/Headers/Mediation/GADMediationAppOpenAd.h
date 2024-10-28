@@ -14,7 +14,10 @@
 @protocol GADMediationAppOpenAd <GADMediationAd>
 
 /// Presents the receiver from the view controller.
-- (void)presentFromViewController:(nonnull UIViewController *)viewController;
+- (void)presentFromViewController:(nonnull UIViewController
+
+*)
+viewController;
 @end
 
 /// App open ad configuration.

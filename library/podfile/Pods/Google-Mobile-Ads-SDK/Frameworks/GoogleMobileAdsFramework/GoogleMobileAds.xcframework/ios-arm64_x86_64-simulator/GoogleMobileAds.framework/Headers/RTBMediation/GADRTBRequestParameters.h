@@ -27,7 +27,7 @@
 @property(nonatomic, readonly, nonnull) GADRTBMediationSignalsConfiguration *configuration;
 
 /// Extras the publisher registered with -[GADRequest registerAdNetworkExtras:].
-@property(nonatomic, readonly, nullable) id<GADAdNetworkExtras> extras;
+@property(nonatomic, readonly, nullable) id <GADAdNetworkExtras> extras;
 
 #pragma mark - Banner parameters
 

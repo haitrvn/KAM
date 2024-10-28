@@ -18,7 +18,7 @@ GAD_DEPRECATED_MSG_ATTRIBUTE("Use GADMediationBannerAd and GADMediationAdapter i
 ///
 /// In your class, define the -delegate and -setDelegate: methods or use "@synthesize delegate". The
 /// Google Mobile Ads SDK sets this property on instances of your class.
-@property(nonatomic, weak, nullable) id<GADCustomEventBannerDelegate> delegate;
+@property(nonatomic, weak, nullable) id <GADCustomEventBannerDelegate> delegate;
 
 /// Returns an initialized custom event banner.
 - (nonnull instancetype)init;
@@ -31,8 +31,19 @@ GAD_DEPRECATED_MSG_ATTRIBUTE("Use GADMediationBannerAd and GADMediationAdapter i
 /// @param serverLabel Label configured in the mediation UI.
 /// @param request Contains ad request information.
 - (void)requestBannerAd:(GADAdSize)adSize
-              parameter:(nullable NSString *)serverParameter
-                  label:(nullable NSString *)serverLabel
-                request:(nonnull GADCustomEventRequest *)request;
+              parameter:(nullable NSString
+
+*)
+serverParameter
+        label
+:(
+nullable NSString
+*)
+serverLabel
+        request
+:(
+nonnull GADCustomEventRequest
+*)
+request;
 
 @end

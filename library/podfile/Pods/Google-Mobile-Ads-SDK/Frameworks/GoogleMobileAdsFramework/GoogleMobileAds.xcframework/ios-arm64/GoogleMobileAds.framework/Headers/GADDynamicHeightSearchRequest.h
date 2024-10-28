@@ -158,6 +158,9 @@
 @property(nonatomic, copy, nullable) NSString *styleID;
 
 /// Sets an advanced option value for a specified key. The value must be an NSString or NSNumber.
-- (void)setAdvancedOptionValue:(nonnull id)value forKey:(nonnull NSString *)key;
+- (void)setAdvancedOptionValue:(nonnull id)value forKey:(nonnull NSString
+
+*)
+key;
 
 @end

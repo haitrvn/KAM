@@ -12,4 +12,7 @@
 /// within a configurable fraction of the width and height of the original. If no valid size exists,
 /// returns GADAdSizeInvalid.
 FOUNDATION_EXPORT GADAdSize
-GADClosestValidSizeForAdSizes(GADAdSize original, NSArray<NSValue *> *_Nonnull possibleAdSizes);
+GADClosestValidSizeForAdSizes(GADAdSize
+original,
+NSArray<NSValue *> *_Nonnull
+possibleAdSizes);

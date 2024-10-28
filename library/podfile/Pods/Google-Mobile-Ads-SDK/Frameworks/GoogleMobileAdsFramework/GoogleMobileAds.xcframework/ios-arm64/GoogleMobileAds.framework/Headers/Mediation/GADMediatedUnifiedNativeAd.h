@@ -67,12 +67,27 @@
 
 /// Tells the receiver that it has been rendered in |view| with clickable asset views and
 /// nonclickable asset views. viewController should be used to present modal views for the ad.
-- (void)didRenderInView:(nonnull UIView *)view
-       clickableAssetViews:
-           (nonnull NSDictionary<GADNativeAssetIdentifier, UIView *> *)clickableAssetViews
-    nonclickableAssetViews:
-        (nonnull NSDictionary<GADNativeAssetIdentifier, UIView *> *)nonclickableAssetViews
-            viewController:(nonnull UIViewController *)viewController;
+- (void)didRenderInView:(nonnull UIView
+
+*)
+view
+        clickableAssetViews
+:
+(
+nonnull NSDictionary<GADNativeAssetIdentifier, UIView *>
+*)
+clickableAssetViews
+        nonclickableAssetViews
+:
+(
+nonnull NSDictionary<GADNativeAssetIdentifier, UIView *>
+*)
+nonclickableAssetViews
+        viewController
+:(
+nonnull UIViewController
+*)
+viewController;
 
 /// Tells the receiver that an impression is recorded. This method is called only once per mediated
 /// native ad.
@@ -82,13 +97,23 @@
 /// actions should be presented from viewController. This method is called only if
 /// -[GADMAdNetworkAdapter handlesUserClicks] returns NO.
 - (void)didRecordClickOnAssetWithName:(nonnull GADNativeAssetIdentifier)assetName
-                                 view:(nonnull UIView *)view
-                       viewController:(nonnull UIViewController *)viewController;
+                                 view:(nonnull UIView
+
+*)
+view
+        viewController
+:(
+nonnull UIViewController
+*)
+viewController;
 
 /// Tells the receiver that it has untracked |view|. This method is called when the mediated native
 /// ad is no longer rendered in the provided view and the delegate should stop tracking the view's
 /// impressions and clicks. The method may also be called with a nil view when the view in which the
 /// mediated native ad has rendered is deallocated.
-- (void)didUntrackView:(nullable UIView *)view;
+- (void)didUntrackView:(nullable UIView
+
+*)
+view;
 
 @end

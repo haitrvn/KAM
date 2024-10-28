@@ -12,13 +12,15 @@ typedef struct GADVersionNumber GADVersionNumber;
 
 /// Version number information.
 struct GADVersionNumber {
-  /// Major version.
-  NSInteger majorVersion;
-  /// Minor version.
-  NSInteger minorVersion;
-  /// Patch version.
-  NSInteger patchVersion;
+    /// Major version.
+    NSInteger majorVersion;
+    /// Minor version.
+    NSInteger minorVersion;
+    /// Patch version.
+    NSInteger patchVersion;
 };
 
 /// Returns a string representation of the version number.
-NSString *_Nonnull GADGetStringFromVersionNumber(GADVersionNumber version);
+NSString *_Nonnull
+GADGetStringFromVersionNumber(GADVersionNumber
+version);

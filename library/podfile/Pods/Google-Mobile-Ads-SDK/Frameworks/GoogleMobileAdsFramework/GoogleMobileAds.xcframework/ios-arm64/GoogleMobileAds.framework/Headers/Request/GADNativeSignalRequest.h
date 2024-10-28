@@ -69,13 +69,16 @@
 @property(nonatomic, copy, nullable) NSArray<NSValue *> *adSizes;
 
 /// Set of ad loader ad types. See GADAdLoaderAdTypes.h for available ad loader ad types.
-@property(nonatomic, copy, nullable) NSSet<GADAdLoaderAdType> *adLoaderAdTypes;
+@property(nonatomic, copy, nullable) NSSet <GADAdLoaderAdType> *adLoaderAdTypes;
 
 /// Array of custom native ad format IDs.
 @property(nonatomic, copy, nullable) NSArray<NSString *> *customNativeAdFormatIDs;
 
 /// Returns an initialized native signal request.
 /// @param signalType The type of signal to request.
-- (nonnull instancetype)initWithSignalType:(nonnull NSString *)signalType;
+- (nonnull instancetype)initWithSignalType:(nonnull NSString
+
+*)
+signalType;
 
 @end

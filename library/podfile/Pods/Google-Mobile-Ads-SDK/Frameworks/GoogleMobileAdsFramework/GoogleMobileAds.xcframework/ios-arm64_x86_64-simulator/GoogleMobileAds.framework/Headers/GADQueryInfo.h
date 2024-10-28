@@ -26,10 +26,18 @@ typedef void (^GADQueryInfoCreationCompletionHandler)(GADQueryInfo *_Nullable qu
 ///
 /// Creates query info that can be used as input in a Google request. Calls completionHandler
 /// asynchronously on the main thread once query info has been created or when an error occurs.
-+ (void)createQueryInfoWithRequest:(nullable GADRequest *)request
-                          adFormat:(GADAdFormat)adFormat
-                 completionHandler:(nonnull GADQueryInfoCreationCompletionHandler)completionHandler
-    GAD_DEPRECATED_MSG_ATTRIBUTE("Use +[GADMobileAds generateSignal:completionHandler:] instead.");
++ (void)createQueryInfoWithRequest:(nullable GADRequest
+
+*)
+request
+        adFormat
+:(GADAdFormat)
+adFormat
+        completionHandler
+:(
+nonnull GADQueryInfoCreationCompletionHandler
+)completionHandler
+GAD_DEPRECATED_MSG_ATTRIBUTE("Use +[GADMobileAds generateSignal:completionHandler:] instead.");
 
 /// Deprecated. Use +[GADMobileAds generateSignal:completionHandler:] instead. Set adUnitID in the
 /// GADSignalRequest subclass.
@@ -37,11 +45,23 @@ typedef void (^GADQueryInfoCreationCompletionHandler)(GADQueryInfo *_Nullable qu
 /// Creates query info for adUnitID that can be used as input in a Google
 /// request. Calls completionHandler asynchronously on the main thread once query info has been
 /// created or when an error occurs.
-+ (void)createQueryInfoWithRequest:(nullable GADRequest *)request
-                          adFormat:(GADAdFormat)adFormat
-                          adUnitID:(nonnull NSString *)adUnitID
-                 completionHandler:(nonnull GADQueryInfoCreationCompletionHandler)completionHandler
-    GAD_DEPRECATED_MSG_ATTRIBUTE("Use +[GADMobileAds generateSignal:completionHandler:] instead. "
-                                 "Set adUnitID in the GADSignalRequest subclass.");
++ (void)createQueryInfoWithRequest:(nullable GADRequest
+
+*)
+request
+        adFormat
+:(GADAdFormat)
+adFormat
+        adUnitID
+:(
+nonnull NSString
+*)
+adUnitID
+        completionHandler
+:(
+nonnull GADQueryInfoCreationCompletionHandler
+)completionHandler
+GAD_DEPRECATED_MSG_ATTRIBUTE("Use +[GADMobileAds generateSignal:completionHandler:] instead. "
+                             "Set adUnitID in the GADSignalRequest subclass.");
 
 @end

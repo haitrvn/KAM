@@ -55,7 +55,7 @@
 #pragma mark - Other properties
 
 /// Optional delegate to receive state change notifications.
-@property(nonatomic, weak, nullable) id<GADNativeAdDelegate> delegate;
+@property(nonatomic, weak, nullable) id <GADNativeAdDelegate> delegate;
 
 /// Reference to a root view controller that is used by the ad to present full screen content after
 /// the user interacts with the ad. The root view controller is most commonly the view controller
@@ -83,11 +83,22 @@
 /// @param clickableAssetViews Dictionary of asset views that are clickable, keyed by asset IDs.
 /// @param nonclickableAssetViews Dictionary of asset views that are not clickable, keyed by asset
 ///        IDs.
-- (void)registerAdView:(nonnull UIView *)adView
-       clickableAssetViews:
-           (nonnull NSDictionary<GADNativeAssetIdentifier, UIView *> *)clickableAssetViews
-    nonclickableAssetViews:
-        (nonnull NSDictionary<GADNativeAssetIdentifier, UIView *> *)nonclickableAssetViews;
+- (void)registerAdView:(nonnull UIView
+
+*)
+adView
+        clickableAssetViews
+:
+(
+nonnull NSDictionary<GADNativeAssetIdentifier, UIView *>
+*)
+clickableAssetViews
+        nonclickableAssetViews
+:
+(
+nonnull NSDictionary<GADNativeAssetIdentifier, UIView *>
+*)
+nonclickableAssetViews;
 
 /// Unregisters ad view from this native ad. The corresponding asset views will also be
 /// unregistered.
@@ -95,7 +106,10 @@
 
 /// Reports the mute event with the mute reason selected by user. Use nil if no reason was selected.
 /// Call this method only if customMuteThisAdAvailable is YES.
-- (void)muteThisAdWithReason:(nullable GADMuteThisAdReason *)reason;
+- (void)muteThisAdWithReason:(nullable GADMuteThisAdReason
+
+*)
+reason;
 
 @end
 
@@ -104,7 +118,14 @@
 /// The delegate of a GADAdLoader object implements this protocol to receive GADNativeAd ads.
 @protocol GADNativeAdLoaderDelegate <GADAdLoaderDelegate>
 /// Called when a native ad is received.
-- (void)adLoader:(nonnull GADAdLoader *)adLoader didReceiveNativeAd:(nonnull GADNativeAd *)nativeAd;
+- (void)adLoader:(nonnull GADAdLoader
+
+*)
+adLoader didReceiveNativeAd
+:(
+nonnull GADNativeAd
+*)
+nativeAd;
 @end
 
 #pragma mark - Unified Native Ad View
@@ -117,28 +138,50 @@
 @property(nonatomic, strong, nullable) GADNativeAd *nativeAd;
 
 /// Weak reference to your ad view's headline asset view.
-@property(nonatomic, weak, nullable) IBOutlet UIView *headlineView;
+@property(nonatomic, weak, nullable) IBOutlet UIView
+*
+headlineView;
 /// Weak reference to your ad view's call to action asset view.
-@property(nonatomic, weak, nullable) IBOutlet UIView *callToActionView;
+@property(nonatomic, weak, nullable) IBOutlet UIView
+*
+callToActionView;
 /// Weak reference to your ad view's icon asset view.
-@property(nonatomic, weak, nullable) IBOutlet UIView *iconView;
+@property(nonatomic, weak, nullable) IBOutlet UIView
+*
+iconView;
 /// Weak reference to your ad view's body asset view.
-@property(nonatomic, weak, nullable) IBOutlet UIView *bodyView;
+@property(nonatomic, weak, nullable) IBOutlet UIView
+*
+bodyView;
 /// Weak reference to your ad view's store asset view.
-@property(nonatomic, weak, nullable) IBOutlet UIView *storeView;
+@property(nonatomic, weak, nullable) IBOutlet UIView
+*
+storeView;
 /// Weak reference to your ad view's price asset view.
-@property(nonatomic, weak, nullable) IBOutlet UIView *priceView;
+@property(nonatomic, weak, nullable) IBOutlet UIView
+*
+priceView;
 /// Weak reference to your ad view's image asset view.
-@property(nonatomic, weak, nullable) IBOutlet UIView *imageView;
+@property(nonatomic, weak, nullable) IBOutlet UIView
+*
+imageView;
 /// Weak reference to your ad view's star rating asset view.
-@property(nonatomic, weak, nullable) IBOutlet UIView *starRatingView;
+@property(nonatomic, weak, nullable) IBOutlet UIView
+*
+starRatingView;
 /// Weak reference to your ad view's advertiser asset view.
-@property(nonatomic, weak, nullable) IBOutlet UIView *advertiserView;
+@property(nonatomic, weak, nullable) IBOutlet UIView
+*
+advertiserView;
 /// Weak reference to your ad view's media asset view.
-@property(nonatomic, weak, nullable) IBOutlet GADMediaView *mediaView;
+@property(nonatomic, weak, nullable) IBOutlet GADMediaView
+*
+mediaView;
 /// Weak reference to your ad view's AdChoices view. Must set adChoicesView before setting
 /// nativeAd, otherwise AdChoices will be rendered according to the preferredAdChoicesPosition
 /// defined in GADNativeAdViewAdOptions.
-@property(nonatomic, weak, nullable) IBOutlet GADAdChoicesView *adChoicesView;
+@property(nonatomic, weak, nullable) IBOutlet GADAdChoicesView
+*
+adChoicesView;
 
 @end

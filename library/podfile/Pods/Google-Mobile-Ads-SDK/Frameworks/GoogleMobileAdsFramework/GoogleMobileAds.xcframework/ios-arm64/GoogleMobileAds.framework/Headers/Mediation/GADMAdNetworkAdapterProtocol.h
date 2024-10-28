@@ -27,7 +27,7 @@
 /// Designated initializer. Adapters can and should store a weak reference to the connector.
 /// However, adapters must not keep a strong reference to the connector, as doing so creates a
 /// reference cycle and abandoned memory.
-- (instancetype)initWithGADMAdNetworkConnector:(id<GADMAdNetworkConnector>)connector;
+- (instancetype)initWithGADMAdNetworkConnector:(id <GADMAdNetworkConnector>)connector;
 
 /// Asks the adapter to initiate an asynchronous banner ad request. The adapter may act as a
 /// delegate to your SDK to listen to callbacks. If your SDK doesn't support the given ad size, or

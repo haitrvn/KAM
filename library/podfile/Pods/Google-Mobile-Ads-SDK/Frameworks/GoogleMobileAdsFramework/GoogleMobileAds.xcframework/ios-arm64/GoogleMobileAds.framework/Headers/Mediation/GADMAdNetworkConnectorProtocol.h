@@ -31,19 +31,19 @@
 #pragma mark - Adapter Callbacks
 
 /// Tells the connector that the adapter failed to receive an ad.
-- (void)adapter:(id<GADMAdNetworkAdapter>)adapter didFailAd:(NSError *)error;
+- (void)adapter:(id <GADMAdNetworkAdapter>)adapter didFailAd:(NSError *)error;
 
 /// Tells the connector that the adapter received a banner ad.
-- (void)adapter:(id<GADMAdNetworkAdapter>)adapter didReceiveAdView:(UIView *)view;
+- (void)adapter:(id <GADMAdNetworkAdapter>)adapter didReceiveAdView:(UIView *)view;
 
 /// Tells the connector that the adapter received an interstitial.
-- (void)adapterDidReceiveInterstitial:(id<GADMAdNetworkAdapter>)adapter;
+- (void)adapterDidReceiveInterstitial:(id <GADMAdNetworkAdapter>)adapter;
 
 /// Tells the connector that the adapter has received a unified mediated native ad.
 /// mediatedUnifiedNativeAd is used by the Google Mobile Ads SDK to construct a unified native ad
 /// object.
-- (void)adapter:(id<GADMAdNetworkAdapter>)adapter
-    didReceiveMediatedUnifiedNativeAd:(id<GADMediatedUnifiedNativeAd>)mediatedUnifiedNativeAd;
+- (void)                  adapter:(id <GADMAdNetworkAdapter>)adapter
+didReceiveMediatedUnifiedNativeAd:(id <GADMediatedUnifiedNativeAd>)mediatedUnifiedNativeAd;
 
 #pragma mark Ad events
 
@@ -51,44 +51,48 @@
 // interstitial ad.
 
 /// Tells the connector that the adapter recorded a user click.
-- (void)adapterDidGetAdClick:(id<GADMAdNetworkAdapter>)adapter;
+- (void)adapterDidGetAdClick:(id <GADMAdNetworkAdapter>)adapter;
 
 // Adapter should call as many of these as possible, during the lifecycle of the loaded banner ad.
 
 /// Tells the connector that the adapter will present a full screen modal.
-- (void)adapterWillPresentFullScreenModal:(id<GADMAdNetworkAdapter>)adapter;
+- (void)adapterWillPresentFullScreenModal:(id <GADMAdNetworkAdapter>)adapter;
+
 /// Tells the connector that the adapter will dismiss a full screen modal.
-- (void)adapterWillDismissFullScreenModal:(id<GADMAdNetworkAdapter>)adapter;
+- (void)adapterWillDismissFullScreenModal:(id <GADMAdNetworkAdapter>)adapter;
+
 /// Tells the connector that the adapter dismissed a full screen modal.
-- (void)adapterDidDismissFullScreenModal:(id<GADMAdNetworkAdapter>)adapter;
+- (void)adapterDidDismissFullScreenModal:(id <GADMAdNetworkAdapter>)adapter;
 
 // Adapter should call these methods during the lifecycle of the loaded interstitial ad.
 
 /// Tells the connector that the adapter will present an interstitial.
-- (void)adapterWillPresentInterstitial:(id<GADMAdNetworkAdapter>)adapter;
+- (void)adapterWillPresentInterstitial:(id <GADMAdNetworkAdapter>)adapter;
+
 /// Tells the connector that the adapter will dismiss an interstitial.
-- (void)adapterWillDismissInterstitial:(id<GADMAdNetworkAdapter>)adapter;
+- (void)adapterWillDismissInterstitial:(id <GADMAdNetworkAdapter>)adapter;
+
 /// Tells the connector that the adapter did dismiss an interstitial.
-- (void)adapterDidDismissInterstitial:(id<GADMAdNetworkAdapter>)adapter;
+- (void)adapterDidDismissInterstitial:(id <GADMAdNetworkAdapter>)adapter;
 
 #pragma mark Deprecated
 
 /// Deprecated. Use -adapterDidReceiveInterstitial:.
-- (void)adapter:(id<GADMAdNetworkAdapter>)adapter
-    didReceiveInterstitial:(NSObject *)interstitial
-    GAD_DEPRECATED_MSG_ATTRIBUTE("Use -adapterDidReceiveInterstitial:.");
+- (void)       adapter:(id <GADMAdNetworkAdapter>)adapter
+didReceiveInterstitial:(NSObject *)interstitial
+GAD_DEPRECATED_MSG_ATTRIBUTE("Use -adapterDidReceiveInterstitial:.");
 
 /// Deprecated. Use -adapterDidGetAdClick:.
-- (void)adapter:(id<GADMAdNetworkAdapter>)adapter
-    clickDidOccurInBanner:(UIView *)view
-    GAD_DEPRECATED_MSG_ATTRIBUTE("Use -adapterDidGetAdClick:.");
+- (void)      adapter:(id <GADMAdNetworkAdapter>)adapter
+clickDidOccurInBanner:(UIView *)view
+GAD_DEPRECATED_MSG_ATTRIBUTE("Use -adapterDidGetAdClick:.");
 
 /// Deprecated. Use -adapter:didFailAd:.
-- (void)adapter:(id<GADMAdNetworkAdapter>)adapter
-    didFailInterstitial:(NSError *)error GAD_DEPRECATED_MSG_ATTRIBUTE("Use -adapter:didFailAd:");
+- (void)    adapter:(id <GADMAdNetworkAdapter>)adapter
+didFailInterstitial:(NSError *)error GAD_DEPRECATED_MSG_ATTRIBUTE("Use -adapter:didFailAd:");
 
 /// Deprecated. No replacement.
-- (void)adapterWillLeaveApplication:(id<GADMAdNetworkAdapter>)adapter
-    GAD_DEPRECATED_MSG_ATTRIBUTE("Deprecated. No replacement.");
+- (void)adapterWillLeaveApplication:(id <GADMAdNetworkAdapter>)adapter
+GAD_DEPRECATED_MSG_ATTRIBUTE("Deprecated. No replacement.");
 
 @end

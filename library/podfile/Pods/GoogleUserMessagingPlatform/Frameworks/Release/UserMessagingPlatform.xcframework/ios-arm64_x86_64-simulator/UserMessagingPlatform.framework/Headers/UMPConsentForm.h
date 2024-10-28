@@ -20,9 +20,15 @@ typedef void (^UMPConsentFormPresentCompletionHandler)(NSError *_Nullable error)
 /// UMPConsentInformation.sharedInstance.consentStatus is UMPConsentStatusRequired. Calls
 /// completionHandler after the user selects an option and the form is dismissed, or on the next run
 /// loop if no form is presented. Must be called on the main queue.
-+ (void)loadAndPresentIfRequiredFromViewController:(nonnull UIViewController *)viewController
-                                 completionHandler:(nullable UMPConsentFormPresentCompletionHandler)
-                                                       completionHandler;
++ (void)loadAndPresentIfRequiredFromViewController:(nonnull UIViewController
+
+*)
+viewController
+        completionHandler
+:(
+nullable UMPConsentFormPresentCompletionHandler
+)
+completionHandler;
 
 /// Presents a privacy options form from the provided viewController if
 /// UMPConsentInformation.sharedInstance.privacyOptionsRequirementStatus is
@@ -34,19 +40,34 @@ typedef void (^UMPConsentFormPresentCompletionHandler)(NSError *_Nullable error)
 /// to be shown. The privacy options form is preloaded by the SDK automatically when a form becomes
 /// available. If no form is preloaded, the SDK will invoke the completionHandler on the next run
 /// loop, but will asynchronously retry to load one.
-+ (void)presentPrivacyOptionsFormFromViewController:(nonnull UIViewController *)viewController
-                                  completionHandler:
-                                      (nullable UMPConsentFormPresentCompletionHandler)
-                                          completionHandler;
++ (void)presentPrivacyOptionsFormFromViewController:(nonnull UIViewController
+
+*)
+viewController
+        completionHandler
+:
+(
+nullable UMPConsentFormPresentCompletionHandler
+)
+completionHandler;
 
 /// Unavailable. Use +loadWithCompletionHandler: instead.
-- (nonnull instancetype)init NS_UNAVAILABLE;
+- (nonnull instancetype)init
+
+NS_UNAVAILABLE;
 
 /// Presents the full screen consent form over viewController. The form is dismissed and
 /// completionHandler is called after the user selects an option.
 /// UMPConsentInformation.sharedInstance.consentStatus is updated prior to completionHandler being
 /// called. completionHandler is called on the main queue.
-- (void)presentFromViewController:(nonnull UIViewController *)viewController
-                completionHandler:
-                    (nullable UMPConsentFormPresentCompletionHandler)completionHandler;
+- (void)presentFromViewController:(nonnull UIViewController
+
+*)
+viewController
+        completionHandler
+:
+(
+nullable UMPConsentFormPresentCompletionHandler
+)
+completionHandler;
 @end

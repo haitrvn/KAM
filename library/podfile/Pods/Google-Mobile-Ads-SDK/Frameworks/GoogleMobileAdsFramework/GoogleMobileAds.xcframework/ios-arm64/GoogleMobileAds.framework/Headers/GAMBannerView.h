@@ -17,11 +17,23 @@
 @protocol GAMBannerAdLoaderDelegate <GADAdLoaderDelegate>
 
 /// Asks the delegate which banner ad sizes should be requested.
-- (nonnull NSArray<NSValue *> *)validBannerSizesForAdLoader:(nonnull GADAdLoader *)adLoader;
+- (nonnull NSArray
+
+<NSValue *> *)validBannerSizesForAdLoader:(
+nonnull GADAdLoader
+*)
+adLoader;
 
 /// Tells the delegate that a Google Ad Manager banner ad was received.
-- (void)adLoader:(nonnull GADAdLoader *)adLoader
-    didReceiveGAMBannerView:(nonnull GAMBannerView *)bannerView;
+- (void)adLoader:(nonnull GADAdLoader
+
+*)
+adLoader
+        didReceiveGAMBannerView
+:(
+nonnull GAMBannerView
+*)
+bannerView;
 
 @end
 
@@ -40,10 +52,12 @@
 @property(nonatomic, copy, nullable) NSString *adUnitID;
 
 /// Optional delegate that is notified when creatives send app events.
-@property(nonatomic, weak, nullable) IBOutlet id<GADAppEventDelegate> appEventDelegate;
+@property(nonatomic, weak, nullable) IBOutlet id
+<GADAppEventDelegate> appEventDelegate;
 
 /// Optional delegate that is notified when creatives cause the banner to change size.
-@property(nonatomic, weak, nullable) IBOutlet id<GADAdSizeDelegate> adSizeDelegate;
+@property(nonatomic, weak, nullable) IBOutlet id
+<GADAdSizeDelegate> adSizeDelegate;
 
 /// Optional array of NSValue encoded GADAdSize structs, specifying all valid sizes that are
 /// appropriate for this slot. Never create your own GADAdSize directly. Use one of the predefined
@@ -79,6 +93,9 @@
 ///
 /// @param adOptions An array of GADAdLoaderOptions objects. The array is deep copied and option
 /// objects cannot be modified after calling this method.
-- (void)setAdOptions:(nonnull NSArray<GADAdLoaderOptions *> *)adOptions;
+- (void)setAdOptions:(nonnull NSArray
+
+<GADAdLoaderOptions *> *)
+adOptions;
 
 @end

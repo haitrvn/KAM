@@ -16,7 +16,7 @@ GAD_DEPRECATED_MSG_ATTRIBUTE("Use GADMediationNativeAd and GADMediationAdapter i
 @protocol GADCustomEventNativeAd <NSObject>
 
 /// Delegate object used for receiving custom native ad load request progress.
-@property(nonatomic, weak, nullable) id<GADCustomEventNativeAdDelegate> delegate;
+@property(nonatomic, weak, nullable) id <GADCustomEventNativeAdDelegate> delegate;
 
 /// Returns an initialized custom event native ad.
 - (nonnull instancetype)init;
@@ -30,11 +30,30 @@ GAD_DEPRECATED_MSG_ATTRIBUTE("Use GADMediationNativeAd and GADMediationAdapter i
 /// @param options Additional options configured by the publisher for requesting a native ad. See
 /// GADNativeAdImageAdLoaderOptions.h for available image options.
 /// @param rootViewController Publisher-provided view controller.
-- (void)requestNativeAdWithParameter:(nonnull NSString *)serverParameter
-                             request:(nonnull GADCustomEventRequest *)request
-                             adTypes:(nonnull NSArray *)adTypes
-                             options:(nonnull NSArray *)options
-                  rootViewController:(nonnull UIViewController *)rootViewController;
+- (void)requestNativeAdWithParameter:(nonnull NSString
+
+*)
+serverParameter
+        request
+:(
+nonnull GADCustomEventRequest
+*)
+request
+        adTypes
+:(
+nonnull NSArray
+*)
+adTypes
+        options
+:(
+nonnull NSArray
+*)
+options
+        rootViewController
+:(
+nonnull UIViewController
+*)
+rootViewController;
 
 /// Indicates whether the custom event handles user clicks. Return YES if the custom event should
 /// handle user clicks. In this case, the Google Mobile Ads SDK doesn't track user clicks and the

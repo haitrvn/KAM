@@ -34,12 +34,16 @@
 /// important for targeting and statistics.
 ///
 /// Example AdMob ad unit ID: @"ca-app-pub-0123456789012345/0123456789"
-@property(nonatomic, copy, nullable) IBInspectable NSString *adUnitID;
+@property(nonatomic, copy, nullable) IBInspectable NSString
+*
+adUnitID;
 
 /// Reference to a root view controller that is used by the banner to present full screen
 /// content after the user interacts with the ad. If this is nil, the view controller containing the
 /// banner view is used.
-@property(nonatomic, weak, nullable) IBOutlet UIViewController *rootViewController;
+@property(nonatomic, weak, nullable) IBOutlet UIViewController
+*
+rootViewController;
 
 /// Required to set this banner view to a proper size. Never create your own GADAdSize directly.
 /// Use one of the predefined standard ad sizes (such as GADAdSizeBanner), or create one using the
@@ -50,22 +54,31 @@
 
 /// Optional delegate object that receives state change notifications from this GADBannerView.
 /// Typically this is a UIViewController.
-@property(nonatomic, weak, nullable) IBOutlet id<GADBannerViewDelegate> delegate;
+@property(nonatomic, weak, nullable) IBOutlet id
+<GADBannerViewDelegate> delegate;
 
 /// Optional delegate that is notified when creatives cause the banner to change size.
-@property(nonatomic, weak, nullable) IBOutlet id<GADAdSizeDelegate> adSizeDelegate;
+@property(nonatomic, weak, nullable) IBOutlet id
+<GADAdSizeDelegate> adSizeDelegate;
 
 #pragma mark Making an Ad Request
 
 /// Requests an ad. The request object supplies targeting information.
-- (void)loadRequest:(nullable GADRequest *)request;
+- (void)loadRequest:(nullable GADRequest
+
+*)
+request;
 
 /// Loads the ad and informs |delegate| of the outcome.
-- (void)loadWithAdResponseString:(nonnull NSString *)adResponseString;
+- (void)loadWithAdResponseString:(nonnull NSString
+
+*)
+adResponseString;
 
 /// A Boolean value that determines whether autoloading of ads in the receiver is enabled. If
 /// enabled, you do not need to call the loadRequest: method to load ads.
-@property(nonatomic, assign, getter=isAutoloadEnabled) IBInspectable BOOL autoloadEnabled;
+@property(nonatomic, assign, getter=isAutoloadEnabled) IBInspectable BOOL
+autoloadEnabled;
 
 #pragma mark Response
 

@@ -9,11 +9,12 @@
 #import "GoogleMobileAdsDefines.h"
 
 /// Requested ad format.
-typedef NS_ENUM(NSInteger, GADAdFormat) {
-  GADAdFormatBanner = 0,                ///< Banner.
-  GADAdFormatInterstitial = 1,          ///< Interstitial.
-  GADAdFormatRewarded = 2,              ///< Rewarded.
-  GADAdFormatNative = 3,                ///< Native.
-  GADAdFormatRewardedInterstitial = 4,  ///< Rewarded interstitial.
-  GADAdFormatAppOpen = 6,  ///< App open.
+typedef NS_ENUM(NSInteger, GADAdFormat
+) {
+GADAdFormatBanner = 0,                ///< Banner.
+GADAdFormatInterstitial = 1,          ///< Interstitial.
+GADAdFormatRewarded = 2,              ///< Rewarded.
+GADAdFormatNative = 3,                ///< Native.
+GADAdFormatRewardedInterstitial = 4,  ///< Rewarded interstitial.
+GADAdFormatAppOpen = 6,  ///< App open.
 };

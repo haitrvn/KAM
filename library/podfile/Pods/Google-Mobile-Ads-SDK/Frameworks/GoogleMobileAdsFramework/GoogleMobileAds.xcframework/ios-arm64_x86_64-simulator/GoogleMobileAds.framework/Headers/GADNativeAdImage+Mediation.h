@@ -11,9 +11,17 @@
 @interface GADNativeAdImage (MediationAdditions)
 
 /// Initializes and returns a native ad image object with the provided image.
-- (nonnull instancetype)initWithImage:(nonnull UIImage *)image;
+- (nonnull instancetype)initWithImage:(nonnull UIImage
+
+*)
+image;
 
 /// Initializes and returns a native ad image object with the provided image URL and image scale.
-- (nonnull instancetype)initWithURL:(nonnull NSURL *)URL scale:(CGFloat)scale;
+- (nonnull instancetype)initWithURL:(nonnull NSURL
+
+*)
+URL scale
+:(CGFloat)
+scale;
 
 @end

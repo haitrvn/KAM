@@ -31,7 +31,10 @@ typedef void (^GADSignalCompletionHandler)(GADSignal *_Nullable signal, NSError 
 @interface GADMobileAds : NSObject
 
 /// Returns the shared GADMobileAds instance.
-+ (nonnull GADMobileAds *)sharedInstance;
++ (nonnull GADMobileAds
+
+*)
+sharedInstance;
 
 /// Returns the Google Mobile Ads SDK's version number.
 @property(nonatomic, readonly) GADVersionNumber versionNumber;
@@ -71,7 +74,11 @@ typedef void (^GADSignalCompletionHandler)(GADSignal *_Nullable signal, NSError 
 - (BOOL)isSDKVersionAtLeastMajor:(NSInteger)major
                            minor:(NSInteger)minor
                            patch:(NSInteger)patch
-    NS_SWIFT_NAME(isSDKVersionAtLeast(major:minor:patch:));
+NS_SWIFT_NAME
+
+(
+isSDKVersionAtLeast(major
+:minor:patch:));
 
 /// Starts the Google Mobile Ads SDK. Call this method as early as possible to reduce latency on the
 /// session's first ad request. Calls completionHandler when the GMA SDK and all mediation networks
@@ -97,20 +104,37 @@ typedef void (^GADSignalCompletionHandler)(GADSignal *_Nullable signal, NSError 
 /// @param viewController A view controller to present Ad Inspector. If nil, uses the top view
 /// controller of the app's main window.
 /// @param completionHandler A handler to execute when Ad Inspector is closed.
-- (void)presentAdInspectorFromViewController:(nullable UIViewController *)viewController
-                           completionHandler:
-                               (nullable GADAdInspectorCompletionHandler)completionHandler;
+- (void)presentAdInspectorFromViewController:(nullable UIViewController
+
+*)
+viewController
+        completionHandler
+:
+(
+nullable GADAdInspectorCompletionHandler
+)
+completionHandler;
 
 /// Registers a web view with the Google Mobile Ads SDK to improve in-app ad monetization of ads
 /// within this web view.
-- (void)registerWebView:(nonnull WKWebView *)webView;
+- (void)registerWebView:(nonnull WKWebView
+
+*)
+webView;
 
 /// Generates a signal that can be used as input in a server-to-server Google request. Calls
 /// completionHandler asynchronously on the main thread once a signal has been generated or
 /// when an error occurs.
 /// @param request The signal request that will be used to generate the signal.
 /// @param completionHandler A handler to execute when the signal generation is done.
-+ (void)generateSignal:(nonnull GADSignalRequest *)request
-     completionHandler:(nonnull GADSignalCompletionHandler)completionHandler;
++ (void)generateSignal:(nonnull GADSignalRequest
+
+*)
+request
+        completionHandler
+:(
+nonnull GADSignalCompletionHandler
+)
+completionHandler;
 
 @end

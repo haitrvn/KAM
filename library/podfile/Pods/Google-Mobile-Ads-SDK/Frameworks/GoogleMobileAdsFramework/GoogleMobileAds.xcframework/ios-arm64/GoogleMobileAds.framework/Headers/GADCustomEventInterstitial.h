@@ -18,7 +18,7 @@ GAD_DEPRECATED_MSG_ATTRIBUTE("Use GADMediationInterstitialAd and GADMediationAda
 ///
 /// In your class, define the -delegate and -setDelegate: methods or use "@synthesize delegate". The
 /// Google Mobile Ads SDK sets this property on instances of your class.
-@property(nonatomic, weak, nullable) id<GADCustomEventInterstitialDelegate> delegate;
+@property(nonatomic, weak, nullable) id <GADCustomEventInterstitialDelegate> delegate;
 
 /// Returns an initialized custom event interstitial.
 - (nonnull instancetype)init;
@@ -30,12 +30,26 @@ GAD_DEPRECATED_MSG_ATTRIBUTE("Use GADMediationInterstitialAd and GADMediationAda
 /// @param serverParameter Parameter configured in the mediation UI.
 /// @param serverLabel Label configured in the mediation UI.
 /// @param request Contains ad request information.
-- (void)requestInterstitialAdWithParameter:(nullable NSString *)serverParameter
-                                     label:(nullable NSString *)serverLabel
-                                   request:(nonnull GADCustomEventRequest *)request;
+- (void)requestInterstitialAdWithParameter:(nullable NSString
+
+*)
+serverParameter
+        label
+:(
+nullable NSString
+*)
+serverLabel
+        request
+:(
+nonnull GADCustomEventRequest
+*)
+request;
 
 /// Present the interstitial ad as a modal view using the provided view controller. Called only
 /// after your class calls -customEventInterstitialDidReceiveAd: on its custom event delegate.
-- (void)presentFromRootViewController:(nonnull UIViewController *)rootViewController;
+- (void)presentFromRootViewController:(nonnull UIViewController
+
+*)
+rootViewController;
 
 @end

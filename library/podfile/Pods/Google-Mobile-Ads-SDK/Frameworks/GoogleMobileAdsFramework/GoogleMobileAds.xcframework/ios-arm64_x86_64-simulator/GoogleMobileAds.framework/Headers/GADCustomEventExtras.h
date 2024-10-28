@@ -15,15 +15,30 @@
 
 /// Set additional parameters for the custom event with label |label|. To remove additional
 /// parameters associated with |label|, pass in nil for |extras|.
-- (void)setExtras:(nullable NSDictionary *)extras forLabel:(nonnull NSString *)label;
+- (void)setExtras:(nullable NSDictionary
+
+*)
+extras forLabel
+:(
+nonnull NSString
+*)
+label;
 
 /// Retrieve the extras for |label|.
-- (nullable NSDictionary *)extrasForLabel:(nonnull NSString *)label;
+- (nullable NSDictionary
+
+*)extrasForLabel:(
+nonnull NSString
+*)
+label;
 
 /// Removes all the extras set on this instance.
 - (void)removeAllExtras;
 
 /// Returns all the extras set on this instance.
-- (nonnull NSDictionary *)allExtras;
+- (nonnull NSDictionary
+
+*)
+allExtras;
 
 @end
