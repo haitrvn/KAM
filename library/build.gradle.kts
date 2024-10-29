@@ -34,8 +34,7 @@ kotlin {
             baseName = "shared"
             isStatic = true
         }
-        pod("Google-Mobile-Ads-SDK") {
-            moduleName = "GoogleMobileAds"
+        pod("AppLovinSDK") {
             extraOpts += listOf("-compiler-option", "-fmodules")
         }
     }
@@ -54,7 +53,7 @@ kotlin {
         androidMain.dependencies {
             api(libs.startup.runtime)
 //            api(libs.play.services.ads)
-            implementation("com.applovin:applovin-sdk:13.0.1")
+            api("com.applovin:applovin-sdk:13.0.1")
         }
     }
 

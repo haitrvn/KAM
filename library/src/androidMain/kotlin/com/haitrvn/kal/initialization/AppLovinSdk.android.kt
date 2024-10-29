@@ -1,9 +1,10 @@
 package com.haitrvn.kal.initialization
 
 import com.haitrvn.kal.util.ContextProvider
+import kotlin.concurrent.Volatile
 
 actual class AppLovinSdk(
-    private var androidAppLovinSdk: com.applovin.sdk.AppLovinSdk
+    var androidAppLovinSdk: com.applovin.sdk.AppLovinSdk
 ) {
     actual companion object {
         @Volatile
