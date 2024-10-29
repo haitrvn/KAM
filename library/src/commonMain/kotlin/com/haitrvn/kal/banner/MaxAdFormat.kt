@@ -1,14 +1,12 @@
 package com.haitrvn.kal.banner
 
-expect class MaxAdFormat {
-    companion object {
-        val BANNER: MaxAdFormat
-        val MREC: MaxAdFormat
-        val LEADER: MaxAdFormat
-        val INTERSTITIAL: MaxAdFormat
-        val APP_OPEN: MaxAdFormat
-        val REWARDED: MaxAdFormat
-        val REWARDED_INTERSTITIAL: MaxAdFormat
-        val NATIVE: MaxAdFormat
-    }
+expect sealed class MaxAdFormat {
+    data object BANNER: MaxAdFormat
+    data object MREC: MaxAdFormat
+    data object LEADER: MaxAdFormat
+    data object INTERSTITIAL: MaxAdFormat
+    data object APP_OPEN: MaxAdFormat
+    data object REWARDED: MaxAdFormat
+    data object REWARDED_INTERSTITIAL: MaxAdFormat
+    data object NATIVE: MaxAdFormat
 }

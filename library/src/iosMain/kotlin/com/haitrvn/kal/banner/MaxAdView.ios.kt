@@ -4,20 +4,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.haitrvn.kal.initialization.AppLovinSdk
 
-internal actual fun getDefaultAdFormat(): MaxAdFormat {
-    TODO("Not yet implemented")
-}
-
 actual class MaxAdView actual constructor(
     adUnitId: String,
-    maxAdFormat: MaxAdFormat,
-    sdk: AppLovinSdk
+    maxAdFormat: MaxAdFormat?,
+    sdk: AppLovinSdk?
 ) {
 
     actual fun destroy() {
     }
 
-    actual fun getAdFormat(): MaxAdFormat {
+    actual fun getAdFormat(): MaxAdFormat? {
         TODO("Not yet implemented")
     }
 
@@ -69,25 +65,17 @@ actual class MaxAdView actual constructor(
     }
 }
 
-actual class MaxAdFormat {
-    actual companion object {
-        actual val BANNER: MaxAdFormat
-            get() = TODO("Not yet implemented")
-        actual val MREC: MaxAdFormat
-            get() = TODO("Not yet implemented")
-        actual val LEADER: MaxAdFormat
-            get() = TODO("Not yet implemented")
-        actual val INTERSTITIAL: MaxAdFormat
-            get() = TODO("Not yet implemented")
-        actual val APP_OPEN: MaxAdFormat
-            get() = TODO("Not yet implemented")
-        actual val REWARDED: MaxAdFormat
-            get() = TODO("Not yet implemented")
-        actual val REWARDED_INTERSTITIAL: MaxAdFormat
-            get() = TODO("Not yet implemented")
-        actual val NATIVE: MaxAdFormat
-            get() = TODO("Not yet implemented")
-    }
+actual sealed class MaxAdFormat(
+
+) {
+    actual data object BANNER : MaxAdFormat()
+    actual data object MREC : MaxAdFormat()
+    actual data object LEADER : MaxAdFormat()
+    actual data object INTERSTITIAL : MaxAdFormat()
+    actual data object APP_OPEN : MaxAdFormat()
+    actual data object REWARDED : MaxAdFormat()
+    actual data object REWARDED_INTERSTITIAL : MaxAdFormat()
+    actual data object NATIVE : MaxAdFormat()
 }
 
 @Composable

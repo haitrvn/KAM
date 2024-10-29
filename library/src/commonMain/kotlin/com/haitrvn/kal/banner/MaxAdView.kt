@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -18,7 +16,7 @@ expect class MaxAdView(
     sdk: AppLovinSdk? = null,
 ) {
     fun destroy()
-    fun getAdFormat(): MaxAdFormat
+    fun getAdFormat(): MaxAdFormat?
     fun getAdUnitId(): String
     fun getPlacement(): String
     fun loadAd()
@@ -36,8 +34,6 @@ expect class MaxAdView(
     fun stopAutoRefresh()
 }
 
-internal expect fun getDefaultAdFormat(): MaxAdFormat
-
 @Composable
 fun MaxAdViewComposable(
     adUnitId: String,
@@ -48,23 +44,29 @@ fun MaxAdViewComposable(
 //            loadAd()
 //        }
 //    }
-    val modifier = when (maxAdFormat) {
-        MaxAdFormat.BANNER -> Modifier
-            .requiredSize(width = 320.dp, height = 50.dp)
-            .background(Color.Black)
+    val modifier = Modifier.then(
+        when (maxAdFormat) {
+            MaxAdFormat.BANNER -> {
+                println("haitv BANNER")
+                Modifier.requiredSize(width = 320.dp, height = 50.dp)
+            }
 
-        MaxAdFormat.LEADER -> Modifier
-            .requiredSize(width = 728.dp, height = 90.dp)
-            .background(Color.Black)
+            MaxAdFormat.LEADER -> {
+                println("haitv LEADER")
+                Modifier.requiredSize(width = 728.dp, height = 90.dp)
+            }
 
-        MaxAdFormat.MREC -> Modifier
-            .requiredSize(width = 300.dp, height = 250.dp)
-            .background(Color.Black)
+            MaxAdFormat.MREC -> {
+                println("haitv MREC")
+                Modifier.requiredSize(width = 300.dp, height = 250.dp)
+            }
 
-        else -> Modifier
-            .fillMaxSize()
-            .background(Color.Black)
-    }
+            else -> {
+                println("haitv else")
+                Modifier.fillMaxSize()
+            }
+        }
+    )
 
     BasicText("ABC", modifier = modifier.background(Color.Red))
 

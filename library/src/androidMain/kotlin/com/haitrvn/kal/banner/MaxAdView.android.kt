@@ -3,17 +3,12 @@ package com.haitrvn.kal.banner
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
-import com.applovin.impl.e0
 import com.applovin.mediation.MaxAd
 import com.applovin.mediation.MaxAdViewAdListener
 import com.applovin.mediation.MaxError
 import com.haitrvn.kal.initialization.AppLovinSdk
 import com.haitrvn.kal.util.ContextProvider
 import com.applovin.mediation.ads.MaxAdView as AndroiMaxAdView
-
-internal actual fun getDefaultAdFormat(): MaxAdFormat {
-    return MaxAdFormat(e0.a(ContextProvider.applicationContext))
-}
 
 actual class MaxAdView actual constructor(
     private val adUnitId: String,
@@ -52,8 +47,8 @@ actual class MaxAdView actual constructor(
         maxAdView.destroy()
     }
 
-    actual fun getAdFormat(): MaxAdFormat {
-        return MaxAdFormat(maxAdView.adFormat)
+    actual fun getAdFormat(): MaxAdFormat? {
+        return maxAdFormat
     }
 
     actual fun getAdUnitId(): String {
