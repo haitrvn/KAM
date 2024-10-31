@@ -1,5 +1,4 @@
 package com.haitrvn.sample
-
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.unit.IntOffset
@@ -7,34 +6,6 @@ import androidx.compose.ui.unit.IntSize
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-
-sealed class Puzzle(
-    open val rightPosition: Int
-) {
-    data class NumberPuzzle(
-        val number: Int?,
-        override val rightPosition: Int,
-    ) : Puzzle(rightPosition)
-
-    data class ImagePuzzle(
-        val image: BitmapPainter?,
-        override val rightPosition: Int,
-    ) : Puzzle(rightPosition)
-}
-
-sealed interface PuzzleState {
-    data object Initial : PuzzleState
-    data class Playing(
-        val puzzles: List<Puzzle>,
-        val size: Pair<Int, Int>,
-        val moves: Int,
-        val emptyPosition: Int = size.second * size.first - 1
-    ) : PuzzleState
-
-    data class Victory(
-        val moves: Int
-    ) : PuzzleState
-}
 
 class PuzzleViewModel {
     private val _uiState = MutableStateFlow<PuzzleState>(PuzzleState.Initial)
@@ -62,7 +33,7 @@ class PuzzleViewModel {
                 imageBitmap, IntOffset(col * puzzleWidth, col * puzzleHeight),
                 srcSize = IntSize(puzzleWidth, puzzleHeight)
             )
-            puzzles.add(Puzzle.ImagePuzzle(image = tileBitmap, rightPosition = i))
+            puzzles.add(Puzzle.ImagePuzzle(image = TODO(), rightPosition = i))
         }
         puzzles.shuffle()
         return puzzles
