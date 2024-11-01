@@ -1,4 +1,5 @@
 package com.haitrvn.sample
+
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.unit.IntOffset
@@ -12,12 +13,22 @@ class PuzzleViewModel {
     val uiState: StateFlow<PuzzleState> = _uiState.asStateFlow()
 
     fun startGame(imageBitmap: ImageBitmap, size: Int = 3) {
-        val tiles = createImagePuzzle(imageBitmap, size)
+        val puzzleList = createImagePuzzle(imageBitmap, size)
         _uiState.value = PuzzleState.Playing(
-            puzzles = tiles,
+            puzzles = puzzleList,
             moves = 0,
-            emptyPosition = tiles.lastIndex,
-            size = 4 to 4
+            emptyPosition = puzzleList.indexOfFirst { it.image == null },
+            size = size to size
+        )
+    }
+
+    fun startGame(size: Int = 3) {
+        val puzzleList = createNumberPuzzle(size)
+        _uiState.value = PuzzleState.Playing(
+            puzzles = puzzleList,
+            moves = 0,
+            emptyPosition = puzzleList.indexOfFirst { it.number == null },
+            size = size to size
         )
     }
 
@@ -26,24 +37,26 @@ class PuzzleViewModel {
         val puzzleHeight = imageBitmap.height / size
         val puzzles = mutableListOf<Puzzle.ImagePuzzle>()
 
-        for (i in 0 until size * size) {
+        for (i in 0 until size * size - 1) {
             val row = i / size
             val col = i % size
             val tileBitmap = BitmapPainter(
-                imageBitmap, IntOffset(col * puzzleWidth, col * puzzleHeight),
+                imageBitmap, IntOffset(col * puzzleWidth, row * puzzleHeight),
                 srcSize = IntSize(puzzleWidth, puzzleHeight)
             )
-            puzzles.add(Puzzle.ImagePuzzle(image = TODO(), rightPosition = i))
+            puzzles.add(Puzzle.ImagePuzzle(image = tileBitmap, rightPosition = i))
         }
+        puzzles.add(Puzzle.ImagePuzzle(image = null, rightPosition = size * size))
         puzzles.shuffle()
         return puzzles
     }
 
-    private fun createNumberPuzzle(imageBitmap: ImageBitmap, size: Int): List<Puzzle.NumberPuzzle> {
+    private fun createNumberPuzzle(size: Int): List<Puzzle.NumberPuzzle> {
         val puzzles = mutableListOf<Puzzle.NumberPuzzle>()
-        for (i in 0 until size * size) {
+        for (i in 0 until size * size - 1) {
             puzzles.add(Puzzle.NumberPuzzle(number = i, rightPosition = i))
         }
+        puzzles.add(Puzzle.NumberPuzzle(number = null, rightPosition = size * size))
         puzzles.shuffle()
         return puzzles
     }
@@ -87,7 +100,7 @@ class PuzzleViewModel {
     }
 
     private fun isVictory(board: List<Puzzle>): Boolean {
-        return board.mapIndexed { index, value ->
+        return board.dropLast(1).mapIndexed { index, value ->
             value.rightPosition == index
         }.all { it }
     }

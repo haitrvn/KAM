@@ -13,17 +13,18 @@ class MainActivity : ComponentActivity() {
     ) { uri ->
         uri?.let {
             val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, it)
-            viewmodel.startGame(bitmap.asImageBitmap())
+            viewModel.startGame(bitmap.asImageBitmap())
         }
     }
 
-    private val viewmodel = GameViewModel()
+    private val viewModel = PuzzleViewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            NumberPuzzleGame(viewmodel) {
+            NumberPuzzleGame(viewModel) {
                 imagePickerLauncher.launch("image/*")
             }
+            viewModel.startGame()
         }
     }
 }

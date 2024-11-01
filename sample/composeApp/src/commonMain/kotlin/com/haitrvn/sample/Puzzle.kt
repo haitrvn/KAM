@@ -1,6 +1,6 @@
 package com.haitrvn.sample
 
-import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.painter.BitmapPainter
 
 sealed class Puzzle(
     open val rightPosition: Int
@@ -11,7 +11,7 @@ sealed class Puzzle(
     ) : Puzzle(rightPosition)
 
     data class ImagePuzzle(
-        val image: ImageBitmap?,
+        val image: BitmapPainter?,
         override val rightPosition: Int,
     ) : Puzzle(rightPosition)
 }

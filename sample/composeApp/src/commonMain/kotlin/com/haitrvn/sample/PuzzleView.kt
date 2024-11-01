@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Card
@@ -26,10 +28,10 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun NumberPuzzleGame(
-    _viewModel: PuzzleViewModel,
+    puzzleViewModel: PuzzleViewModel,
     choseImage: () -> Unit
 ) {
-    val viewModel = remember { _viewModel }
+    val viewModel = remember { puzzleViewModel }
     val gameState by viewModel.uiState.collectAsState()
     Column(
         modifier = Modifier
@@ -55,7 +57,7 @@ fun NumberPuzzleGame(
             is PuzzleState.Victory -> {
                 VictoryScreen(
                     moves = (gameState as PuzzleState.Victory).moves,
-                    onNewGame = { }
+                    onNewGame = { viewModel.startGame() }
                 )
             }
         }
@@ -85,21 +87,17 @@ fun BoardGame(
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        // Create grid layout
-        for (row in 0 until state.size.width) {
-            Row(
-                modifier = Modifier.padding(vertical = 4.dp),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                for (col in 0 until state.size.height) {
-                    val position = row * state.size.height + col
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(state.size.width),
+            content = {
+                items(state.puzzles.size) { index ->
                     GameTile(
-                        puzzle = state.puzzles[position],
-                        onClick = { onTileClick(position) }
+                        puzzle = state.puzzles[index],
+                        onClick = { onTileClick(index) }
                     )
                 }
             }
-        }
+        )
     }
 }
 
@@ -133,7 +131,6 @@ private fun GameTile(
     puzzle: Puzzle,
     onClick: () -> Unit,
 ) {
-
     Card(
         modifier = Modifier
             .size(80.dp)
@@ -152,11 +149,11 @@ private fun GameTile(
         ) {
             when (puzzle) {
                 is Puzzle.NumberPuzzle -> {
-                    Text(text = puzzle.number.toString())
+                    Text(text = puzzle.number?.toString() ?: "")
                 }
 
                 is Puzzle.ImagePuzzle -> {
-                    Image(painter = puzzle.image)
+                    puzzle.image?.let { Image(painter = it, contentDescription = null) }
                 }
             }
         }
