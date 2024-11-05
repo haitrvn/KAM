@@ -32,8 +32,10 @@ actual class Builder(
             build.isExceptionHandlerEnabled = value
         }
     internal actual var segmentCollection: MaxSegmentCollection
-        get() = TODO("Not yet implemented")
-        set(value) {}
+        get() = build.segmentCollection as MaxSegmentCollection
+        set(value) {
+            build.segmentCollection = value
+        }
 
     actual fun build(): AppLovinSdkInitializationConfiguration {
         return AppLovinSdkInitializationConfiguration(build.build())

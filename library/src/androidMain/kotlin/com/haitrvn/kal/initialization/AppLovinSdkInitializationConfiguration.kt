@@ -34,7 +34,6 @@ actual class AppLovinSdkInitializationConfiguration(
     actual val isExceptionHandlerEnabled: Boolean
         get() = configuration.isExceptionHandlerEnabled
 
-    internal actual var segmentCollection: MaxSegmentCollection
-        get() = TODO("Not yet implemented")
-        set(value) {}
+    internal actual val segmentCollection: MaxSegmentCollection
+        get() = configuration.segmentCollection as MaxSegmentCollection
 }

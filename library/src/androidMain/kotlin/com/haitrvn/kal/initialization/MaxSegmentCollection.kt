@@ -1,3 +1,5 @@
 package com.haitrvn.kal.initialization
 
-actual class MaxSegmentCollection
+import com.applovin.mediation.MaxSegmentCollection as AndroidMaxSegmentCollection
+
+actual typealias MaxSegmentCollection = AndroidMaxSegmentCollection

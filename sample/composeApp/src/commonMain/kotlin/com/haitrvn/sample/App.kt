@@ -7,6 +7,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.haitrvn.kal.banner.MaxAdFormat
+import com.haitrvn.kal.banner.MaxAdViewComposable
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -17,7 +19,7 @@ fun App() {
             Modifier.fillMaxWidth().wrapContentHeight(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
+            MaxAdViewComposable("", MaxAdFormat.BANNER)
         }
     }
 }

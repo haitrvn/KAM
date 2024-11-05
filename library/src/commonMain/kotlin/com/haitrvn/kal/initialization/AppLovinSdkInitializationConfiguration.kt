@@ -11,5 +11,5 @@ expect class AppLovinSdkInitializationConfiguration {
     val testDevicesAdvertisingIds: List<String>
     val adUnitIds: List<String>
     val isExceptionHandlerEnabled: Boolean
-    internal var segmentCollection: MaxSegmentCollection
+    internal val segmentCollection: MaxSegmentCollection
 }
