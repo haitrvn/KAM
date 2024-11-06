@@ -28,7 +28,7 @@ actual class MaxAdView actual constructor(
     actual fun loadAd() {
     }
 
-    internal actual fun setAdReviewListener() {
+    internal actual fun setAdReviewListener(listener: ReviewListener) {
     }
 
     actual fun setAlpha(alpha: Float) {
@@ -43,7 +43,7 @@ actual class MaxAdView actual constructor(
     actual fun setExtraParameter(param: String, data: String) {
     }
 
-    internal actual fun setListener() {
+    internal actual fun setListener(listener: ViewAdListener) {
     }
 
     actual fun setLocalExtraParameter(param: String, data: Any) {
@@ -52,10 +52,10 @@ actual class MaxAdView actual constructor(
     actual fun setPlacement(placement: String) {
     }
 
-    internal actual fun setRequestListener() {
+    internal actual fun setRequestListener(listener: RequestListener) {
     }
 
-    internal actual fun setRevenueListener() {
+    internal actual fun setRevenueListener(listener: RevenueListener) {
     }
 
     actual fun startAutoRefresh() {

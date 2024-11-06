@@ -19,16 +19,16 @@ expect class MaxAdView(
     fun getAdUnitId(): String
     fun getPlacement(): String
     fun loadAd()
-    internal fun setAdReviewListener()
+    internal fun setAdReviewListener(listener: ReviewListener)
     fun setAlpha(alpha: Float)
     fun setBackgroundColor()
     fun setCustomData(data: String)
     fun setExtraParameter(param: String, data: String)
-    internal fun setListener()
+    internal fun setListener(listener: ViewAdListener)
     fun setLocalExtraParameter(param: String, data: Any)
     fun setPlacement(placement: String)
-    internal fun setRequestListener()
-    internal fun setRevenueListener()
+    internal fun setRequestListener(listener: RequestListener)
+    internal fun setRevenueListener(listener: RevenueListener)
     fun startAutoRefresh()
     fun stopAutoRefresh()
 }

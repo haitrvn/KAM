@@ -3,40 +3,37 @@ package com.haitrvn.kal.banner
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
-import com.applovin.mediation.MaxAd
-import com.applovin.mediation.MaxAdViewAdListener
-import com.applovin.mediation.MaxError
 import com.haitrvn.kal.initialization.AppLovinSdk
 import com.haitrvn.kal.util.ContextProvider
-import com.applovin.mediation.ads.MaxAdView as AndroiMaxAdView
+import com.applovin.mediation.ads.MaxAdView as AndroidMaxAdView
 
 actual class MaxAdView actual constructor(
     private val adUnitId: String,
     private val maxAdFormat: MaxAdFormat?,
     private val sdk: AppLovinSdk?,
 ) {
-    val maxAdView: AndroiMaxAdView by lazy {
+    val maxAdView: AndroidMaxAdView by lazy {
         when {
-            maxAdFormat != null && sdk != null -> AndroiMaxAdView(
+            maxAdFormat != null && sdk != null -> AndroidMaxAdView(
                 adUnitId,
                 maxAdFormat.adFormat,
                 sdk.androidAppLovinSdk,
                 ContextProvider.applicationContext
             )
 
-            maxAdFormat != null && sdk == null -> AndroiMaxAdView(
+            maxAdFormat != null && sdk == null -> AndroidMaxAdView(
                 adUnitId,
                 maxAdFormat.adFormat,
                 ContextProvider.applicationContext
             )
 
-            maxAdFormat == null && sdk != null -> AndroiMaxAdView(
+            maxAdFormat == null && sdk != null -> AndroidMaxAdView(
                 adUnitId,
                 sdk.androidAppLovinSdk,
                 ContextProvider.applicationContext
             )
 
-            else -> AndroiMaxAdView(
+            else -> AndroidMaxAdView(
                 adUnitId,
                 ContextProvider.applicationContext
             )
@@ -63,7 +60,8 @@ actual class MaxAdView actual constructor(
         maxAdView.loadAd()
     }
 
-    internal actual fun setAdReviewListener() {
+    internal actual fun setAdReviewListener(listener: ReviewListener) {
+        maxAdView.setAdReviewListener(listener)
     }
 
     actual fun setAlpha(alpha: Float) {
@@ -81,60 +79,24 @@ actual class MaxAdView actual constructor(
         maxAdView.setExtraParameter(param, data)
     }
 
-    internal actual fun setListener() {
-        maxAdView.setListener(object : MaxAdViewAdListener {
-            override fun onAdLoaded(p0: MaxAd) {
-                println("haitrvn onAdLoaded $p0")
-            }
-
-            override fun onAdDisplayed(p0: MaxAd) {
-                println("haitrvn onAdDisplayed $p0")
-
-            }
-
-            override fun onAdHidden(p0: MaxAd) {
-                println("haitrvn onAdHidden $p0")
-
-            }
-
-            override fun onAdClicked(p0: MaxAd) {
-                println("haitrvn onAdClicked $p0")
-
-            }
-
-            override fun onAdLoadFailed(p0: String, p1: MaxError) {
-                println("haitrvn onAdLoadFailed $p0 $p1")
-
-            }
-
-            override fun onAdDisplayFailed(p0: MaxAd, p1: MaxError) {
-                println("haitrvn onAdDisplayFailed $p0 $p1")
-
-            }
-
-            override fun onAdExpanded(p0: MaxAd) {
-                println("haitrvn onAdExpanded $p0")
-
-            }
-
-            override fun onAdCollapsed(p0: MaxAd) {
-                println("haitrvn onAdCollapsed $p0")
-
-            }
-        })
+    internal actual fun setListener(listener: ViewAdListener) {
+        maxAdView.setListener(listener)
     }
 
     actual fun setLocalExtraParameter(param: String, data: Any) {
+        maxAdView.setLocalExtraParameter(param, data)
     }
 
     actual fun setPlacement(placement: String) {
         maxAdView.placement = placement
     }
 
-    internal actual fun setRequestListener() {
+    internal actual fun setRequestListener(listener: RequestListener) {
+        maxAdView.setRequestListener(listener)
     }
 
-    internal actual fun setRevenueListener() {
+    internal actual fun setRevenueListener(listener: RevenueListener) {
+        maxAdView.setRevenueListener(listener)
     }
 
     actual fun startAutoRefresh() {
