@@ -13,26 +13,23 @@ actual class MaxAdView actual constructor(
     private val sdk: AppLovinSdk?,
 ) {
     val maxAdView: AndroidMaxAdView by lazy {
-        when {
+         when {
             maxAdFormat != null && sdk != null -> AndroidMaxAdView(
                 adUnitId,
                 maxAdFormat.adFormat,
                 sdk.androidAppLovinSdk,
                 ContextProvider.applicationContext
             )
-
-            maxAdFormat != null && sdk == null -> AndroidMaxAdView(
+            maxAdFormat != null -> AndroidMaxAdView(
                 adUnitId,
                 maxAdFormat.adFormat,
                 ContextProvider.applicationContext
             )
-
-            maxAdFormat == null && sdk != null -> AndroidMaxAdView(
+            sdk != null -> AndroidMaxAdView(
                 adUnitId,
                 sdk.androidAppLovinSdk,
                 ContextProvider.applicationContext
             )
-
             else -> AndroidMaxAdView(
                 adUnitId,
                 ContextProvider.applicationContext

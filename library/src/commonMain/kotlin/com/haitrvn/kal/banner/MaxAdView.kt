@@ -37,11 +37,12 @@ expect class MaxAdView(
 fun MaxAdViewComposable(
     adUnitId: String,
     maxAdFormat: MaxAdFormat,
+    maxAdViewConfig: (MaxAdView) -> Unit
 ) {
     val maxAdView = remember {
-        MaxAdView(adUnitId = adUnitId).apply {
-            loadAd()
-        }
+        MaxAdView(adUnitId = adUnitId, maxAdFormat = maxAdFormat)
+            .apply(maxAdViewConfig)
+            .also { it.loadAd() }
     }
     val modifier = Modifier.then(
         when (maxAdFormat) {
