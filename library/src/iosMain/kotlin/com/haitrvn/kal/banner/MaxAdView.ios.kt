@@ -3,17 +3,21 @@ package com.haitrvn.kal.banner
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.haitrvn.kal.initialization.AppLovinSdk
+import com.haitrvn.kal.listener.RequestListener
+import com.haitrvn.kal.listener.RevenueListener
+import com.haitrvn.kal.listener.ReviewListener
+import com.haitrvn.kal.listener.ViewAdListener
 
 actual class MaxAdView actual constructor(
     adUnitId: String,
-    maxAdFormat: MaxAdFormat?,
+    adFormat: AdFormat?,
     sdk: AppLovinSdk?
 ) {
 
     actual fun destroy() {
     }
 
-    actual fun getAdFormat(): MaxAdFormat? {
+    actual fun getAdFormat(): AdFormat? {
         TODO("Not yet implemented")
     }
 
@@ -28,7 +32,7 @@ actual class MaxAdView actual constructor(
     actual fun loadAd() {
     }
 
-    internal actual fun setAdReviewListener(listener: ReviewListener) {
+    internal actual fun setAdReviewListener(reviewListener: ReviewListener) {
     }
 
     actual fun setAlpha(alpha: Float) {
@@ -43,7 +47,7 @@ actual class MaxAdView actual constructor(
     actual fun setExtraParameter(param: String, data: String) {
     }
 
-    internal actual fun setListener(listener: ViewAdListener) {
+    internal actual fun setListener(viewAdListener: ViewAdListener) {
     }
 
     actual fun setLocalExtraParameter(param: String, data: Any) {
@@ -52,10 +56,10 @@ actual class MaxAdView actual constructor(
     actual fun setPlacement(placement: String) {
     }
 
-    internal actual fun setRequestListener(listener: RequestListener) {
+    internal actual fun setRequestListener(requestListener: RequestListener) {
     }
 
-    internal actual fun setRevenueListener(listener: RevenueListener) {
+    internal actual fun setRevenueListener(revenueListener: RevenueListener) {
     }
 
     actual fun startAutoRefresh() {
@@ -65,17 +69,17 @@ actual class MaxAdView actual constructor(
     }
 }
 
-actual sealed class MaxAdFormat(
+actual sealed class AdFormat(
 
 ) {
-    actual data object BANNER : MaxAdFormat()
-    actual data object MREC : MaxAdFormat()
-    actual data object LEADER : MaxAdFormat()
-    actual data object INTERSTITIAL : MaxAdFormat()
-    actual data object APP_OPEN : MaxAdFormat()
-    actual data object REWARDED : MaxAdFormat()
-    actual data object REWARDED_INTERSTITIAL : MaxAdFormat()
-    actual data object NATIVE : MaxAdFormat()
+    actual data object BANNER : AdFormat()
+    actual data object MREC : AdFormat()
+    actual data object LEADER : AdFormat()
+    actual data object INTERSTITIAL : AdFormat()
+    actual data object APP_OPEN : AdFormat()
+    actual data object REWARDED : AdFormat()
+    actual data object REWARDED_INTERSTITIAL : AdFormat()
+    actual data object NATIVE : AdFormat()
 }
 
 @Composable

@@ -7,6 +7,6 @@ expect class AppLovinSdk {
 
     fun initializeSdk(
         configuration: AppLovinSdkInitializationConfiguration,
-        listener: SdkInitializationListener
+        initializationListener: SdkInitializationListener
     )
 }

@@ -4,25 +4,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import com.haitrvn.kal.initialization.AppLovinSdk
+import com.haitrvn.kal.listener.RequestListener
+import com.haitrvn.kal.listener.RevenueListener
+import com.haitrvn.kal.listener.ReviewListener
+import com.haitrvn.kal.listener.ViewAdListener
 import com.haitrvn.kal.util.ContextProvider
 import com.applovin.mediation.ads.MaxAdView as AndroidMaxAdView
 
 actual class MaxAdView actual constructor(
     private val adUnitId: String,
-    private val maxAdFormat: MaxAdFormat?,
+    private val adFormat: AdFormat?,
     private val sdk: AppLovinSdk?,
 ) {
     val maxAdView: AndroidMaxAdView by lazy {
          when {
-            maxAdFormat != null && sdk != null -> AndroidMaxAdView(
+            adFormat != null && sdk != null -> AndroidMaxAdView(
                 adUnitId,
-                maxAdFormat.adFormat,
+                adFormat.adFormat,
                 sdk.androidAppLovinSdk,
                 ContextProvider.applicationContext
             )
-            maxAdFormat != null -> AndroidMaxAdView(
+            adFormat != null -> AndroidMaxAdView(
                 adUnitId,
-                maxAdFormat.adFormat,
+                adFormat.adFormat,
                 ContextProvider.applicationContext
             )
             sdk != null -> AndroidMaxAdView(
@@ -41,8 +45,8 @@ actual class MaxAdView actual constructor(
         maxAdView.destroy()
     }
 
-    actual fun getAdFormat(): MaxAdFormat? {
-        return maxAdFormat
+    actual fun getAdFormat(): AdFormat? {
+        return adFormat
     }
 
     actual fun getAdUnitId(): String {
@@ -57,8 +61,8 @@ actual class MaxAdView actual constructor(
         maxAdView.loadAd()
     }
 
-    internal actual fun setAdReviewListener(listener: ReviewListener) {
-        maxAdView.setAdReviewListener(listener)
+    internal actual fun setAdReviewListener(reviewListener: ReviewListener) {
+        maxAdView.setAdReviewListener(reviewListener)
     }
 
     actual fun setAlpha(alpha: Float) {
@@ -76,8 +80,8 @@ actual class MaxAdView actual constructor(
         maxAdView.setExtraParameter(param, data)
     }
 
-    internal actual fun setListener(listener: ViewAdListener) {
-        maxAdView.setListener(listener)
+    internal actual fun setListener(viewAdListener: ViewAdListener) {
+        maxAdView.setListener(viewAdListener)
     }
 
     actual fun setLocalExtraParameter(param: String, data: Any) {
@@ -88,12 +92,12 @@ actual class MaxAdView actual constructor(
         maxAdView.placement = placement
     }
 
-    internal actual fun setRequestListener(listener: RequestListener) {
-        maxAdView.setRequestListener(listener)
+    internal actual fun setRequestListener(requestListener: RequestListener) {
+        maxAdView.setRequestListener(requestListener)
     }
 
-    internal actual fun setRevenueListener(listener: RevenueListener) {
-        maxAdView.setRevenueListener(listener)
+    internal actual fun setRevenueListener(revenueListener: RevenueListener) {
+        maxAdView.setRevenueListener(revenueListener)
     }
 
     actual fun startAutoRefresh() {

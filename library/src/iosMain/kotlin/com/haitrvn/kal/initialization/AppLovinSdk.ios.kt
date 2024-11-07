@@ -40,10 +40,10 @@ actual class AppLovinSdk private constructor(
 
     actual fun initializeSdk(
         configuration: AppLovinSdkInitializationConfiguration,
-        listener: SdkInitializationListener
+        initializationListener: SdkInitializationListener
     ) {
         iosApplovinSdk.initializeSdk(configuration) {
-            listener.onSdkInitialized()
+            initializationListener.onSdkInitialized()
         }
     }
 }

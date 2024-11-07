@@ -21,10 +21,10 @@ actual class AppLovinSdk(
 
     actual fun initializeSdk(
         configuration: AppLovinSdkInitializationConfiguration,
-        listener: SdkInitializationListener
+        initializationListener: SdkInitializationListener
     ) {
         androidAppLovinSdk.initialize(configuration.configuration) {
-            listener.onSdkInitialized()
+            initializationListener.onSdkInitialized()
         }
     }
 }
