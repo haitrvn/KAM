@@ -7,7 +7,7 @@ expect class Builder {
     var testDevicesAdvertisingIds: List<String>
     var adUnitIds: List<String>
     var isExceptionHandlerEnabled: Boolean
-    internal var segmentCollection: MaxSegmentCollection
+    internal var segmentCollection: SegmentCollection
 
     fun build(): AppLovinSdkInitializationConfiguration
 }

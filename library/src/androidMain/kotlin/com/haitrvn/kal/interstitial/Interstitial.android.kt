@@ -1,5 +1,6 @@
 package com.haitrvn.kal.interstitial
 
+import androidx.lifecycle.Lifecycle
 import com.applovin.mediation.ads.MaxInterstitialAd
 import com.haitrvn.kal.core.RootView
 import com.haitrvn.kal.listener.ExpirationListener
@@ -8,6 +9,7 @@ import com.haitrvn.kal.listener.RevenueListener
 import com.haitrvn.kal.listener.ReviewListener
 import com.haitrvn.kal.listener.ViewAdListener
 import com.haitrvn.kal.initialization.AppLovinSdk
+import com.haitrvn.kal.rewarded.ViewGroup
 import com.haitrvn.kal.util.ContextProvider
 
 actual class InterstitialAd actual constructor(
@@ -67,8 +69,38 @@ actual class InterstitialAd actual constructor(
         interstitial.showAd(rootView)
     }
 
+    actual fun showAd(placement: String, rootView: RootView) {
+        interstitial.showAd(placement, rootView)
+    }
+
+    actual fun showAd(placement: String, customData: String, rootView: RootView) {
+        interstitial.showAd(placement, customData, rootView)
+    }
+
+    actual fun showAd(viewGroup: ViewGroup, lifecycle: Lifecycle, rootView: RootView) {
+        interstitial.showAd(viewGroup, lifecycle, rootView)
+    }
+
+    actual fun showAd(
+        placement: String,
+        viewGroup: ViewGroup,
+        lifecycle: Lifecycle,
+        rootView: RootView
+    ) {
+        interstitial.showAd(placement, viewGroup, lifecycle, rootView)
+    }
+
+    actual fun showAd(
+        placement: String,
+        customData: String,
+        viewGroup: ViewGroup,
+        lifecycle: Lifecycle,
+        rootView: RootView
+    ) {
+        interstitial.showAd(placement, customData, viewGroup, lifecycle, rootView)
+    }
+
     actual fun destroy() {
         interstitial.destroy()
     }
-
 }

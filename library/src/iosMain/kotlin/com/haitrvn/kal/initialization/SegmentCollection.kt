@@ -1,3 +1,3 @@
 package com.haitrvn.kal.initialization
 
-actual interface MaxSegmentCollection
+actual interface SegmentCollection

@@ -31,8 +31,8 @@ actual class Builder(
         set(value) {
             build.isExceptionHandlerEnabled = value
         }
-    internal actual var segmentCollection: MaxSegmentCollection
-        get() = build.segmentCollection as MaxSegmentCollection
+    internal actual var segmentCollection: SegmentCollection
+        get() = build.segmentCollection as SegmentCollection
         set(value) {
             build.segmentCollection = value
         }

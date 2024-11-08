@@ -1,5 +1,6 @@
 package com.haitrvn.kal.interstitial
 
+import androidx.lifecycle.Lifecycle
 import com.haitrvn.kal.core.RootView
 import com.haitrvn.kal.listener.ExpirationListener
 import com.haitrvn.kal.listener.RequestListener
@@ -7,6 +8,7 @@ import com.haitrvn.kal.listener.RevenueListener
 import com.haitrvn.kal.listener.ReviewListener
 import com.haitrvn.kal.listener.ViewAdListener
 import com.haitrvn.kal.initialization.AppLovinSdk
+import com.haitrvn.kal.rewarded.ViewGroup
 
 expect class InterstitialAd(
     adUnitId: String,
@@ -24,5 +26,10 @@ expect class InterstitialAd(
     fun setRequestListener(requestListener: RequestListener)
     fun setRevenueListener(revenueListener: RevenueListener)
     fun showAd(rootView: RootView)
+    fun showAd(placement: String, rootView: RootView)
+    fun showAd(placement: String, customData: String, rootView: RootView)
+    internal fun showAd(viewGroup: ViewGroup, lifecycle: Lifecycle, rootView: RootView)
+    internal fun showAd(placement: String, viewGroup: ViewGroup, lifecycle: Lifecycle, rootView: RootView)
+    internal fun showAd(placement: String, customData: String, viewGroup: ViewGroup, lifecycle: Lifecycle, rootView: RootView)
     fun destroy()
 }

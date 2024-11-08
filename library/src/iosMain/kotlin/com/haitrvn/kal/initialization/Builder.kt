@@ -18,7 +18,7 @@ actual class Builder {
     actual var isExceptionHandlerEnabled: Boolean
         get() = TODO("Not yet implemented")
         set(value) {}
-    internal actual var segmentCollection: MaxSegmentCollection
+    internal actual var segmentCollection: SegmentCollection
         get() = TODO("Not yet implemented")
         set(value) {}
 

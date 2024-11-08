@@ -7,7 +7,7 @@ class ALSdkInitializationConfiguration {
     val testDevicesAdvertisingIds: List<String> = TODO()
     val adUnitIds: List<String> = TODO()
     val isExceptionHandlerEnabled: Boolean = TODO()
-    internal var segmentCollection: MaxSegmentCollection = TODO()
+    internal var segmentCollection: SegmentCollection = TODO()
 }
 
 actual class AppLovinSdkInitializationConfiguration(
@@ -31,7 +31,7 @@ actual class AppLovinSdkInitializationConfiguration(
         get() = configuration.adUnitIds
     actual val isExceptionHandlerEnabled: Boolean
         get() = configuration.isExceptionHandlerEnabled
-    internal actual var segmentCollection: MaxSegmentCollection
+    internal actual var segmentCollection: SegmentCollection
         get() = TODO("Not yet implemented")
         set(value) {}
 
