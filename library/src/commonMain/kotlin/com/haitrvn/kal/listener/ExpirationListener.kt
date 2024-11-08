@@ -1,5 +1,5 @@
 package com.haitrvn.kal.listener
 
 expect fun interface ExpirationListener {
-    fun onExpiredAdReloaded(maxAd1: MaxAd, maxAd2: MaxAd)
+    fun onExpiredAdReloaded(ad1: Ad, ad2: Ad)
 }

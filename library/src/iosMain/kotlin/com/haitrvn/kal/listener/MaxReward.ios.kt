@@ -1,3 +1,3 @@
 package com.haitrvn.kal.listener
 
-actual interface Ad
+actual interface Reward

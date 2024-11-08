@@ -1,3 +1,3 @@
 package com.haitrvn.kal.listener
 
-expect interface MaxAd
+expect interface Ad

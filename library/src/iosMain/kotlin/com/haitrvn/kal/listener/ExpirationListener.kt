@@ -2,7 +2,7 @@ package com.haitrvn.kal.listener
 
 actual fun interface ExpirationListener {
     actual fun onExpiredAdReloaded(
-        maxAd1: MaxAd,
-        maxAd2: MaxAd
+        ad1: Ad,
+        ad2: Ad
     )
 }

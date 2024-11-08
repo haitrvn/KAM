@@ -1,7 +1,8 @@
 package com.haitrvn.kal.listener
 
 import com.applovin.mediation.MaxAdReviewListener
+import com.applovin.mediation.MaxRewardedAdListener
 
-actual fun interface ReviewListener : MaxAdReviewListener {
-    actual override fun onCreativeIdGenerated(value: String, maxAd: MaxAd)
+actual interface ReviewListener : MaxAdReviewListener {
+    actual fun onUserRewarded(ad: Ad, reward: Reward)
 }

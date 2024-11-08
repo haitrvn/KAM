@@ -1,6 +1,6 @@
 package com.haitrvn.kal.listener
 
 actual interface ViewAdListener {
-    actual fun onAdExpanded(maxAd: MaxAd)
-    actual fun onAdCollapsed(maxAd: MaxAd)
+    actual fun onAdExpanded(ad: Ad)
+    actual fun onAdCollapsed(ad: Ad)
 }

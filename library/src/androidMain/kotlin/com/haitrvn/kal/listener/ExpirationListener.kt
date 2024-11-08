@@ -4,7 +4,7 @@ import com.applovin.mediation.MaxAdExpirationListener
 
 actual fun interface ExpirationListener : MaxAdExpirationListener {
     actual override fun onExpiredAdReloaded(
-        maxAd1: MaxAd,
-        maxAd2: MaxAd
+        ad1: Ad,
+        ad2: Ad
     )
 }

@@ -46,6 +46,7 @@ kotlin {
             api(compose.ui)
             api(compose.animation)
             api(compose.components.resources)
+            api("androidx.lifecycle:lifecycle-common:2.8.7")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
