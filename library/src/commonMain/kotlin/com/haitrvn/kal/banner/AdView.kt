@@ -18,7 +18,7 @@ expect class MaxAdView(
     fun loadAd()
     internal fun setAdReviewListener(reviewListener: ReviewListener)
     fun setAlpha(alpha: Float)
-    fun setBackgroundColor()
+    internal fun setBackgroundColor()
     fun setCustomData(data: String)
     fun setExtraParameter(param: String, data: String)
     internal fun setListener(viewAdListener: ViewAdListener)
