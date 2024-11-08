@@ -1,7 +1,7 @@
 package com.haitrvn.kal.interstitial
 
 import com.applovin.mediation.ads.MaxInterstitialAd
-import com.haitrvn.kal.RootView
+import com.haitrvn.kal.core.RootView
 import com.haitrvn.kal.listener.ExpirationListener
 import com.haitrvn.kal.listener.RequestListener
 import com.haitrvn.kal.listener.RevenueListener

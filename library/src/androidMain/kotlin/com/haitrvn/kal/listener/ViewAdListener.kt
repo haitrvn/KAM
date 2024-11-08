@@ -1,6 +1,7 @@
 package com.haitrvn.kal.listener
 
 import com.applovin.mediation.MaxAdViewAdListener
+import com.haitrvn.kal.core.Ad
 
 actual interface ViewAdListener : MaxAdViewAdListener {
     actual override fun onAdExpanded(ad: Ad)

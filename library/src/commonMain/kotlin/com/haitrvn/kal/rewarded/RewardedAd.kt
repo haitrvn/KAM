@@ -1,7 +1,7 @@
 package com.haitrvn.kal.rewarded
 
 import androidx.lifecycle.Lifecycle
-import com.haitrvn.kal.RootView
+import com.haitrvn.kal.core.RootView
 import com.haitrvn.kal.initialization.AppLovinSdk
 import com.haitrvn.kal.listener.ExpirationListener
 import com.haitrvn.kal.listener.RequestListener

@@ -1,4 +1,4 @@
-package com.haitrvn.kal
+package com.haitrvn.kal.core
 
 import platform.UIKit.UIViewController
 
