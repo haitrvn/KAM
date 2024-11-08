@@ -109,13 +109,3 @@ actual class MaxAdView actual constructor(
     }
 }
 
-@Composable
-actual fun PlatformMaxAdView(
-    modifier: Modifier,
-    maxAdView: MaxAdView
-) {
-    AndroidView(
-        factory = { maxAdView.maxAdView },
-        modifier = modifier
-    )
-}

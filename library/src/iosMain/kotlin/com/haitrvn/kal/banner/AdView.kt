@@ -1,7 +1,5 @@
 package com.haitrvn.kal.banner
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import com.haitrvn.kal.initialization.AppLovinSdk
 import com.haitrvn.kal.listener.RequestListener
 import com.haitrvn.kal.listener.RevenueListener
@@ -67,11 +65,4 @@ actual class MaxAdView actual constructor(
 
     actual fun stopAutoRefresh() {
     }
-}
-
-@Composable
-actual fun PlatformMaxAdView(
-    modifier: Modifier,
-    maxAdView: MaxAdView
-) {
 }
