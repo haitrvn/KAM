@@ -1,25 +1,14 @@
 package com.haitrvn.kal.initialization
 
+import cocoapods.AppLovinSDK.ALSdk
+import cocoapods.AppLovinSDK.initializeSdkWithCompletionHandler
 import kotlinx.atomicfu.locks.SynchronizedObject
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.internal.synchronized
 import kotlin.concurrent.Volatile
 
-class ALSdk {
-    companion object {
-        fun shared(): ALSdk {
-            TODO()
-        }
-    }
-
-    fun initializeSdk(
-        configuration: AppLovinSdkInitializationConfiguration,
-        onComplete: () -> Unit
-    ) {
-
-    }
-}
-
+@OptIn(ExperimentalForeignApi::class)
 actual class AppLovinSdk private constructor(
     var iosApplovinSdk: ALSdk
 ) {
@@ -42,7 +31,7 @@ actual class AppLovinSdk private constructor(
         configuration: AppLovinSdkInitializationConfiguration,
         initializationListener: SdkInitializationListener
     ) {
-        iosApplovinSdk.initializeSdk(configuration) {
+        iosApplovinSdk.initializeSdkWithCompletionHandler {
             initializationListener.onSdkInitialized()
         }
     }
