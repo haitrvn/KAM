@@ -6,7 +6,20 @@ expect class AppLovinSdk {
     }
 
     fun initializeSdk(
-        configuration: AppLovinSdkInitializationConfiguration,
-        initializationListener: SdkInitializationListener
+        configuration: InitConfiguration,
+        completedInformation: (SdkInformation) -> Unit = {}
     )
+}
+
+data class SdkInformation(
+    val consentFlowUserGeography: ConsentFlowUserGeography,
+    val countryCode: String,
+    val enabledAmazonAdUnitIds: List<String>,
+    val isTestModeEnabled: Boolean
+)
+
+enum class ConsentFlowUserGeography {
+    UNKNOWN,
+    GDPR,
+    OTHER;
 }

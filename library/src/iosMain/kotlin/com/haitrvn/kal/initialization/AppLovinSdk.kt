@@ -28,11 +28,8 @@ actual class AppLovinSdk private constructor(
     }
 
     actual fun initializeSdk(
-        configuration: AppLovinSdkInitializationConfiguration,
-        initializationListener: SdkInitializationListener
+        configuration: InitConfiguration,
+        completedInformation: (SdkInformation) -> Unit
     ) {
-        iosApplovinSdk.initializeSdkWithCompletionHandler {
-            initializationListener.onSdkInitialized()
-        }
     }
 }

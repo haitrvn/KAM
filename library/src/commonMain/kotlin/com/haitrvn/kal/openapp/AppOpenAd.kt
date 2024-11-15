@@ -1,11 +1,6 @@
 package com.haitrvn.kal.openapp
 
 import com.haitrvn.kal.initialization.AppLovinSdk
-import com.haitrvn.kal.listener.AdListener
-import com.haitrvn.kal.listener.ExpirationListener
-import com.haitrvn.kal.listener.RequestListener
-import com.haitrvn.kal.listener.RevenueListener
-import com.haitrvn.kal.listener.ReviewListener
 
 expect class AppOpenAd(
     adUnitId: String,

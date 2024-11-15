@@ -1,5 +1,7 @@
 package com.haitrvn.kal.initialization
 
+import com.applovin.sdk.AppLovinSdkConfiguration
+import com.applovin.sdk.AppLovinSdkInitializationConfiguration
 import com.haitrvn.kal.util.ContextProvider
 import kotlin.concurrent.Volatile
 
@@ -20,11 +22,36 @@ actual class AppLovinSdk(
     }
 
     actual fun initializeSdk(
-        configuration: AppLovinSdkInitializationConfiguration,
-        initializationListener: SdkInitializationListener
+        configuration: InitConfiguration,
+        completedInformation: (SdkInformation) -> Unit
     ) {
-        androidAppLovinSdk.initialize(configuration.configuration) {
-            initializationListener.onSdkInitialized()
+        androidAppLovinSdk.initialize(configuration.toAndroidConfiguration()) {
+            completedInformation(it.toCommon())
         }
     }
 }
+
+private fun InitConfiguration.toAndroidConfiguration(): AppLovinSdkInitializationConfiguration {
+    return AppLovinSdkInitializationConfiguration.builder(sdkKey, ContextProvider.applicationContext).apply {
+        mediationProvider = this@toAndroidConfiguration.mediationProvider
+        pluginVersion = this@toAndroidConfiguration.pluginVersion
+        testDeviceAdvertisingIds = this@toAndroidConfiguration.testDevicesAdvertisingIds
+        adUnitIds = this@toAndroidConfiguration.adUnitIds
+        isExceptionHandlerEnabled = this@toAndroidConfiguration.isExceptionHandlerEnabled
+//        segmentCollection = this@toAndroidConfiguration.segmentCollection
+    }.build()
+}
+
+private fun AppLovinSdkConfiguration.toCommon() = SdkInformation(
+    consentFlowUserGeography = this.consentFlowUserGeography.toCommon(),
+    countryCode = countryCode,
+    enabledAmazonAdUnitIds = enabledAmazonAdUnitIds.orEmpty(),
+    isTestModeEnabled = isTestModeEnabled
+)
+
+private fun AppLovinSdkConfiguration.ConsentFlowUserGeography.toCommon(): ConsentFlowUserGeography =
+    when (this) {
+        AppLovinSdkConfiguration.ConsentFlowUserGeography.UNKNOWN -> ConsentFlowUserGeography.UNKNOWN
+        AppLovinSdkConfiguration.ConsentFlowUserGeography.GDPR -> ConsentFlowUserGeography.GDPR
+        AppLovinSdkConfiguration.ConsentFlowUserGeography.OTHER -> ConsentFlowUserGeography.OTHER
+    }
