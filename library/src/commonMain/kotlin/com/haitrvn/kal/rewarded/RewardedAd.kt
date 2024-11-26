@@ -13,7 +13,6 @@ expect class RewardedAd(
 ) {
     val isReady: Boolean
     val unitId: String
-
     val reviewFlow: Flow<Ad>
     val expirationFlow: Flow<Pair<Ad, Ad>>
     val revenueFlow: Flow<Ad>
