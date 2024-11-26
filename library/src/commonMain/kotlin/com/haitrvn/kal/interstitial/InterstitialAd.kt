@@ -6,11 +6,19 @@ import com.haitrvn.kal.core.AdError
 import com.haitrvn.kal.core.Reward
 import com.haitrvn.kal.core.RootView
 import com.haitrvn.kal.initialization.AppLovinSdk
+import com.haitrvn.kal.model.MaxRewarded
 import com.haitrvn.kal.rewarded.ViewGroup
+import kotlinx.coroutines.flow.Flow
 
 expect class InterstitialAd(
     adUnitId: String, appLovinSdk: AppLovinSdk? = null
 ) {
+    val reviewFlow: Flow<Ad>
+    val expirationFlow: Flow<Pair<Ad, Ad>>
+    val revenueFlow: Flow<Ad>
+    val requestFlow: Flow<String>
+    val rewardedAd: Flow<MaxRewarded>
+
     fun loadAd()
     fun setExtraParameter(key: String, value: String)
     internal fun setLocalExtraParameter(key: String, param: Any)
@@ -32,10 +40,6 @@ expect class InterstitialAd(
 
     fun destroy()
 }
-
-data class InterstitialAdStates(
-
-)
 
 sealed interface ExpirationState {
     data object Unknow: ExpirationState

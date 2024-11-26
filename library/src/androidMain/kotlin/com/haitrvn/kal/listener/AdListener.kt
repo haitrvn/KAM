@@ -23,7 +23,7 @@ actual interface AdListener : MaxAdListener {
     actual fun onAdLoadFailed(value: String, adError: AdError)
 }
 
-private fun MaxError.toCommonError(): AdError {
+fun MaxError.toCommonError(): AdError {
     return AdError(
         code = code,
         message = message,

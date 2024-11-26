@@ -1,13 +1,11 @@
 package com.haitrvn.kal.rewarded
 
 import androidx.lifecycle.Lifecycle
+import com.haitrvn.kal.core.Ad
 import com.haitrvn.kal.core.RootView
 import com.haitrvn.kal.initialization.AppLovinSdk
-import com.haitrvn.kal.listener.ExpirationListener
-import com.haitrvn.kal.listener.RequestListener
-import com.haitrvn.kal.listener.RevenueListener
-import com.haitrvn.kal.listener.ReviewListener
-import com.haitrvn.kal.listener.RewardedAdListener
+import com.haitrvn.kal.model.MaxRewarded
+import kotlinx.coroutines.flow.Flow
 
 expect class RewardedAd(
     adUnitId: String,
@@ -16,14 +14,15 @@ expect class RewardedAd(
     val isReady: Boolean
     val unitId: String
 
+    val reviewFlow: Flow<Ad>
+    val expirationFlow: Flow<Pair<Ad, Ad>>
+    val revenueFlow: Flow<Ad>
+    val requestFlow: Flow<String>
+    val rewardedAd: Flow<MaxRewarded>
+
     fun loadAd()
-    fun setAdReviewListener(reviewListener: ReviewListener)
-    fun setExpirationListener(expirationListener: ExpirationListener)
     fun setExtraParameter(key: String, value: String)
-    fun setListener(viewAdListener: RewardedAdListener)
     internal fun setLocalExtraParameter(key: String, param: Any)
-    fun setRequestListener(requestListener: RequestListener)
-    fun setRevenueListener(revenueListener: RevenueListener)
     fun showAd(rootView: RootView)
     fun showAd(placement: String, rootView: RootView)
     fun showAd(placement: String, customData: String, rootView: RootView)

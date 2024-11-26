@@ -30,32 +30,12 @@ actual class AppOpenAd actual constructor(
         appOpenAd.loadAd()
     }
 
-    actual fun setAdReviewListener(reviewListener: ReviewListener) {
-        appOpenAd.setAdReviewListener(reviewListener)
-    }
-
-    actual fun setExpirationListener(expirationListener: ExpirationListener) {
-        appOpenAd.setExpirationListener(expirationListener)
-    }
-
     actual fun setExtraParameter(key: String, value: String) {
         appOpenAd.setExtraParameter(key, value)
     }
 
-    actual fun setListener(viewAdListener: AdListener) {
-        appOpenAd.setListener(viewAdListener)
-    }
-
     internal actual fun setLocalExtraParameter(key: String, param: Any) {
         appOpenAd.setLocalExtraParameter(key, param)
-    }
-
-    actual fun setRequestListener(requestListener: RequestListener) {
-        appOpenAd.setRequestListener(requestListener)
-    }
-
-    actual fun setRevenueListener(revenueListener: RevenueListener) {
-        appOpenAd.setRevenueListener(revenueListener)
     }
 
     actual fun showAd() {

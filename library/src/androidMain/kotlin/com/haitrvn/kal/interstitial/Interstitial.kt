@@ -1,20 +1,28 @@
 package com.haitrvn.kal.interstitial
 
-import androidx.compose.runtime.MutableState
 import androidx.lifecycle.Lifecycle
 import com.applovin.mediation.MaxAd
 import com.applovin.mediation.MaxAdListener
 import com.applovin.mediation.MaxError
+import com.applovin.mediation.MaxReward
+import com.applovin.mediation.MaxRewardedAdListener
 import com.applovin.mediation.ads.MaxInterstitialAd
+import com.haitrvn.kal.core.Ad
 import com.haitrvn.kal.core.RootView
 import com.haitrvn.kal.initialization.AppLovinSdk
+import com.haitrvn.kal.listener.toCommonError
+import com.haitrvn.kal.model.MaxRewarded
+import com.haitrvn.kal.model.ReviewAd
 import com.haitrvn.kal.rewarded.ViewGroup
 import com.haitrvn.kal.util.ContextProvider
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 
 actual class InterstitialAd actual constructor(
     private val adUnitId: String,
     private val appLovinSdk: AppLovinSdk?
-): MutableState<InterstitialAdStates> {
+) {
     private val interstitial by lazy {
         if (appLovinSdk != null) {
             MaxInterstitialAd(
@@ -27,47 +35,70 @@ actual class InterstitialAd actual constructor(
         }
     }
 
-    val states: InterstitialAdStates
-
-    init {
-        interstitial.setAdReviewListener { value, ad ->
-
+    actual val reviewFlow: Flow<Ad>
+        get() = callbackFlow {
+            interstitial.setAdReviewListener { id, maxAd ->
+                ReviewAd(id, maxAd)
+            }
+            awaitClose { interstitial.setAdReviewListener(null) }
         }
-        interstitial.setExpirationListener { ad1, ad2 ->
 
+    actual val expirationFlow: Flow<Pair<Ad, Ad>>
+        get() = callbackFlow {
+            interstitial.setExpirationListener { old, new ->
+                trySend(old to new)
+            }
+            awaitClose { interstitial.setExpirationListener(null) }
         }
-        interstitial.setListener(object : MaxAdListener {
-            override fun onAdLoaded(p0: MaxAd) {
-                TODO("Not yet implemented")
-            }
 
-            override fun onAdDisplayed(p0: MaxAd) {
-                TODO("Not yet implemented")
+    actual val revenueFlow: Flow<Ad>
+        get() = callbackFlow {
+            interstitial.setRevenueListener {
+                trySend(it)
             }
-
-            override fun onAdHidden(p0: MaxAd) {
-                TODO("Not yet implemented")
-            }
-
-            override fun onAdClicked(p0: MaxAd) {
-                TODO("Not yet implemented")
-            }
-
-            override fun onAdLoadFailed(p0: String, p1: MaxError) {
-                TODO("Not yet implemented")
-            }
-
-            override fun onAdDisplayFailed(p0: MaxAd, p1: MaxError) {
-                TODO("Not yet implemented")
-            }
-        })
-        interstitial.setRequestListener {
-
+            awaitClose { interstitial.setRevenueListener(null) }
         }
-        interstitial.setRevenueListener {
 
+    actual val requestFlow: Flow<String>
+        get() = callbackFlow {
+            interstitial.setRequestListener {
+                trySend(it)
+            }
+            awaitClose { interstitial.setRequestListener(null) }
         }
-    }
+
+    actual val rewardedAd: Flow<MaxRewarded>
+        get() = callbackFlow {
+            interstitial.setListener(object: MaxAdListener {
+                override fun onAdLoaded(ad: MaxAd) {
+                    trySend(MaxRewarded.Loaded(ad))
+                }
+
+                override fun onAdDisplayed(ad: MaxAd) {
+                    trySend(MaxRewarded.Displayed(ad))
+                }
+
+                override fun onAdHidden(ad: MaxAd) {
+                    trySend(MaxRewarded.Hidden(ad))
+                }
+
+                override fun onAdClicked(ad: MaxAd) {
+                    trySend(MaxRewarded.Clicked(ad))
+                }
+
+                override fun onAdLoadFailed(message: String, error: MaxError) {
+                    trySend(MaxRewarded.LoadFailed(message, error.toCommonError()))
+                }
+
+                override fun onAdDisplayFailed(ad: MaxAd, error: MaxError) {
+                    trySend(MaxRewarded.DisplayFailed(ad, error.toCommonError()))
+                }
+            })
+
+            awaitClose {
+                interstitial.setListener(null)
+            }
+        }
 
     actual fun loadAd() {
         interstitial.loadAd()
@@ -118,17 +149,5 @@ actual class InterstitialAd actual constructor(
 
     actual fun destroy() {
         interstitial.destroy()
-    }
-
-    override var value: InterstitialAdStates
-        get() = TODO("Not yet implemented")
-        set(value) {}
-
-    override fun component1(): InterstitialAdStates {
-        TODO("Not yet implemented")
-    }
-
-    override fun component2(): (InterstitialAdStates) -> Unit {
-        TODO("Not yet implemented")
     }
 }
