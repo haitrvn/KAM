@@ -1,20 +1,24 @@
 PODS:
+  - AppLovinSDK (13.0.1)
   - Google-Mobile-Ads-SDK (11.7.0):
     - GoogleUserMessagingPlatform (>= 1.1)
   - GoogleUserMessagingPlatform (2.5.0)
 
 DEPENDENCIES:
+  - AppLovinSDK
   - Google-Mobile-Ads-SDK
 
 SPEC REPOS:
   trunk:
+    - AppLovinSDK
     - Google-Mobile-Ads-SDK
     - GoogleUserMessagingPlatform
 
 SPEC CHECKSUMS:
+  AppLovinSDK: fdae6a4361c9c9b09f8d7d18ede792368221d987
   Google-Mobile-Ads-SDK: 204b517c9765169144cf39763c7f5d23c57a9db0
   GoogleUserMessagingPlatform: 6b4f48a370e77ce121d034c908cc6ee4fdafaf13
 
-PODFILE CHECKSUM: db29317ea9f0e29d3ef8a16c208007b1e6ac1b98
+PODFILE CHECKSUM: 3a6f046f179308ded1b952e4ef5e508dbd455fd4
 
 COCOAPODS: 1.15.2
