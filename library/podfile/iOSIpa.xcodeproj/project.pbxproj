@@ -102,7 +102,6 @@
 				D6B17B6B2C6BB31B0068BF19 /* Sources */,
 				D6B17B6C2C6BB31B0068BF19 /* Frameworks */,
 				D6B17B6D2C6BB31B0068BF19 /* Resources */,
-				1DE5AB072E9F022292D970BC /* [CP] Copy Pods Resources */,
 				EDA72758219EA90E83B95E5D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
@@ -160,23 +159,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1DE5AB072E9F022292D970BC /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-iOSIpa/Pods-iOSIpa-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-iOSIpa/Pods-iOSIpa-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-iOSIpa/Pods-iOSIpa-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		9EC836A8318BDEF3E1864268 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
