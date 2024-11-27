@@ -4,14 +4,12 @@ import androidx.lifecycle.Lifecycle
 import com.applovin.mediation.MaxAd
 import com.applovin.mediation.MaxAdListener
 import com.applovin.mediation.MaxError
-import com.applovin.mediation.MaxReward
-import com.applovin.mediation.MaxRewardedAdListener
 import com.applovin.mediation.ads.MaxInterstitialAd
 import com.haitrvn.kal.core.Ad
 import com.haitrvn.kal.core.RootView
 import com.haitrvn.kal.initialization.AppLovinSdk
-import com.haitrvn.kal.listener.toCommonError
-import com.haitrvn.kal.model.MaxRewarded
+import com.haitrvn.kal.util.toCommonError
+import com.haitrvn.kal.model.AdEvent
 import com.haitrvn.kal.model.ReviewAd
 import com.haitrvn.kal.rewarded.ViewGroup
 import com.haitrvn.kal.util.ContextProvider
@@ -67,31 +65,31 @@ actual class InterstitialAd actual constructor(
             awaitClose { interstitial.setRequestListener(null) }
         }
 
-    actual val rewardedAd: Flow<MaxRewarded>
+    actual val adEventFlow: Flow<AdEvent>
         get() = callbackFlow {
             interstitial.setListener(object: MaxAdListener {
                 override fun onAdLoaded(ad: MaxAd) {
-                    trySend(MaxRewarded.Loaded(ad))
+                    trySend(AdEvent.Loaded(ad))
                 }
 
                 override fun onAdDisplayed(ad: MaxAd) {
-                    trySend(MaxRewarded.Displayed(ad))
+                    trySend(AdEvent.Displayed(ad))
                 }
 
                 override fun onAdHidden(ad: MaxAd) {
-                    trySend(MaxRewarded.Hidden(ad))
+                    trySend(AdEvent.Hidden(ad))
                 }
 
                 override fun onAdClicked(ad: MaxAd) {
-                    trySend(MaxRewarded.Clicked(ad))
+                    trySend(AdEvent.Clicked(ad))
                 }
 
                 override fun onAdLoadFailed(message: String, error: MaxError) {
-                    trySend(MaxRewarded.LoadFailed(message, error.toCommonError()))
+                    trySend(AdEvent.LoadFailed(message, error.toCommonError()))
                 }
 
                 override fun onAdDisplayFailed(ad: MaxAd, error: MaxError) {
-                    trySend(MaxRewarded.DisplayFailed(ad, error.toCommonError()))
+                    trySend(AdEvent.DisplayFailed(ad, error.toCommonError()))
                 }
             })
 

@@ -1,12 +1,20 @@
 package com.haitrvn.kal.banner
 
+import com.haitrvn.kal.core.Ad
 import com.haitrvn.kal.initialization.AppLovinSdk
+import com.haitrvn.kal.model.AdEvent
+import kotlinx.coroutines.flow.Flow
 
 expect class MaxAdView(
     adUnitId: String,
     adFormat: AdFormat? = null,
     sdk: AppLovinSdk? = null,
 ) {
+    val reviewFlow: Flow<Ad>
+    val revenueFlow: Flow<Ad>
+    val requestFlow: Flow<String>
+    val adEventFlow: Flow<AdEvent>
+
     fun destroy()
     fun getAdFormat(): AdFormat?
     fun getAdUnitId(): String

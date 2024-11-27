@@ -5,7 +5,7 @@ import cocoapods.AppLovinSDK.MAInterstitialAd
 import com.haitrvn.kal.core.Ad
 import com.haitrvn.kal.core.RootView
 import com.haitrvn.kal.initialization.AppLovinSdk
-import com.haitrvn.kal.model.MaxRewarded
+import com.haitrvn.kal.model.AdEvent
 import com.haitrvn.kal.rewarded.ViewGroup
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.coroutines.flow.Flow
@@ -31,7 +31,7 @@ actual class InterstitialAd actual constructor(
         get() = TODO("Not yet implemented")
     actual val requestFlow: Flow<String>
         get() = TODO("Not yet implemented")
-    actual val rewardedAd: Flow<MaxRewarded>
+    actual val adEventFlow: Flow<AdEvent>
         get() = TODO("Not yet implemented")
 
     actual fun loadAd() {

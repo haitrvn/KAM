@@ -7,13 +7,14 @@ import cocoapods.AppLovinSDK.MARewardedAd
 import com.haitrvn.kal.core.Ad
 import com.haitrvn.kal.core.RootView
 import com.haitrvn.kal.initialization.AppLovinSdk
-import com.haitrvn.kal.model.MaxRewarded
+import com.haitrvn.kal.model.AdEvent
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCClass
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import objcnames.classes.Protocol
+import platform.darwin.NSObject
 import platform.darwin.NSObjectProtocol
 import platform.darwin.NSUInteger
 
@@ -107,7 +108,7 @@ actual class RewardedAd actual constructor(
     actual val reviewFlow: Flow<Ad>
         get() = callbackFlow {
             iosRewardedAd.adReviewDelegate =
-                object : DefaultMAAdReviewDelegateProtocol() {
+                object : NSObject(), MAAdReviewDelegateProtocol() {
                     override fun didGenerateCreativeIdentifier(
                         creativeIdentifier: String,
                         forAd: MAAd
@@ -122,7 +123,7 @@ actual class RewardedAd actual constructor(
         get() = TODO("Not yet implemented")
     actual val requestFlow: Flow<String>
         get() = TODO("Not yet implemented")
-    actual val rewardedAd: Flow<MaxRewarded>
+    actual val rewardedAdFlow: Flow<AdEvent>
         get() = TODO("Not yet implemented")
 
     actual fun loadAd() {

@@ -1,11 +1,9 @@
 package com.haitrvn.kal.openapp
 
+import com.haitrvn.kal.core.Ad
 import com.haitrvn.kal.initialization.AppLovinSdk
-import com.haitrvn.kal.listener.AdListener
-import com.haitrvn.kal.listener.ExpirationListener
-import com.haitrvn.kal.listener.RequestListener
-import com.haitrvn.kal.listener.RevenueListener
-import com.haitrvn.kal.listener.ReviewListener
+import com.haitrvn.kal.model.ReviewAd
+import kotlinx.coroutines.flow.Flow
 
 actual class AppOpenAd actual constructor(
     private val adUnitId: String,
@@ -16,28 +14,23 @@ actual class AppOpenAd actual constructor(
     actual val unitId: String
         get() = TODO("Not yet implemented")
 
+    actual val reviewFlow: Flow<ReviewAd>
+        get() = TODO("Not yet implemented")
+    actual val expirationFlow: Flow<Pair<Ad, Ad>>
+        get() = TODO("Not yet implemented")
+    actual val revenueFlow: Flow<Ad>
+        get() = TODO("Not yet implemented")
+    actual val requestFlow: Flow<String>
+        get() = TODO("Not yet implemented")
+
     actual fun loadAd() {
-    }
-
-    actual fun setAdReviewListener(reviewListener: ReviewListener) {
-    }
-
-    actual fun setExpirationListener(expirationListener: ExpirationListener) {
     }
 
     actual fun setExtraParameter(key: String, value: String) {
     }
 
-    actual fun setListener(viewAdListener: AdListener) {
-    }
 
     internal actual fun setLocalExtraParameter(key: String, param: Any) {
-    }
-
-    actual fun setRequestListener(requestListener: RequestListener) {
-    }
-
-    actual fun setRevenueListener(revenueListener: RevenueListener) {
     }
 
     actual fun showAd() {

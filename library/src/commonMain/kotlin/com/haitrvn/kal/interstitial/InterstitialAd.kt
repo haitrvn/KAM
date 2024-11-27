@@ -6,7 +6,7 @@ import com.haitrvn.kal.core.AdError
 import com.haitrvn.kal.core.Reward
 import com.haitrvn.kal.core.RootView
 import com.haitrvn.kal.initialization.AppLovinSdk
-import com.haitrvn.kal.model.MaxRewarded
+import com.haitrvn.kal.model.AdEvent
 import com.haitrvn.kal.rewarded.ViewGroup
 import kotlinx.coroutines.flow.Flow
 
@@ -17,7 +17,7 @@ expect class InterstitialAd(
     val expirationFlow: Flow<Pair<Ad, Ad>>
     val revenueFlow: Flow<Ad>
     val requestFlow: Flow<String>
-    val rewardedAd: Flow<MaxRewarded>
+    val adEventFlow: Flow<AdEvent>
 
     fun loadAd()
     fun setExtraParameter(key: String, value: String)
