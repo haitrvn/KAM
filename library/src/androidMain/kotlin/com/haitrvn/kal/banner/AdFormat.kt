@@ -3,7 +3,7 @@ package com.haitrvn.kal.banner
 import com.applovin.mediation.MaxAdFormat as AndroidMaxAdFormat
 
 actual sealed class AdFormat(
-    val adFormat: AndroidMaxAdFormat
+    val android: AndroidMaxAdFormat
 ) {
     actual data object BANNER : AdFormat(AndroidMaxAdFormat.BANNER)
     actual data object MREC : AdFormat(AndroidMaxAdFormat.MREC)

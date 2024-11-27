@@ -10,7 +10,7 @@ actual fun PlatformAdView(
     maxAdView: MaxAdView
 ) {
     AndroidView(
-        factory = { maxAdView.maxAdView },
+        factory = { maxAdView.android },
         modifier = modifier
     )
 }

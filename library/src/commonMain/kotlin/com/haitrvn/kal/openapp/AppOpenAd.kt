@@ -2,6 +2,7 @@ package com.haitrvn.kal.openapp
 
 import com.haitrvn.kal.core.Ad
 import com.haitrvn.kal.initialization.AppLovinSdk
+import com.haitrvn.kal.model.AdEvent
 import com.haitrvn.kal.model.ReviewAd
 import kotlinx.coroutines.flow.Flow
 
@@ -16,6 +17,7 @@ expect class AppOpenAd(
     val expirationFlow: Flow<Pair<Ad, Ad>>
     val revenueFlow: Flow<Ad>
     val requestFlow: Flow<String>
+    val adEventFlow: Flow<AdEvent>
 
     fun loadAd()
     fun setExtraParameter(key: String, value: String)

@@ -5,7 +5,7 @@ import kotlinx.cinterop.ExperimentalForeignApi
 
 @OptIn(ExperimentalForeignApi::class)
 actual sealed class AdFormat(
-    val adFormat: MAAdFormat
+    val ios: MAAdFormat
 ) {
     actual data object BANNER : AdFormat(MAAdFormat.banner)
     actual data object MREC : AdFormat(MAAdFormat.mrec)

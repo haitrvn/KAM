@@ -1,7 +1,6 @@
 package com.haitrvn.kal.initialization
 
 import cocoapods.AppLovinSDK.ALSdk
-import cocoapods.AppLovinSDK.initializeSdkWithCompletionHandler
 import kotlinx.atomicfu.locks.SynchronizedObject
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -10,7 +9,7 @@ import kotlin.concurrent.Volatile
 
 @OptIn(ExperimentalForeignApi::class)
 actual class AppLovinSdk private constructor(
-    var iosApplovinSdk: ALSdk
+    var ios: ALSdk
 ) {
     actual companion object {
         @Volatile

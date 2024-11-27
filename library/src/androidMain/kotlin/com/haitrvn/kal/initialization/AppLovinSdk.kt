@@ -6,7 +6,7 @@ import com.haitrvn.kal.util.ContextProvider
 import kotlin.concurrent.Volatile
 
 actual class AppLovinSdk(
-    var androidAppLovinSdk: com.applovin.sdk.AppLovinSdk
+    var ios: com.applovin.sdk.AppLovinSdk
 ) {
     actual companion object {
         @Volatile
@@ -15,7 +15,7 @@ actual class AppLovinSdk(
         actual fun getInstance(): AppLovinSdk {
             return instance ?: synchronized(this) {
                 instance ?: AppLovinSdk(
-                    com.applovin.sdk.AppLovinSdk.getInstance(ContextProvider.applicationContext)
+                    com.applovin.sdk.AppLovinSdk.getInstance(ContextProvider.context)
                 ).also { instance = it }
             }
         }
@@ -25,14 +25,14 @@ actual class AppLovinSdk(
         configuration: InitConfiguration,
         completedInformation: (SdkInformation) -> Unit
     ) {
-        androidAppLovinSdk.initialize(configuration.toAndroidConfiguration()) {
+        ios.initialize(configuration.toAndroidConfiguration()) {
             completedInformation(it.toCommon())
         }
     }
 }
 
 private fun InitConfiguration.toAndroidConfiguration(): AppLovinSdkInitializationConfiguration {
-    return AppLovinSdkInitializationConfiguration.builder(sdkKey, ContextProvider.applicationContext).apply {
+    return AppLovinSdkInitializationConfiguration.builder(sdkKey, ContextProvider.context).apply {
         mediationProvider = this@toAndroidConfiguration.mediationProvider
         pluginVersion = this@toAndroidConfiguration.pluginVersion
         testDeviceAdvertisingIds = this@toAndroidConfiguration.testDevicesAdvertisingIds

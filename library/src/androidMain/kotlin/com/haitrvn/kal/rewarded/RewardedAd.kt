@@ -7,12 +7,13 @@ import com.applovin.mediation.MaxReward
 import com.applovin.mediation.MaxRewardedAdListener
 import com.applovin.mediation.ads.MaxRewardedAd
 import com.haitrvn.kal.core.Ad
+import com.haitrvn.kal.core.Reward
 import com.haitrvn.kal.core.RootView
 import com.haitrvn.kal.initialization.AppLovinSdk
-import com.haitrvn.kal.util.toCommonError
 import com.haitrvn.kal.model.AdEvent
 import com.haitrvn.kal.model.ReviewAd
 import com.haitrvn.kal.util.ContextProvider
+import com.haitrvn.kal.util.toCommonError
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -25,18 +26,18 @@ actual class RewardedAd actual constructor(
         if (appLovinSdk != null) {
             MaxRewardedAd.getInstance(
                 adUnitId,
-                appLovinSdk.androidAppLovinSdk,
-                ContextProvider.applicationContext
+                appLovinSdk.ios,
+                ContextProvider.context
             )
         } else {
-            MaxRewardedAd.getInstance(adUnitId, ContextProvider.applicationContext)
+            MaxRewardedAd.getInstance(adUnitId, ContextProvider.context)
         }
     }
 
     actual val reviewFlow: Flow<Ad>
         get() = callbackFlow {
             adReward.setAdReviewListener { id, maxAd ->
-                ReviewAd(id, maxAd)
+                ReviewAd(id, Ad(maxAd))
             }
             awaitClose { adReward.setAdReviewListener(null) }
         }
@@ -44,7 +45,7 @@ actual class RewardedAd actual constructor(
     actual val expirationFlow: Flow<Pair<Ad, Ad>>
         get() = callbackFlow {
             adReward.setExpirationListener { old, new ->
-                trySend(old to new)
+                trySend(Ad(old) to Ad(new))
             }
             awaitClose { adReward.setExpirationListener(null) }
         }
@@ -52,7 +53,7 @@ actual class RewardedAd actual constructor(
     actual val revenueFlow: Flow<Ad>
         get() = callbackFlow {
             adReward.setRevenueListener {
-                trySend(it)
+                trySend(Ad(it))
             }
             awaitClose { adReward.setRevenueListener(null) }
         }
@@ -69,19 +70,19 @@ actual class RewardedAd actual constructor(
         get() = callbackFlow {
             adReward.setListener(object : MaxRewardedAdListener {
                 override fun onAdLoaded(ad: MaxAd) {
-                    trySend(AdEvent.Loaded(ad))
+                    trySend(AdEvent.Loaded(Ad(ad)))
                 }
 
                 override fun onAdDisplayed(ad: MaxAd) {
-                    trySend(AdEvent.Displayed(ad))
+                    trySend(AdEvent.Displayed(Ad(ad)))
                 }
 
                 override fun onAdHidden(ad: MaxAd) {
-                    trySend(AdEvent.Hidden(ad))
+                    trySend(AdEvent.Hidden(Ad(ad)))
                 }
 
                 override fun onAdClicked(ad: MaxAd) {
-                    trySend(AdEvent.Clicked(ad))
+                    trySend(AdEvent.Clicked(Ad(ad)))
                 }
 
                 override fun onAdLoadFailed(message: String, error: MaxError) {
@@ -89,11 +90,11 @@ actual class RewardedAd actual constructor(
                 }
 
                 override fun onAdDisplayFailed(ad: MaxAd, error: MaxError) {
-                    trySend(AdEvent.DisplayFailed(ad, error.toCommonError()))
+                    trySend(AdEvent.DisplayFailed(Ad(ad), error.toCommonError()))
                 }
 
                 override fun onUserRewarded(ad: MaxAd, reward: MaxReward) {
-                    trySend(AdEvent.UserRewarded(ad, reward))
+                    trySend(AdEvent.UserRewarded(Ad(ad), Reward(reward)))
                 }
             })
 
@@ -132,7 +133,7 @@ actual class RewardedAd actual constructor(
     }
 
     actual fun showAd(viewGroup: ViewGroup, lifecycle: Lifecycle, rootView: RootView) {
-        this.adReward.showAd(viewGroup, lifecycle, rootView)
+        this.adReward.showAd(viewGroup.android, lifecycle, rootView)
     }
 
     actual fun showAd(
@@ -141,7 +142,7 @@ actual class RewardedAd actual constructor(
         lifecycle: Lifecycle,
         rootView: RootView
     ) {
-        this.adReward.showAd(placement, viewGroup, lifecycle, rootView)
+        this.adReward.showAd(placement, viewGroup.android, lifecycle, rootView)
     }
 
     actual fun showAd(
@@ -151,7 +152,7 @@ actual class RewardedAd actual constructor(
         lifecycle: Lifecycle,
         rootView: RootView
     ) {
-        this.adReward.showAd(placement, customData, viewGroup, lifecycle, rootView)
+        this.adReward.showAd(placement, customData, viewGroup.android, lifecycle, rootView)
     }
 
     actual fun destroy() {
@@ -159,4 +160,6 @@ actual class RewardedAd actual constructor(
     }
 }
 
-actual typealias ViewGroup = android.view.ViewGroup
+actual class ViewGroup(
+    val android: android.view.ViewGroup
+)

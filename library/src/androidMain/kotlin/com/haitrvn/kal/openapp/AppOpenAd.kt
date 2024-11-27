@@ -1,10 +1,15 @@
 package com.haitrvn.kal.openapp
 
+import com.applovin.mediation.MaxAd
+import com.applovin.mediation.MaxAdListener
+import com.applovin.mediation.MaxError
 import com.applovin.mediation.ads.MaxAppOpenAd
 import com.haitrvn.kal.core.Ad
 import com.haitrvn.kal.initialization.AppLovinSdk
+import com.haitrvn.kal.model.AdEvent
 import com.haitrvn.kal.model.ReviewAd
 import com.haitrvn.kal.util.ContextProvider
+import com.haitrvn.kal.util.toCommonError
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -15,9 +20,9 @@ actual class AppOpenAd actual constructor(
 ) {
     private val appOpenAd: MaxAppOpenAd by lazy {
         if (appLovinSdk != null) {
-            MaxAppOpenAd(adUnitId, appLovinSdk.androidAppLovinSdk)
+            MaxAppOpenAd(adUnitId, appLovinSdk.ios)
         } else {
-            MaxAppOpenAd(adUnitId, ContextProvider.applicationContext)
+            MaxAppOpenAd(adUnitId, ContextProvider.context)
         }
     }
 
@@ -32,7 +37,7 @@ actual class AppOpenAd actual constructor(
     actual val reviewFlow: Flow<ReviewAd>
         get() = callbackFlow {
             appOpenAd.setAdReviewListener { id, maxAd ->
-                trySend(ReviewAd(id, maxAd))
+                trySend(ReviewAd(id, Ad(maxAd)))
             }
             awaitClose {
                 appOpenAd.setAdReviewListener(null)
@@ -42,7 +47,7 @@ actual class AppOpenAd actual constructor(
     actual val expirationFlow: Flow<Pair<Ad, Ad>>
         get() = callbackFlow {
             appOpenAd.setExpirationListener { oldAd, newAd ->
-                trySend(oldAd to newAd)
+                trySend(Ad(oldAd) to Ad(newAd))
             }
             awaitClose {
                 appOpenAd.setExpirationListener(null)
@@ -52,7 +57,7 @@ actual class AppOpenAd actual constructor(
     actual val revenueFlow: Flow<Ad>
         get() = callbackFlow {
             appOpenAd.setRevenueListener { ad ->
-                trySend(ad)
+                trySend(Ad(ad))
             }
             awaitClose {
                 appOpenAd.setRevenueListener(null)
@@ -67,6 +72,35 @@ actual class AppOpenAd actual constructor(
             awaitClose {
                 appOpenAd.setRequestListener(null)
             }
+        }
+
+    actual val adEventFlow: Flow<AdEvent>
+        get() = callbackFlow {
+            appOpenAd.setListener(object : MaxAdListener {
+                override fun onAdLoaded(ad: MaxAd) {
+                    trySend(AdEvent.Loaded(Ad(ad)))
+                }
+
+                override fun onAdDisplayed(ad: MaxAd) {
+                    trySend(AdEvent.Displayed(Ad(ad)))
+                }
+
+                override fun onAdHidden(ad: MaxAd) {
+                    trySend(AdEvent.Hidden(Ad(ad)))
+                }
+
+                override fun onAdClicked(ad: MaxAd) {
+                    trySend(AdEvent.Clicked(Ad(ad)))
+                }
+
+                override fun onAdLoadFailed(message: String, error: MaxError) {
+                    trySend(AdEvent.LoadFailed(message, error.toCommonError()))
+                }
+
+                override fun onAdDisplayFailed(ad: MaxAd, error: MaxError) {
+                    trySend(AdEvent.DisplayFailed(Ad(ad), error.toCommonError()))
+                }
+            })
         }
 
     actual val isReady: Boolean

@@ -5,10 +5,10 @@ import com.applovin.mediation.MaxAdViewAdListener
 import com.applovin.mediation.MaxError
 import com.haitrvn.kal.core.Ad
 import com.haitrvn.kal.initialization.AppLovinSdk
-import com.haitrvn.kal.util.toCommonError
 import com.haitrvn.kal.model.AdEvent
 import com.haitrvn.kal.model.ReviewAd
 import com.haitrvn.kal.util.ContextProvider
+import com.haitrvn.kal.util.toCommonError
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -19,72 +19,75 @@ actual class MaxAdView actual constructor(
     private val adFormat: AdFormat?,
     private val sdk: AppLovinSdk?,
 ) {
-    val maxAdView: AndroidMaxAdView by lazy {
-         when {
+    val android: AndroidMaxAdView by lazy {
+        when {
             adFormat != null && sdk != null -> AndroidMaxAdView(
                 adUnitId,
-                adFormat.adFormat,
-                sdk.androidAppLovinSdk,
-                ContextProvider.applicationContext
+                adFormat.android,
+                sdk.ios,
+                ContextProvider.context
             )
+
             adFormat != null -> AndroidMaxAdView(
                 adUnitId,
-                adFormat.adFormat,
-                ContextProvider.applicationContext
+                adFormat.android,
+                ContextProvider.context
             )
+
             sdk != null -> AndroidMaxAdView(
                 adUnitId,
-                sdk.androidAppLovinSdk,
-                ContextProvider.applicationContext
+                sdk.ios,
+                ContextProvider.context
             )
+
             else -> AndroidMaxAdView(
                 adUnitId,
-                ContextProvider.applicationContext
+                ContextProvider.context
             )
         }
     }
 
-    actual val reviewFlow: Flow<Ad>
+    actual val reviewFlow: Flow<ReviewAd>
         get() = callbackFlow {
-            maxAdView.setAdReviewListener { id, maxAd ->
-                ReviewAd(id, maxAd)
+            android.setAdReviewListener { id, maxAd ->
+                ReviewAd(id, Ad(maxAd))
             }
-            awaitClose { maxAdView.setAdReviewListener(null) }
+            awaitClose { android.setAdReviewListener(null) }
         }
 
     actual val revenueFlow: Flow<Ad>
         get() = callbackFlow {
-            maxAdView.setRevenueListener {
-                trySend(it)
+            android.setRevenueListener {
+                trySend(Ad(it))
             }
-            awaitClose { maxAdView.setRevenueListener(null) }
+            awaitClose { android.setRevenueListener(null) }
         }
 
     actual val requestFlow: Flow<String>
         get() = callbackFlow {
-            maxAdView.setRequestListener {
+            android.setRequestListener {
                 trySend(it)
             }
-            awaitClose { maxAdView.setRequestListener(null) }
+            awaitClose { android.setRequestListener(null) }
         }
 
     actual val adEventFlow: Flow<AdEvent>
         get() = callbackFlow {
-            maxAdView.setListener(object: MaxAdViewAdListener {
+            android.setListener(object : MaxAdViewAdListener {
                 override fun onAdLoaded(ad: MaxAd) {
-                    trySend(AdEvent.Loaded(ad))
+                    trySend(AdEvent.Loaded(Ad(ad)))
                 }
 
                 override fun onAdDisplayed(ad: MaxAd) {
-                    trySend(AdEvent.Displayed(ad))
+                    trySend(AdEvent.Displayed(Ad(ad)))
                 }
 
                 override fun onAdHidden(ad: MaxAd) {
-                    trySend(AdEvent.Hidden(ad))
+                    trySend(AdEvent.Hidden(Ad(ad)))
                 }
 
                 override fun onAdClicked(ad: MaxAd) {
-                    trySend(AdEvent.Clicked(ad))
+                    trySend(AdEvent.Clicked(Ad(ad)))
                 }
 
                 override fun onAdLoadFailed(message: String, error: MaxError) {
@@ -92,25 +95,25 @@ actual class MaxAdView actual constructor(
                 }
 
                 override fun onAdDisplayFailed(ad: MaxAd, error: MaxError) {
-                    trySend(AdEvent.DisplayFailed(ad, error.toCommonError()))
+                    trySend(AdEvent.DisplayFailed(Ad(ad), error.toCommonError()))
                 }
 
                 override fun onAdExpanded(ad: MaxAd) {
-                    trySend(AdEvent.Expanded(ad))
+                    trySend(AdEvent.Expanded(Ad(ad)))
                 }
 
                 override fun onAdCollapsed(ad: MaxAd) {
-                    trySend(AdEvent.Collapsed(ad))
+                    trySend(AdEvent.Collapsed(Ad(ad)))
                 }
             })
 
             awaitClose {
-                maxAdView.setListener(null)
+                android.setListener(null)
             }
         }
 
     actual fun destroy() {
-        maxAdView.destroy()
+        android.destroy()
     }
 
     actual fun getAdFormat(): AdFormat? {
@@ -121,43 +124,43 @@ actual class MaxAdView actual constructor(
         return adUnitId
     }
 
-    actual fun getPlacement(): String {
-        return maxAdView.placement
+    actual fun getPlacement(): String? {
+        return android.placement
     }
 
     actual fun loadAd() {
-        maxAdView.loadAd()
+        android.loadAd()
     }
 
     actual fun setAlpha(alpha: Float) {
-        maxAdView.alpha = alpha
+        android.alpha = alpha
     }
 
     actual fun setBackgroundColor() {
     }
 
     actual fun setCustomData(data: String) {
-        maxAdView.setCustomData(data)
+        android.setCustomData(data)
     }
 
     actual fun setExtraParameter(param: String, data: String) {
-        maxAdView.setExtraParameter(param, data)
+        android.setExtraParameter(param, data)
     }
 
     actual fun setLocalExtraParameter(param: String, data: Any) {
-        maxAdView.setLocalExtraParameter(param, data)
+        android.setLocalExtraParameter(param, data)
     }
 
     actual fun setPlacement(placement: String) {
-        maxAdView.placement = placement
+        android.placement = placement
     }
 
     actual fun startAutoRefresh() {
-        maxAdView.startAutoRefresh()
+        android.startAutoRefresh()
     }
 
     actual fun stopAutoRefresh() {
-        maxAdView.stopAutoRefresh()
+        android.stopAutoRefresh()
     }
 }
 

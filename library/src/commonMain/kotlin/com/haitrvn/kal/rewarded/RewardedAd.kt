@@ -33,4 +33,4 @@ expect class RewardedAd(
     internal fun setLocalExtraParameter(key: String, param: Any)
 }
 
-expect abstract class ViewGroup
+expect class ViewGroup

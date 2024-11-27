@@ -1,3 +1,7 @@
 package com.haitrvn.kal.core
 
-actual typealias Ad = com.applovin.mediation.MaxAd
+import com.applovin.mediation.MaxAd
+
+actual class Ad(
+    val android: MaxAd
+)

@@ -8,11 +8,11 @@ import com.applovin.mediation.ads.MaxInterstitialAd
 import com.haitrvn.kal.core.Ad
 import com.haitrvn.kal.core.RootView
 import com.haitrvn.kal.initialization.AppLovinSdk
-import com.haitrvn.kal.util.toCommonError
 import com.haitrvn.kal.model.AdEvent
 import com.haitrvn.kal.model.ReviewAd
 import com.haitrvn.kal.rewarded.ViewGroup
 import com.haitrvn.kal.util.ContextProvider
+import com.haitrvn.kal.util.toCommonError
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -25,18 +25,18 @@ actual class InterstitialAd actual constructor(
         if (appLovinSdk != null) {
             MaxInterstitialAd(
                 adUnitId,
-                appLovinSdk.androidAppLovinSdk,
-                ContextProvider.applicationContext
+                appLovinSdk.ios,
+                ContextProvider.context
             )
         } else {
-            MaxInterstitialAd(adUnitId, ContextProvider.applicationContext)
+            MaxInterstitialAd(adUnitId, ContextProvider.context)
         }
     }
 
-    actual val reviewFlow: Flow<Ad>
+    actual val reviewFlow: Flow<ReviewAd>
         get() = callbackFlow {
             interstitial.setAdReviewListener { id, maxAd ->
-                ReviewAd(id, maxAd)
+                ReviewAd(id, Ad(maxAd))
             }
             awaitClose { interstitial.setAdReviewListener(null) }
         }
@@ -44,7 +44,7 @@ actual class InterstitialAd actual constructor(
     actual val expirationFlow: Flow<Pair<Ad, Ad>>
         get() = callbackFlow {
             interstitial.setExpirationListener { old, new ->
-                trySend(old to new)
+                trySend(Ad(old) to Ad(new))
             }
             awaitClose { interstitial.setExpirationListener(null) }
         }
@@ -52,7 +52,7 @@ actual class InterstitialAd actual constructor(
     actual val revenueFlow: Flow<Ad>
         get() = callbackFlow {
             interstitial.setRevenueListener {
-                trySend(it)
+                trySend(Ad(it))
             }
             awaitClose { interstitial.setRevenueListener(null) }
         }
@@ -67,21 +67,21 @@ actual class InterstitialAd actual constructor(
 
     actual val adEventFlow: Flow<AdEvent>
         get() = callbackFlow {
-            interstitial.setListener(object: MaxAdListener {
+            interstitial.setListener(object : MaxAdListener {
                 override fun onAdLoaded(ad: MaxAd) {
-                    trySend(AdEvent.Loaded(ad))
+                    trySend(AdEvent.Loaded(Ad(ad)))
                 }
 
                 override fun onAdDisplayed(ad: MaxAd) {
-                    trySend(AdEvent.Displayed(ad))
+                    trySend(AdEvent.Displayed(Ad(ad)))
                 }
 
                 override fun onAdHidden(ad: MaxAd) {
-                    trySend(AdEvent.Hidden(ad))
+                    trySend(AdEvent.Hidden(Ad(ad)))
                 }
 
                 override fun onAdClicked(ad: MaxAd) {
-                    trySend(AdEvent.Clicked(ad))
+                    trySend(AdEvent.Clicked(Ad(ad)))
                 }
 
                 override fun onAdLoadFailed(message: String, error: MaxError) {
@@ -89,7 +89,7 @@ actual class InterstitialAd actual constructor(
                 }
 
                 override fun onAdDisplayFailed(ad: MaxAd, error: MaxError) {
-                    trySend(AdEvent.DisplayFailed(ad, error.toCommonError()))
+                    trySend(AdEvent.DisplayFailed(Ad(ad), error.toCommonError()))
                 }
             })
 
@@ -123,7 +123,7 @@ actual class InterstitialAd actual constructor(
     }
 
     actual fun showAd(viewGroup: ViewGroup, lifecycle: Lifecycle, rootView: RootView) {
-        interstitial.showAd(viewGroup, lifecycle, rootView)
+        interstitial.showAd(viewGroup.android, lifecycle, rootView)
     }
 
     actual fun showAd(
@@ -132,7 +132,7 @@ actual class InterstitialAd actual constructor(
         lifecycle: Lifecycle,
         rootView: RootView
     ) {
-        interstitial.showAd(placement, viewGroup, lifecycle, rootView)
+        interstitial.showAd(placement, viewGroup.android, lifecycle, rootView)
     }
 
     actual fun showAd(
@@ -142,7 +142,7 @@ actual class InterstitialAd actual constructor(
         lifecycle: Lifecycle,
         rootView: RootView
     ) {
-        interstitial.showAd(placement, customData, viewGroup, lifecycle, rootView)
+        interstitial.showAd(placement, customData, viewGroup.android, lifecycle, rootView)
     }
 
     actual fun destroy() {

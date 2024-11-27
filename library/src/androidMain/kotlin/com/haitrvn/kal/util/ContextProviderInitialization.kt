@@ -6,7 +6,7 @@ import androidx.startup.Initializer
 internal class ContextProviderInitialization : Initializer<ContextProvider> {
     override fun create(context: Context): ContextProvider {
         return ContextProvider.apply {
-            applicationContext = context.applicationContext
+            this.context = context.applicationContext
         }
     }
 

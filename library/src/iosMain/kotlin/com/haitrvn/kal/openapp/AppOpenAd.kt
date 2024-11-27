@@ -1,47 +1,143 @@
 package com.haitrvn.kal.openapp
 
+import cocoapods.AppLovinSDK.MAAd
+import cocoapods.AppLovinSDK.MAAdDelegateProtocol
+import cocoapods.AppLovinSDK.MAAdExpirationDelegateProtocol
+import cocoapods.AppLovinSDK.MAAdRequestDelegateProtocol
+import cocoapods.AppLovinSDK.MAAdRevenueDelegateProtocol
+import cocoapods.AppLovinSDK.MAAdReviewDelegateProtocol
+import cocoapods.AppLovinSDK.MAAppOpenAd
+import cocoapods.AppLovinSDK.MAError
 import com.haitrvn.kal.core.Ad
 import com.haitrvn.kal.initialization.AppLovinSdk
+import com.haitrvn.kal.model.AdEvent
 import com.haitrvn.kal.model.ReviewAd
+import com.haitrvn.kal.rewarded.toCommonError
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import platform.darwin.NSObject
 
+@OptIn(ExperimentalForeignApi::class)
 actual class AppOpenAd actual constructor(
     private val adUnitId: String,
     private val appLovinSdk: AppLovinSdk?
 ) {
+    private val ios: MAAppOpenAd by lazy {
+        if (appLovinSdk != null) {
+            MAAppOpenAd(adUnitId, appLovinSdk.ios)
+        } else {
+            MAAppOpenAd(adUnitId)
+        }
+    }
+
     actual val isReady: Boolean
-        get() = TODO("Not yet implemented")
+        get() = ios.ready
+
     actual val unitId: String
-        get() = TODO("Not yet implemented")
+        get() = ios.adUnitIdentifier
 
     actual val reviewFlow: Flow<ReviewAd>
-        get() = TODO("Not yet implemented")
+        get() = callbackFlow {
+            ios.adReviewDelegate =
+                object : NSObject(), MAAdReviewDelegateProtocol {
+                    override fun didGenerateCreativeIdentifier(
+                        creativeIdentifier: String,
+                        forAd: MAAd
+                    ) {
+                        trySend(ReviewAd(creativeIdentifier, Ad(forAd)))
+                    }
+                }
+        }
+
     actual val expirationFlow: Flow<Pair<Ad, Ad>>
-        get() = TODO("Not yet implemented")
+        get() = callbackFlow {
+            ios.expirationDelegate =
+                object : NSObject(), MAAdExpirationDelegateProtocol {
+                    override fun didReloadExpiredAd(expiredAd: MAAd, withNewAd: MAAd) {
+                        trySend(Ad(expiredAd) to Ad(withNewAd))
+                    }
+                }
+        }
+
     actual val revenueFlow: Flow<Ad>
-        get() = TODO("Not yet implemented")
+        get() = callbackFlow {
+            ios.revenueDelegate = object : NSObject(), MAAdRevenueDelegateProtocol {
+                override fun didPayRevenueForAd(ad: MAAd) {
+                    trySend(Ad(ad))
+                }
+            }
+        }
+
     actual val requestFlow: Flow<String>
-        get() = TODO("Not yet implemented")
+        get() = callbackFlow {
+            ios.requestDelegate = object : NSObject(), MAAdRequestDelegateProtocol {
+                override fun didStartAdRequestForAdUnitIdentifier(adUnitIdentifier: String) {
+                    trySend(adUnitIdentifier)
+                }
+            }
+        }
+
+    actual val adEventFlow: Flow<AdEvent>
+        get() = callbackFlow {
+            ios.delegate = object : NSObject(), MAAdDelegateProtocol {
+                override fun didClickAd(ad: MAAd) {
+                    trySend(AdEvent.Clicked(Ad(ad)))
+                }
+
+                override fun didDisplayAd(ad: MAAd) {
+                    trySend(AdEvent.Displayed(Ad(ad)))
+                }
+
+                override fun didFailToDisplayAd(ad: MAAd, withError: MAError) {
+                    trySend(AdEvent.DisplayFailed(Ad(ad), withError.toCommonError()))
+                }
+
+                override fun didFailToLoadAdForAdUnitIdentifier(
+                    adUnitIdentifier: String,
+                    withError: MAError
+                ) {
+                    trySend(AdEvent.LoadFailed(adUnitIdentifier, withError.toCommonError()))
+                }
+
+                override fun didHideAd(ad: MAAd) {
+                    trySend(AdEvent.Hidden(Ad(ad)))
+                }
+
+                override fun didLoadAd(ad: MAAd) {
+                    trySend(AdEvent.Loaded(Ad(ad)))
+                }
+            }
+            awaitClose { ios.setDelegate(null) }
+        }
+
 
     actual fun loadAd() {
+        ios.loadAd()
     }
 
     actual fun setExtraParameter(key: String, value: String) {
+        ios.setExtraParameterForKey(key, value)
     }
 
-
     internal actual fun setLocalExtraParameter(key: String, param: Any) {
+        setLocalExtraParameter(key, param)
     }
 
     actual fun showAd() {
+        ios.showAd()
     }
 
     actual fun showAd(placement: String) {
+        ios.showAdForPlacement(placement)
     }
 
     actual fun showAd(placement: String, customData: String) {
+        ios.showAdForPlacement(placement, customData)
     }
 
     actual fun destroy() {
+        //TODO
     }
 }
