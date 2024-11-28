@@ -6,7 +6,7 @@ import com.haitrvn.kal.util.ContextProvider
 import kotlin.concurrent.Volatile
 
 actual class AppLovinSdk(
-    var ios: com.applovin.sdk.AppLovinSdk
+    var android: com.applovin.sdk.AppLovinSdk
 ) {
     actual companion object {
         @Volatile
@@ -25,7 +25,7 @@ actual class AppLovinSdk(
         configuration: InitConfiguration,
         completedInformation: (SdkInformation) -> Unit
     ) {
-        ios.initialize(configuration.toAndroidConfiguration()) {
+        android.initialize(configuration.toAndroidConfiguration()) {
             completedInformation(it.toCommon())
         }
     }

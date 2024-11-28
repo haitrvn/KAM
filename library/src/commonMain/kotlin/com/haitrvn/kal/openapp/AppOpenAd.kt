@@ -21,9 +21,9 @@ expect class AppOpenAd(
 
     fun loadAd()
     fun setExtraParameter(key: String, value: String)
-    internal fun setLocalExtraParameter(key: String, param: Any)
     fun showAd()
     fun showAd(placement: String)
     fun showAd(placement: String, customData: String)
     fun destroy()
+    internal fun setLocalExtraParameter(key: String, param: Any)
 }

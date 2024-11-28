@@ -1,4 +1,5 @@
 package com.haitrvn.kal.banner
+
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.runtime.Composable

@@ -11,6 +11,7 @@ expect class MaxAdView(
     adFormat: AdFormat? = null,
     sdk: AppLovinSdk? = null,
 ) {
+    val unitId: String
     val reviewFlow: Flow<ReviewAd>
     val revenueFlow: Flow<Ad>
     val requestFlow: Flow<String>

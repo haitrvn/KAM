@@ -13,6 +13,7 @@ import com.haitrvn.kal.model.AdEvent
 import com.haitrvn.kal.model.ReviewAd
 import com.haitrvn.kal.rewarded.toCommonError
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import platform.CoreGraphics.CGFloat
@@ -21,7 +22,7 @@ import platform.darwin.NSObject
 @OptIn(ExperimentalForeignApi::class)
 actual class MaxAdView actual constructor(
     adUnitId: String,
-    adFormat: AdFormat?,
+    private val adFormat: AdFormat?,
     sdk: AppLovinSdk?
 ) {
     val ios: MAAdView by lazy {
@@ -48,9 +49,8 @@ actual class MaxAdView actual constructor(
         }
     }
 
-    actual fun destroy() {
-    }
-
+    actual val unitId: String
+        get() = ios.adUnitIdentifier
 
     actual val reviewFlow: Flow<ReviewAd>
         get() = callbackFlow {
@@ -63,29 +63,32 @@ actual class MaxAdView actual constructor(
                         trySend(ReviewAd(creativeIdentifier, Ad(forAd)))
                     }
                 }
+            awaitClose { ios.adReviewDelegate = null }
         }
 
     actual val revenueFlow: Flow<Ad>
         get() = callbackFlow {
-            ios.setRevenueDelegate(object : NSObject(), MAAdRevenueDelegateProtocol {
+            ios.revenueDelegate = object : NSObject(), MAAdRevenueDelegateProtocol {
                 override fun didPayRevenueForAd(ad: MAAd) {
                     trySend(Ad(ad))
                 }
-            })
+            }
+            awaitClose { ios.revenueDelegate = null }
         }
 
     actual val requestFlow: Flow<String>
         get() = callbackFlow {
-            ios.setRequestDelegate(object : NSObject(), MAAdRequestDelegateProtocol {
+            ios.requestDelegate = object : NSObject(), MAAdRequestDelegateProtocol {
                 override fun didStartAdRequestForAdUnitIdentifier(adUnitIdentifier: String) {
                     trySend(adUnitIdentifier)
                 }
-            })
+            }
+            awaitClose { ios.revenueDelegate = null }
         }
 
     actual val adEventFlow: Flow<AdEvent>
         get() = callbackFlow {
-            ios.setDelegate(object : NSObject(), MAAdViewAdDelegateProtocol {
+            ios.delegate = object : NSObject(), MAAdViewAdDelegateProtocol {
                 override fun didClickAd(ad: MAAd) {
                     trySend(AdEvent.Clicked(Ad(ad)))
                 }
@@ -120,11 +123,12 @@ actual class MaxAdView actual constructor(
                 override fun didExpandAd(ad: MAAd) {
                     trySend(AdEvent.Expanded(Ad(ad)))
                 }
-            })
+            }
+            awaitClose { ios.delegate = null }
         }
 
     actual fun getAdFormat(): AdFormat? {
-        TODO()
+       return adFormat
     }
 
     actual fun getAdUnitId(): String {
@@ -162,5 +166,8 @@ actual class MaxAdView actual constructor(
     }
 
     actual fun stopAutoRefresh() {
+    }
+
+    actual fun destroy() {
     }
 }

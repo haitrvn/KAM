@@ -15,68 +15,68 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
 actual class AppOpenAd actual constructor(
-    private val adUnitId: String,
-    private val appLovinSdk: AppLovinSdk?
+    adUnitId: String,
+    appLovinSdk: AppLovinSdk?
 ) {
-    private val appOpenAd: MaxAppOpenAd by lazy {
+    private val android: MaxAppOpenAd by lazy {
         if (appLovinSdk != null) {
-            MaxAppOpenAd(adUnitId, appLovinSdk.ios)
+            MaxAppOpenAd(adUnitId, appLovinSdk.android)
         } else {
             MaxAppOpenAd(adUnitId, ContextProvider.context)
         }
     }
 
     init {
-        appOpenAd.setListener(null)
-        appOpenAd.setRequestListener(null)
-        appOpenAd.setRevenueListener(null)
-        appOpenAd.setExpirationListener(null)
-        appOpenAd.setAdReviewListener(null)
+        android.setListener(null)
+        android.setRequestListener(null)
+        android.setRevenueListener(null)
+        android.setExpirationListener(null)
+        android.setAdReviewListener(null)
     }
 
     actual val reviewFlow: Flow<ReviewAd>
         get() = callbackFlow {
-            appOpenAd.setAdReviewListener { id, maxAd ->
+            android.setAdReviewListener { id, maxAd ->
                 trySend(ReviewAd(id, Ad(maxAd)))
             }
             awaitClose {
-                appOpenAd.setAdReviewListener(null)
+                android.setAdReviewListener(null)
             }
         }
 
     actual val expirationFlow: Flow<Pair<Ad, Ad>>
         get() = callbackFlow {
-            appOpenAd.setExpirationListener { oldAd, newAd ->
+            android.setExpirationListener { oldAd, newAd ->
                 trySend(Ad(oldAd) to Ad(newAd))
             }
             awaitClose {
-                appOpenAd.setExpirationListener(null)
+                android.setExpirationListener(null)
             }
         }
 
     actual val revenueFlow: Flow<Ad>
         get() = callbackFlow {
-            appOpenAd.setRevenueListener { ad ->
+            android.setRevenueListener { ad ->
                 trySend(Ad(ad))
             }
             awaitClose {
-                appOpenAd.setRevenueListener(null)
+                android.setRevenueListener(null)
             }
         }
 
     actual val requestFlow: Flow<String>
         get() = callbackFlow {
-            appOpenAd.setRequestListener {
+            android.setRequestListener {
                 trySend(it)
             }
             awaitClose {
-                appOpenAd.setRequestListener(null)
+                android.setRequestListener(null)
             }
         }
 
     actual val adEventFlow: Flow<AdEvent>
         get() = callbackFlow {
-            appOpenAd.setListener(object : MaxAdListener {
+            android.setListener(object : MaxAdListener {
                 override fun onAdLoaded(ad: MaxAd) {
                     trySend(AdEvent.Loaded(Ad(ad)))
                 }
@@ -104,36 +104,36 @@ actual class AppOpenAd actual constructor(
         }
 
     actual val isReady: Boolean
-        get() = appOpenAd.isReady
+        get() = android.isReady
 
     actual val unitId: String
-        get() = appOpenAd.adUnitId
+        get() = android.adUnitId
 
     actual fun loadAd() {
-        appOpenAd.loadAd()
+        android.loadAd()
     }
 
     actual fun setExtraParameter(key: String, value: String) {
-        appOpenAd.setExtraParameter(key, value)
+        android.setExtraParameter(key, value)
     }
 
     internal actual fun setLocalExtraParameter(key: String, param: Any) {
-        appOpenAd.setLocalExtraParameter(key, param)
+        android.setLocalExtraParameter(key, param)
     }
 
     actual fun showAd() {
-        appOpenAd.showAd()
+        android.showAd()
     }
 
     actual fun showAd(placement: String) {
-        appOpenAd.showAd(placement)
+        android.showAd(placement)
     }
 
     actual fun showAd(placement: String, customData: String) {
-        appOpenAd.showAd(placement, customData)
+        android.showAd(placement, customData)
     }
 
     actual fun destroy() {
-        appOpenAd.destroy()
+        android.destroy()
     }
 }

@@ -2,8 +2,6 @@ package com.haitrvn.kal.interstitial
 
 import androidx.lifecycle.Lifecycle
 import com.haitrvn.kal.core.Ad
-import com.haitrvn.kal.core.AdError
-import com.haitrvn.kal.core.Reward
 import com.haitrvn.kal.core.RootView
 import com.haitrvn.kal.initialization.AppLovinSdk
 import com.haitrvn.kal.model.AdEvent
@@ -12,8 +10,11 @@ import com.haitrvn.kal.rewarded.ViewGroup
 import kotlinx.coroutines.flow.Flow
 
 expect class InterstitialAd(
-    adUnitId: String, appLovinSdk: AppLovinSdk? = null
+    adUnitId: String,
+    appLovinSdk: AppLovinSdk? = null
 ) {
+    val unitId: String
+    val isReady: Boolean
     val reviewFlow: Flow<ReviewAd>
     val expirationFlow: Flow<Pair<Ad, Ad>>
     val revenueFlow: Flow<Ad>
@@ -40,50 +41,4 @@ expect class InterstitialAd(
     )
 
     fun destroy()
-}
-
-sealed interface ExpirationState {
-    data object Unknow: ExpirationState
-    data class ExpiredAdReloaded(
-        val ad1: Ad,
-        val ad2: Ad,
-    ): ExpirationState
-}
-
-sealed interface ReviewState {
-    data object NotYetAwarded : ReviewState
-    data class Rewarded(
-        val ad: Ad,
-        val reward: Reward,
-    ) : ReviewState
-}
-
-sealed interface ViewAdState {
-    data class AdLoaded(val adMax: Ad) : ViewAdState
-    data class AdDisplayed(val adMax: Ad) : ViewAdState
-    data class AdHidden(val adMax: Ad) : ViewAdState
-    data class AdClicked(val adMax: Ad) : ViewAdState
-    data class AdLoadFailed(
-        val value: String,
-        val error: AdError,
-    ) : ViewAdState
-
-    data class AdDisplayFailed(
-        val adMax: Ad,
-        val error: AdError,
-    ) : ViewAdState
-}
-
-sealed interface RequestState {
-    data object NotStartedYet : RequestState
-    data class Started(
-        val value: String,
-    ) : RequestState
-}
-
-sealed interface RevenueState {
-    data object UnPaid : RevenueState
-    data class Paid(
-        val revenue: Double, val precision: String
-    ) : RevenueState
 }

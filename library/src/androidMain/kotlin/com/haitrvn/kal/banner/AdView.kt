@@ -12,40 +12,43 @@ import com.haitrvn.kal.util.toCommonError
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import com.applovin.mediation.ads.MaxAdView as AndroidMaxAdView
+import com.applovin.mediation.ads.MaxAdView
 
 actual class MaxAdView actual constructor(
-    private val adUnitId: String,
+    adUnitId: String,
     private val adFormat: AdFormat?,
-    private val sdk: AppLovinSdk?,
+    sdk: AppLovinSdk?,
 ) {
-    val android: AndroidMaxAdView by lazy {
+    val android: MaxAdView by lazy {
         when {
-            adFormat != null && sdk != null -> AndroidMaxAdView(
+            adFormat != null && sdk != null -> MaxAdView(
                 adUnitId,
                 adFormat.android,
-                sdk.ios,
+                sdk.android,
                 ContextProvider.context
             )
 
-            adFormat != null -> AndroidMaxAdView(
+            adFormat != null -> MaxAdView(
                 adUnitId,
                 adFormat.android,
                 ContextProvider.context
             )
 
-            sdk != null -> AndroidMaxAdView(
+            sdk != null -> MaxAdView(
                 adUnitId,
-                sdk.ios,
+                sdk.android,
                 ContextProvider.context
             )
 
-            else -> AndroidMaxAdView(
+            else -> MaxAdView(
                 adUnitId,
                 ContextProvider.context
             )
         }
     }
+
+    actual val unitId: String
+        get() = android.adUnitId
 
     actual val reviewFlow: Flow<ReviewAd>
         get() = callbackFlow {
@@ -121,7 +124,7 @@ actual class MaxAdView actual constructor(
     }
 
     actual fun getAdUnitId(): String {
-        return adUnitId
+        return android.adUnitId
     }
 
     actual fun getPlacement(): String? {

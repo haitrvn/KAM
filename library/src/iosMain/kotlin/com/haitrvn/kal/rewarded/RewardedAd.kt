@@ -60,7 +60,7 @@ actual class RewardedAd actual constructor(
                     trySend(Ad(expiredAd) to Ad(withNewAd))
                 }
             }
-            awaitClose { ios.setExpirationDelegate(null) }
+            awaitClose { ios.expirationDelegate = null }
         }
 
     actual val revenueFlow: Flow<Ad>
@@ -70,7 +70,7 @@ actual class RewardedAd actual constructor(
                     trySend(Ad(ad))
                 }
             }
-            awaitClose { ios.setRevenueDelegate(null) }
+            awaitClose { ios.revenueDelegate = null }
         }
 
     actual val requestFlow: Flow<String>
@@ -80,7 +80,7 @@ actual class RewardedAd actual constructor(
                     trySend(adUnitIdentifier)
                 }
             }
-            awaitClose { ios.setRequestDelegate(null) }
+            awaitClose { ios.requestDelegate = null }
         }
 
     actual val rewardedAdFlow: Flow<AdEvent>
@@ -117,7 +117,7 @@ actual class RewardedAd actual constructor(
                     trySend(AdEvent.Loaded(Ad(ad)))
                 }
             }
-            awaitClose { ios.setDelegate(null) }
+            awaitClose { ios.delegate = null }
         }
 
     actual fun loadAd() {

@@ -19,14 +19,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
 actual class RewardedAd actual constructor(
-    private val adUnitId: String,
-    private val appLovinSdk: AppLovinSdk?
+    adUnitId: String,
+    appLovinSdk: AppLovinSdk?
 ) {
-    private val adReward: MaxRewardedAd by lazy {
+    private val android: MaxRewardedAd by lazy {
         if (appLovinSdk != null) {
             MaxRewardedAd.getInstance(
                 adUnitId,
-                appLovinSdk.ios,
+                appLovinSdk.android,
                 ContextProvider.context
             )
         } else {
@@ -36,39 +36,39 @@ actual class RewardedAd actual constructor(
 
     actual val reviewFlow: Flow<Ad>
         get() = callbackFlow {
-            adReward.setAdReviewListener { id, maxAd ->
+            android.setAdReviewListener { id, maxAd ->
                 ReviewAd(id, Ad(maxAd))
             }
-            awaitClose { adReward.setAdReviewListener(null) }
+            awaitClose { android.setAdReviewListener(null) }
         }
 
     actual val expirationFlow: Flow<Pair<Ad, Ad>>
         get() = callbackFlow {
-            adReward.setExpirationListener { old, new ->
+            android.setExpirationListener { old, new ->
                 trySend(Ad(old) to Ad(new))
             }
-            awaitClose { adReward.setExpirationListener(null) }
+            awaitClose { android.setExpirationListener(null) }
         }
 
     actual val revenueFlow: Flow<Ad>
         get() = callbackFlow {
-            adReward.setRevenueListener {
+            android.setRevenueListener {
                 trySend(Ad(it))
             }
-            awaitClose { adReward.setRevenueListener(null) }
+            awaitClose { android.setRevenueListener(null) }
         }
 
     actual val requestFlow: Flow<String>
         get() = callbackFlow {
-            adReward.setRequestListener {
+            android.setRequestListener {
                 trySend(it)
             }
-            awaitClose { adReward.setRequestListener(null) }
+            awaitClose { android.setRequestListener(null) }
         }
 
     actual val rewardedAdFlow: Flow<AdEvent>
         get() = callbackFlow {
-            adReward.setListener(object : MaxRewardedAdListener {
+            android.setListener(object : MaxRewardedAdListener {
                 override fun onAdLoaded(ad: MaxAd) {
                     trySend(AdEvent.Loaded(Ad(ad)))
                 }
@@ -99,41 +99,41 @@ actual class RewardedAd actual constructor(
             })
 
             awaitClose {
-                adReward.setListener(null)
+                android.setListener(null)
             }
         }
 
     actual val isReady: Boolean
-        get() = this.adReward.isReady
+        get() = this.android.isReady
     actual val unitId: String
-        get() = this.adReward.adUnitId
+        get() = this.android.adUnitId
 
     actual fun loadAd() {
-        this.adReward.loadAd()
+        this.android.loadAd()
     }
 
     actual fun setExtraParameter(key: String, value: String) {
-        this.adReward.setExtraParameter(key, value)
+        this.android.setExtraParameter(key, value)
     }
 
     internal actual fun setLocalExtraParameter(key: String, param: Any) {
-        this.adReward.setLocalExtraParameter(key, param)
+        this.android.setLocalExtraParameter(key, param)
     }
 
     actual fun showAd(rootView: RootView) {
-        this.adReward.showAd(rootView)
+        this.android.showAd(rootView)
     }
 
     actual fun showAd(placement: String, rootView: RootView) {
-        this.adReward.showAd(placement, rootView)
+        this.android.showAd(placement, rootView)
     }
 
     actual fun showAd(placement: String, customData: String, rootView: RootView) {
-        this.adReward.showAd(placement, customData, rootView)
+        this.android.showAd(placement, customData, rootView)
     }
 
     actual fun showAd(viewGroup: ViewGroup, lifecycle: Lifecycle, rootView: RootView) {
-        this.adReward.showAd(viewGroup.android, lifecycle, rootView)
+        this.android.showAd(viewGroup.android, lifecycle, rootView)
     }
 
     actual fun showAd(
@@ -142,7 +142,7 @@ actual class RewardedAd actual constructor(
         lifecycle: Lifecycle,
         rootView: RootView
     ) {
-        this.adReward.showAd(placement, viewGroup.android, lifecycle, rootView)
+        this.android.showAd(placement, viewGroup.android, lifecycle, rootView)
     }
 
     actual fun showAd(
@@ -152,11 +152,11 @@ actual class RewardedAd actual constructor(
         lifecycle: Lifecycle,
         rootView: RootView
     ) {
-        this.adReward.showAd(placement, customData, viewGroup.android, lifecycle, rootView)
+        this.android.showAd(placement, customData, viewGroup.android, lifecycle, rootView)
     }
 
     actual fun destroy() {
-        this.adReward.destroy()
+        this.android.destroy()
     }
 }
 

@@ -19,7 +19,9 @@ fun App() {
             Modifier.fillMaxWidth().wrapContentHeight(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            AdViewComposable("", AdFormat.BANNER)
+            AdViewComposable("", AdFormat.BANNER) {
+
+            }
         }
     }
 }
