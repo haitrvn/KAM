@@ -19,7 +19,7 @@ expect class AppOpenAd(
     val requestFlow: Flow<String>
     val adEventFlow: Flow<AdEvent>
 
-    fun loadAd()
+    suspend fun loadAd(): AppOpenAd?
     fun setExtraParameter(key: String, value: String)
     fun showAd()
     fun showAd(placement: String)

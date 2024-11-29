@@ -117,8 +117,9 @@ actual class AppOpenAd actual constructor(
         }
 
 
-    actual fun loadAd() {
+    actual suspend fun loadAd(): AppOpenAd? {
         ios.loadAd()
+        TODO()
     }
 
     actual fun setExtraParameter(key: String, value: String) {

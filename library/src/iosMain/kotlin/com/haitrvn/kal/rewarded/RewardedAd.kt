@@ -16,6 +16,7 @@ import com.haitrvn.kal.core.Reward
 import com.haitrvn.kal.core.RootView
 import com.haitrvn.kal.initialization.AppLovinSdk
 import com.haitrvn.kal.model.AdEvent
+import com.haitrvn.kal.model.ReviewAd
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -39,7 +40,7 @@ actual class RewardedAd actual constructor(
         get() = ios.ready
     actual val unitId: String
         get() = ios.adUnitIdentifier
-    actual val reviewFlow: Flow<Ad>
+    actual val reviewFlow: Flow<ReviewAd>
         get() = callbackFlow {
             ios.adReviewDelegate =
                 object : NSObject(), MAAdReviewDelegateProtocol {
@@ -47,7 +48,7 @@ actual class RewardedAd actual constructor(
                         creativeIdentifier: String,
                         forAd: MAAd
                     ) {
-                        trySend(Ad(forAd))
+                        trySend(ReviewAd(creativeIdentifier, Ad(forAd)))
                     }
                 }
             awaitClose { ios.adReviewDelegate = null }
@@ -120,7 +121,7 @@ actual class RewardedAd actual constructor(
             awaitClose { ios.delegate = null }
         }
 
-    actual fun loadAd() {
+    actual suspend fun loadAd(): RewardedAd? {
         ios.loadAd()
     }
 

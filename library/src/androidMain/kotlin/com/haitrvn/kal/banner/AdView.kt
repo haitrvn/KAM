@@ -13,8 +13,10 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import com.applovin.mediation.ads.MaxAdView
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlin.coroutines.resume
 
-actual class MaxAdView actual constructor(
+actual class AdView actual constructor(
     adUnitId: String,
     private val adFormat: AdFormat?,
     sdk: AppLovinSdk?,
@@ -46,7 +48,9 @@ actual class MaxAdView actual constructor(
             )
         }
     }
-
+    private val listenerGroup: BannerAdListenerGroup by lazy {
+        BannerAdListenerGroup(android, mutableListOf())
+    }
     actual val unitId: String
         get() = android.adUnitId
 
@@ -76,7 +80,7 @@ actual class MaxAdView actual constructor(
 
     actual val adEventFlow: Flow<AdEvent>
         get() = callbackFlow {
-            android.setListener(object : MaxAdViewAdListener {
+            val listener = object : MaxAdViewAdListener {
                 override fun onAdLoaded(ad: MaxAd) {
                     trySend(AdEvent.Loaded(Ad(ad)))
                 }
@@ -108,10 +112,11 @@ actual class MaxAdView actual constructor(
                 override fun onAdCollapsed(ad: MaxAd) {
                     trySend(AdEvent.Collapsed(Ad(ad)))
                 }
-            })
-
+            }
+            listenerGroup.listenerList.add(listener)
             awaitClose {
                 android.setListener(null)
+                listenerGroup.listenerList.remove(listener)
             }
         }
 
@@ -123,16 +128,45 @@ actual class MaxAdView actual constructor(
         return adFormat
     }
 
-    actual fun getAdUnitId(): String {
-        return android.adUnitId
-    }
-
     actual fun getPlacement(): String? {
         return android.placement
     }
 
-    actual fun loadAd() {
-        android.loadAd()
+    actual suspend fun loadAd(): AdView? {
+        return suspendCancellableCoroutine { cancellableContinuation ->
+            val listener = object : MaxAdViewAdListener {
+                override fun onAdLoaded(ad: MaxAd) {
+                    cancellableContinuation.resume(this@AdView)
+                }
+
+                override fun onAdDisplayed(ad: MaxAd) {
+                }
+
+                override fun onAdHidden(ad: MaxAd) {
+                }
+
+                override fun onAdClicked(ad: MaxAd) {
+                }
+
+                override fun onAdLoadFailed(message: String, error: MaxError) {
+                    cancellableContinuation.resume(null)
+                }
+
+                override fun onAdDisplayFailed(ad: MaxAd, error: MaxError) {
+                }
+
+                override fun onAdExpanded(ad: MaxAd) {
+                }
+
+                override fun onAdCollapsed(ad: MaxAd) {
+                }
+            }
+            listenerGroup.listenerList.add(listener)
+            cancellableContinuation.invokeOnCancellation {
+                listenerGroup.listenerList.remove(listener)
+            }
+            android.loadAd()
+        }
     }
 
     actual fun setAlpha(alpha: Float) {
@@ -166,4 +200,3 @@ actual class MaxAdView actual constructor(
         android.stopAutoRefresh()
     }
 }
-

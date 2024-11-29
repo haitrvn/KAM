@@ -12,10 +12,10 @@ import androidx.compose.ui.unit.dp
 fun AdViewComposable(
     adUnitId: String,
     adFormat: AdFormat,
-    maxAdViewConfig: (MaxAdView) -> Unit
+    maxAdViewConfig: (AdView) -> Unit
 ) {
-    val maxAdView = remember {
-        MaxAdView(adUnitId = adUnitId, adFormat = adFormat)
+    val adView = remember {
+        AdView(adUnitId = adUnitId, adFormat = adFormat)
             .apply(maxAdViewConfig)
             .also { it.loadAd() }
     }
@@ -38,10 +38,10 @@ fun AdViewComposable(
             }
         }
     )
-    PlatformAdView(modifier = modifier, maxAdView = maxAdView)
-    DisposableEffect(maxAdView) {
+    PlatformAdView(modifier = modifier, adView = adView)
+    DisposableEffect(adView) {
         onDispose {
-            maxAdView.destroy()
+            adView.destroy()
         }
     }
 }

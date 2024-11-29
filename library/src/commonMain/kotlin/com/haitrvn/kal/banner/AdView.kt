@@ -6,7 +6,7 @@ import com.haitrvn.kal.model.AdEvent
 import com.haitrvn.kal.model.ReviewAd
 import kotlinx.coroutines.flow.Flow
 
-expect class MaxAdView(
+expect class AdView(
     adUnitId: String,
     adFormat: AdFormat? = null,
     sdk: AppLovinSdk? = null,
@@ -19,9 +19,8 @@ expect class MaxAdView(
 
     fun destroy()
     fun getAdFormat(): AdFormat?
-    fun getAdUnitId(): String
     fun getPlacement(): String?
-    fun loadAd()
+    suspend fun loadAd(): AdView?
     fun setAlpha(alpha: Float)
     internal fun setBackgroundColor()
     fun setCustomData(data: String)

@@ -17,27 +17,27 @@ import com.haitrvn.kal.util.toCommonError
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlin.coroutines.resume
 
 actual class RewardedAd actual constructor(
     adUnitId: String,
     appLovinSdk: AppLovinSdk?
 ) {
-    private val android: MaxRewardedAd by lazy {
-        if (appLovinSdk != null) {
-            MaxRewardedAd.getInstance(
-                adUnitId,
-                appLovinSdk.android,
-                ContextProvider.context
-            )
-        } else {
-            MaxRewardedAd.getInstance(adUnitId, ContextProvider.context)
-        }
+    private val android by lazy {
+        appLovinSdk?.let {
+            MaxRewardedAd.getInstance(adUnitId, it.android, ContextProvider.context)
+        } ?: MaxRewardedAd.getInstance(adUnitId, ContextProvider.context)
     }
 
-    actual val reviewFlow: Flow<Ad>
+    private val listenerGroup: RewardAdListenerGroup by lazy {
+        RewardAdListenerGroup(android, mutableListOf())
+    }
+
+    actual val reviewFlow: Flow<ReviewAd>
         get() = callbackFlow {
             android.setAdReviewListener { id, maxAd ->
-                ReviewAd(id, Ad(maxAd))
+                trySend(ReviewAd(id, Ad(maxAd)))
             }
             awaitClose { android.setAdReviewListener(null) }
         }
@@ -68,7 +68,7 @@ actual class RewardedAd actual constructor(
 
     actual val rewardedAdFlow: Flow<AdEvent>
         get() = callbackFlow {
-            android.setListener(object : MaxRewardedAdListener {
+            val listener = object : MaxRewardedAdListener {
                 override fun onAdLoaded(ad: MaxAd) {
                     trySend(AdEvent.Loaded(Ad(ad)))
                 }
@@ -96,10 +96,11 @@ actual class RewardedAd actual constructor(
                 override fun onUserRewarded(ad: MaxAd, reward: MaxReward) {
                     trySend(AdEvent.UserRewarded(Ad(ad), Reward(reward)))
                 }
-            })
-
+            }
+            listenerGroup.listenerList.add(listener)
             awaitClose {
                 android.setListener(null)
+                listenerGroup.listenerList.remove(listener)
             }
         }
 
@@ -108,8 +109,38 @@ actual class RewardedAd actual constructor(
     actual val unitId: String
         get() = this.android.adUnitId
 
-    actual fun loadAd() {
-        this.android.loadAd()
+    actual suspend fun loadAd(): RewardedAd? {
+        return suspendCancellableCoroutine { cancellableContinuation ->
+            val listener = object : MaxRewardedAdListener {
+                override fun onAdLoaded(ad: MaxAd) {
+                     cancellableContinuation.resume(this@RewardedAd)
+                }
+
+                override fun onAdDisplayed(ad: MaxAd) {
+                }
+
+                override fun onAdHidden(ad: MaxAd) {
+                }
+
+                override fun onAdClicked(ad: MaxAd) {
+                }
+
+                override fun onAdLoadFailed(message: String, error: MaxError) {
+                    cancellableContinuation.resume(null)
+                }
+
+                override fun onAdDisplayFailed(ad: MaxAd, error: MaxError) {
+                }
+
+                override fun onUserRewarded(ad: MaxAd, reward: MaxReward) {
+                }
+            }
+            listenerGroup.listenerList.add(listener)
+            cancellableContinuation.invokeOnCancellation {
+                listenerGroup.listenerList.remove(listener)
+            }
+            android.loadAd()
+        }
     }
 
     actual fun setExtraParameter(key: String, value: String) {

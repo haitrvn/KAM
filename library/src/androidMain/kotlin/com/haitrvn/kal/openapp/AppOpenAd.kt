@@ -13,6 +13,8 @@ import com.haitrvn.kal.util.toCommonError
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlin.coroutines.resume
 
 actual class AppOpenAd actual constructor(
     adUnitId: String,
@@ -26,13 +28,15 @@ actual class AppOpenAd actual constructor(
         }
     }
 
-    init {
-        android.setListener(null)
-        android.setRequestListener(null)
-        android.setRevenueListener(null)
-        android.setExpirationListener(null)
-        android.setAdReviewListener(null)
+    private val listenerGroup: OpenAdListenerGroup by lazy {
+        OpenAdListenerGroup(android, mutableListOf())
     }
+
+    actual val isReady: Boolean
+        get() = android.isReady
+
+    actual val unitId: String
+        get() = android.adUnitId
 
     actual val reviewFlow: Flow<ReviewAd>
         get() = callbackFlow {
@@ -76,7 +80,7 @@ actual class AppOpenAd actual constructor(
 
     actual val adEventFlow: Flow<AdEvent>
         get() = callbackFlow {
-            android.setListener(object : MaxAdListener {
+            val listener = object : MaxAdListener {
                 override fun onAdLoaded(ad: MaxAd) {
                     trySend(AdEvent.Loaded(Ad(ad)))
                 }
@@ -100,17 +104,43 @@ actual class AppOpenAd actual constructor(
                 override fun onAdDisplayFailed(ad: MaxAd, error: MaxError) {
                     trySend(AdEvent.DisplayFailed(Ad(ad), error.toCommonError()))
                 }
-            })
+            }
+            listenerGroup.listenerList.add(listener)
+            awaitClose {
+                android.setListener(null)
+                listenerGroup.listenerList.remove(listener)
+            }
         }
 
-    actual val isReady: Boolean
-        get() = android.isReady
+    actual suspend fun loadAd(): AppOpenAd? {
+        return suspendCancellableCoroutine { cancellableContinuation ->
+            val listener = object : MaxAdListener {
+                override fun onAdLoaded(ad: MaxAd) {
+                    cancellableContinuation.resume(this@AppOpenAd)
+                }
 
-    actual val unitId: String
-        get() = android.adUnitId
+                override fun onAdDisplayed(ad: MaxAd) {
+                }
 
-    actual fun loadAd() {
-        android.loadAd()
+                override fun onAdHidden(ad: MaxAd) {
+                }
+
+                override fun onAdClicked(ad: MaxAd) {
+                }
+
+                override fun onAdLoadFailed(message: String, error: MaxError) {
+                    cancellableContinuation.resume(null)
+                }
+
+                override fun onAdDisplayFailed(ad: MaxAd, error: MaxError) {
+                }
+            }
+            listenerGroup.listenerList.add(listener)
+            cancellableContinuation.invokeOnCancellation {
+                listenerGroup.listenerList.remove(listener)
+            }
+            android.loadAd()
+        }
     }
 
     actual fun setExtraParameter(key: String, value: String) {

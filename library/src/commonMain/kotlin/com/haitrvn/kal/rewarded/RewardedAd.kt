@@ -5,6 +5,7 @@ import com.haitrvn.kal.core.Ad
 import com.haitrvn.kal.core.RootView
 import com.haitrvn.kal.initialization.AppLovinSdk
 import com.haitrvn.kal.model.AdEvent
+import com.haitrvn.kal.model.ReviewAd
 import kotlinx.coroutines.flow.Flow
 
 expect class RewardedAd(
@@ -13,13 +14,13 @@ expect class RewardedAd(
 ) {
     val isReady: Boolean
     val unitId: String
-    val reviewFlow: Flow<Ad>
+    val reviewFlow: Flow<ReviewAd>
     val expirationFlow: Flow<Pair<Ad, Ad>>
     val revenueFlow: Flow<Ad>
     val requestFlow: Flow<String>
     val rewardedAdFlow: Flow<AdEvent>
 
-    fun loadAd()
+    suspend fun loadAd(): RewardedAd?
     fun showAd(rootView: RootView)
     fun showAd(placement: String, rootView: RootView)
     fun showAd(placement: String, customData: String, rootView: RootView)

@@ -10,15 +10,17 @@ expect class NativeLoader(
     adUnitId: String,
     appLovinSdk: AppLovinSdk? = null
 ) {
+    val unitId: String
     val nativeAdEventFlow: Flow<NativeAdEvent>
     val revenueFlow: Flow<Ad>
     val reviewFlow: Flow<ReviewAd>
 
-    fun setLocalExtraParameter()
-    fun setExtraParameter()
-    fun setPlacement()
-    fun render()
+    fun setLocalExtraParameter(key: String, value: String)
+    fun setExtraParameter(key: String, value: String)
+    fun setPlacement(placement: String)
+    fun render(adView: NativeAdView, ad: MAd): Boolean
     suspend fun loadAd(): NativeAdView?
+    suspend fun loadAd(ad: NativeAdView): NativeAdView?
     fun destroy(mAd: MAd)
     fun destroy()
 }

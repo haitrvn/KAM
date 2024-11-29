@@ -6,6 +6,6 @@ import androidx.compose.ui.Modifier
 @Composable
 actual fun PlatformAdView(
     modifier: Modifier,
-    maxAdView: MaxAdView
+    adView: AdView
 ) {
 }

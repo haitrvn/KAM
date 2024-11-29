@@ -20,7 +20,7 @@ import platform.CoreGraphics.CGFloat
 import platform.darwin.NSObject
 
 @OptIn(ExperimentalForeignApi::class)
-actual class MaxAdView actual constructor(
+actual class AdView actual constructor(
     adUnitId: String,
     private val adFormat: AdFormat?,
     sdk: AppLovinSdk?
@@ -131,15 +131,11 @@ actual class MaxAdView actual constructor(
        return adFormat
     }
 
-    actual fun getAdUnitId(): String {
-        return ios.adUnitIdentifier
-    }
-
     actual fun getPlacement(): String? {
         return ios.placement
     }
 
-    actual fun loadAd() {
+    actual suspend fun loadAd(): AdView? {
         ios.loadAd()
     }
 

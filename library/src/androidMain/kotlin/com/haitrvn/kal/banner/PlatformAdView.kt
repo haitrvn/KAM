@@ -7,10 +7,10 @@ import androidx.compose.ui.viewinterop.AndroidView
 @Composable
 actual fun PlatformAdView(
     modifier: Modifier,
-    maxAdView: MaxAdView
+    adView: AdView
 ) {
     AndroidView(
-        factory = { maxAdView.android },
+        factory = { adView.android },
         modifier = modifier
     )
 }
