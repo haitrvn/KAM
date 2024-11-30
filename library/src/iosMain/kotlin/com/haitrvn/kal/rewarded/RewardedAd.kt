@@ -21,8 +21,10 @@ import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.suspendCancellableCoroutine
 import platform.UIKit.UIViewController
 import platform.darwin.NSObject
+import kotlin.coroutines.resume
 
 @OptIn(ExperimentalForeignApi::class)
 actual class RewardedAd actual constructor(
@@ -36,10 +38,17 @@ actual class RewardedAd actual constructor(
             MARewardedAd.sharedWithAdUnitIdentifier(adUnitId)
         }
     }
+
+    private val listenerGroup: RewardListenerGroup by lazy {
+        RewardListenerGroup(ios, mutableListOf())
+    }
+
     actual val isReady: Boolean
         get() = ios.ready
+
     actual val unitId: String
         get() = ios.adUnitIdentifier
+
     actual val reviewFlow: Flow<ReviewAd>
         get() = callbackFlow {
             ios.adReviewDelegate =
@@ -86,7 +95,7 @@ actual class RewardedAd actual constructor(
 
     actual val rewardedAdFlow: Flow<AdEvent>
         get() = callbackFlow {
-            ios.delegate = object : NSObject(), MARewardedAdDelegateProtocol {
+            val listener = object : NSObject(), MARewardedAdDelegateProtocol {
                 override fun didRewardUserForAd(ad: MAAd, withReward: MAReward) {
                     trySend(AdEvent.UserRewarded(Ad(ad), Reward(withReward)))
                 }
@@ -118,11 +127,48 @@ actual class RewardedAd actual constructor(
                     trySend(AdEvent.Loaded(Ad(ad)))
                 }
             }
-            awaitClose { ios.delegate = null }
+            listenerGroup.listenerList.add(listener)
+            awaitClose {
+                ios.delegate = null
+                listenerGroup.listenerList.remove(listener)
+            }
         }
 
     actual suspend fun loadAd(): RewardedAd? {
-        ios.loadAd()
+        return suspendCancellableCoroutine { continuation ->
+            val listener = object : NSObject(), MARewardedAdDelegateProtocol {
+                override fun didRewardUserForAd(ad: MAAd, withReward: MAReward) {
+                }
+
+                override fun didClickAd(ad: MAAd) {
+                }
+
+                override fun didDisplayAd(ad: MAAd) {
+                }
+
+                override fun didFailToDisplayAd(ad: MAAd, withError: MAError) {
+                }
+
+                override fun didFailToLoadAdForAdUnitIdentifier(
+                    adUnitIdentifier: String,
+                    withError: MAError
+                ) {
+                    continuation.resume(null)
+                }
+
+                override fun didHideAd(ad: MAAd) {
+                }
+
+                override fun didLoadAd(ad: MAAd) {
+                    continuation.resume(this@RewardedAd)
+                }
+            }
+            listenerGroup.listenerList.add(listener)
+            continuation.invokeOnCancellation {
+                listenerGroup.listenerList.remove(listener)
+            }
+            ios.loadAd()
+        }
     }
 
     actual fun setExtraParameter(key: String, value: String) {

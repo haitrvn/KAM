@@ -16,6 +16,8 @@ import com.haitrvn.kal.util.toCommonError
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlin.coroutines.resume
 
 actual class InterstitialAd actual constructor(
     adUnitId: String,
@@ -31,6 +33,9 @@ actual class InterstitialAd actual constructor(
         } else {
             MaxInterstitialAd(adUnitId, ContextProvider.context)
         }
+    }
+    private val listenerGroup: NativeAdListenerGroup by lazy {
+        NativeAdListenerGroup(android, mutableListOf())
     }
 
     actual val unitId: String
@@ -73,7 +78,7 @@ actual class InterstitialAd actual constructor(
 
     actual val adEventFlow: Flow<AdEvent>
         get() = callbackFlow {
-            android.setListener(object : MaxAdListener {
+            val listener = object : MaxAdListener {
                 override fun onAdLoaded(ad: MaxAd) {
                     trySend(AdEvent.Loaded(Ad(ad)))
                 }
@@ -97,15 +102,41 @@ actual class InterstitialAd actual constructor(
                 override fun onAdDisplayFailed(ad: MaxAd, error: MaxError) {
                     trySend(AdEvent.DisplayFailed(Ad(ad), error.toCommonError()))
                 }
-            })
-
+            }
+            listenerGroup.listenerList.add(listener)
             awaitClose {
                 android.setListener(null)
+                listenerGroup.listenerList.remove(listener)
             }
         }
 
-    actual fun loadAd() {
-        android.loadAd()
+    actual suspend fun loadAd(): InterstitialAd? {
+        return suspendCancellableCoroutine { continuation ->
+            val listener = object : MaxAdListener {
+                override fun onAdLoaded(ad: MaxAd) {
+                    continuation.resume(this@InterstitialAd)
+                }
+
+                override fun onAdDisplayed(ad: MaxAd) {
+                }
+
+                override fun onAdHidden(ad: MaxAd) {
+                }
+
+                override fun onAdClicked(ad: MaxAd) {
+                }
+
+                override fun onAdLoadFailed(message: String, error: MaxError) {
+                    continuation.resume(null)
+                }
+
+                override fun onAdDisplayFailed(ad: MaxAd, error: MaxError) {
+                }
+            }
+            listenerGroup.listenerList.add(listener)
+            continuation.invokeOnCancellation { listenerGroup.listenerList.remove(listener) }
+            android.loadAd()
+        }
     }
 
     actual fun setExtraParameter(key: String, value: String) {

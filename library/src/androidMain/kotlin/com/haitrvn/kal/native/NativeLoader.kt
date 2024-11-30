@@ -129,7 +129,9 @@ actual class NativeLoader actual constructor(
             }
             listenerGroup.listenerList.add(listener)
             cancellableContinuation.invokeOnCancellation {
-                listenerGroup.listenerList.remove(listener)
+                listenerGroup.listenerList.remove(
+                    listener
+                )
             }
             android.loadAd(ad.android)
         }

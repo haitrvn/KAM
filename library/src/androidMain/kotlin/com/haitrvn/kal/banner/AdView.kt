@@ -180,12 +180,12 @@ actual class AdView actual constructor(
         android.setCustomData(data)
     }
 
-    actual fun setExtraParameter(param: String, data: String) {
-        android.setExtraParameter(param, data)
+    actual fun setExtraParameter(key: String, value: String) {
+        android.setExtraParameter(key, value)
     }
 
-    actual fun setLocalExtraParameter(param: String, data: Any) {
-        android.setLocalExtraParameter(param, data)
+    actual fun setLocalExtraParameter(key: String, value: Any) {
+        android.setLocalExtraParameter(key, value)
     }
 
     actual fun setPlacement(placement: String) {

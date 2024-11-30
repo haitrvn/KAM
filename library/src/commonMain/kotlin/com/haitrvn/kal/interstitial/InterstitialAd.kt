@@ -21,7 +21,7 @@ expect class InterstitialAd(
     val requestFlow: Flow<String>
     val adEventFlow: Flow<AdEvent>
 
-    fun loadAd()
+    suspend fun loadAd(): InterstitialAd?
     fun setExtraParameter(key: String, value: String)
     internal fun setLocalExtraParameter(key: String, param: Any)
     fun showAd(rootView: RootView)
