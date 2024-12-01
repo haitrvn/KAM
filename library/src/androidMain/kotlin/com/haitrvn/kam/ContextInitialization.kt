@@ -1,12 +1,12 @@
-package com.haitrvn.kam.core.init
+package com.haitrvn.kam
 
 import android.content.Context
 import androidx.startup.Initializer
 
-class KamContextProviderInitialization : Initializer<ContextProvider> {
+class ContextInitialization : Initializer<ContextProvider> {
     override fun create(context: Context): ContextProvider {
         return ContextProvider.apply {
-            applicationContext = context.applicationContext
+            this.context = context.applicationContext
         }
     }
 
