@@ -11,7 +11,7 @@
             tools:node="merge">
 
             <meta-data
-                android:name="com.haitrvn.kam.ContextInitialization"
+                android:name="com.haitrvn.kam.util.ContextInitialization"
                 android:value="androidx.startup" />
         </provider>
     </application>

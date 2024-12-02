@@ -1,9 +1,9 @@
 package com.haitrvn.kam
 
 import com.google.android.gms.ads.MobileAds
+import com.haitrvn.kam.util.ContextProvider
 
-actual class Initializer(
-) {
+actual class Initializer actual constructor() {
     actual fun initialize(complete: (InitializationStatus) -> Unit) {
         MobileAds.initialize(ContextProvider.context) {
             complete(InitializationStatus(it))

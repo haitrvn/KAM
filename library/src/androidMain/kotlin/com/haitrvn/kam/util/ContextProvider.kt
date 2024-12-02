@@ -1,4 +1,4 @@
-package com.haitrvn.kam
+package com.haitrvn.kam.util
 
 import android.annotation.SuppressLint
 import android.content.Context
