@@ -1,10 +1,17 @@
 package com.haitrvn.kam
 
-actual class AdValue {
+import cocoapods.Google_Mobile_Ads_SDK.GADAdValue
+import kotlinx.cinterop.ExperimentalForeignApi
+
+@OptIn(ExperimentalForeignApi::class)
+actual class AdValue(
+    private val ios: GADAdValue
+) {
     actual val precisionType: PrecisionType
-        get() = TODO("Not yet implemented")
+        get() = PrecisionType.entries.find { it.value == ios.precision.toInt() }
+            ?: PrecisionType.UNKNOWN
     actual val valueMicros: Long
-        get() = TODO("Not yet implemented")
+        get() = ios.value.longValue
     actual val currencyCode: String
-        get() = TODO("Not yet implemented")
+        get() = ios.currencyCode
 }

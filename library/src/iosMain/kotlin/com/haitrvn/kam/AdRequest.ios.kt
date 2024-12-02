@@ -1,26 +1,35 @@
 package com.haitrvn.kam
 
-actual class AdRequest {
+import cocoapods.Google_Mobile_Ads_SDK.GADRequest
+import cocoapods.Google_Mobile_Ads_SDK.adString
+import kotlinx.cinterop.ExperimentalForeignApi
+
+@OptIn(ExperimentalForeignApi::class)
+actual class AdRequest(
+    val ios: GADRequest
+) {
     actual companion object {
         actual fun createInstance(block: AdRequestBuilder.() -> Unit): AdRequest {
-            TODO("Not yet implemented")
+            return AdRequest(GADRequest().apply {
+
+            })
         }
     }
 
     actual val customTargeting: Any
-        get() = TODO("Not yet implemented")
+        get() = TODO()
     actual val networkExtrasBundle: Any?
-        get() = TODO("Not yet implemented")
+        get() = ios.adNetworkExtrasFor(TODO())
     actual val adString: String?
-        get() = TODO("Not yet implemented")
+        get() = ios.adString
     actual val contentUrl: String
-        get() = TODO("Not yet implemented")
+        get() = ios.contentURL ?: ""
     actual val requestAgent: String
-        get() = TODO("Not yet implemented")
+        get() = ios.requestAgent ?: ""
     actual val neighboringContentUrls: List<String>
-        get() = TODO("Not yet implemented")
+        get() = ios.neighboringContentURLStrings as? List<String> ?: emptyList()
     actual val keywords: Set<String>
-        get() = TODO("Not yet implemented")
+        get() = (ios.keywords as List<String>).toSet()
     actual val isTestDevice: Boolean
-        get() = TODO("Not yet implemented")
+        get() = TODO()
 }

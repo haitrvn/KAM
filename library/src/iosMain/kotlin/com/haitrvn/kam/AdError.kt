@@ -1,12 +1,16 @@
 package com.haitrvn.kam
 
-actual class AdError {
+import platform.Foundation.NSError
+
+actual class AdError(
+    private val ios: NSError
+) {
     actual val code: Int
-        get() = TODO("Not yet implemented")
+        get() = ios.code.toInt()
     actual val cause: AdError?
-        get() = TODO("Not yet implemented")
+        get() = null
     actual val domain: String
-        get() = TODO("Not yet implemented")
+        get() = ios.domain.toString()
     actual val message: String
-        get() = TODO("Not yet implemented")
+        get() = ios.description ?: ""
 }

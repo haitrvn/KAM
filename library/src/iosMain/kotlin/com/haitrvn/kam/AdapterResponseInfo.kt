@@ -1,20 +1,31 @@
 package com.haitrvn.kam
 
-actual class AdapterResponseInfo {
+import cocoapods.Google_Mobile_Ads_SDK.GADAdNetworkResponseInfo
+import kotlinx.cinterop.ExperimentalForeignApi
+import platform.Foundation.NSError
+
+@OptIn(ExperimentalForeignApi::class)
+actual class AdapterResponseInfo(
+    private val ios: GADAdNetworkResponseInfo
+) {
     actual val latencyInMillis: Long
-        get() = TODO("Not yet implemented")
+        get() = ios.latency.toLong()
     actual val credentials: Any
-        get() = TODO("Not yet implemented")
+        get() = ios.dictionaryRepresentation
     actual val adError: AdError?
-        get() = TODO("Not yet implemented")
+        get() = ios.error.toCommon()
     actual val adSourceId: String
-        get() = TODO("Not yet implemented")
+        get() = ios.adSourceID ?: ""
     actual val adSourceInstanceId: String
-        get() = TODO("Not yet implemented")
+        get() = ios.adSourceInstanceName ?: ""
     actual val adSourceInstanceName: String
-        get() = TODO("Not yet implemented")
+        get() = ios.adSourceInstanceName ?: ""
     actual val adSourceName: String
-        get() = TODO("Not yet implemented")
+        get() = ios.adSourceName ?: ""
     actual val adapterClassName: String
-        get() = TODO("Not yet implemented")
+        get() = ios.adNetworkClassName
+}
+
+private fun NSError?.toCommon(): AdError? {
+    TODO()
 }

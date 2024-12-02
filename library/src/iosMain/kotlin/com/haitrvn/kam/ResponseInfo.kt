@@ -1,14 +1,20 @@
 package com.haitrvn.kam
 
-actual class ResponseInfo {
+import cocoapods.Google_Mobile_Ads_SDK.GADResponseInfo
+import kotlinx.cinterop.ExperimentalForeignApi
+
+@OptIn(ExperimentalForeignApi::class)
+actual class ResponseInfo(
+    private val ios: GADResponseInfo
+) {
     actual val responseExtras: Any
-        get() = TODO("Not yet implemented")
+        get() = ios.extrasDictionary
     actual val adapterResponseInfo: AdapterResponseInfo?
-        get() = TODO("Not yet implemented")
+        get() = /*ios.loadedAdNetworkResponseInfo*/ TODO()
     actual val mediationAdapterClassName: String?
-        get() = TODO("Not yet implemented")
+        get() = /*ios.dictionaryRepresentation*/ TODO()
     actual val responseId: String?
-        get() = TODO("Not yet implemented")
+        get() = ios.responseIdentifier
     actual val adapterResponses: List<AdapterResponseInfo>
-        get() = TODO("Not yet implemented")
+        get() = /*ios.adNetworkInfoArray*/ TODO()
 }

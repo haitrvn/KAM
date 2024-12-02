@@ -1,6 +1,8 @@
 package com.haitrvn.kam
 
-actual class AdRequestBuilder {
+actual class AdRequestBuilder(
+
+) {
     actual fun build(): AdRequest {
         TODO("Not yet implemented")
     }
