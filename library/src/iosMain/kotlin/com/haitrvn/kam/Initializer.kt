@@ -5,7 +5,7 @@ import cocoapods.Google_Mobile_Ads_SDK.GADMobileAds
 import kotlinx.cinterop.ExperimentalForeignApi
 
 @OptIn(ExperimentalForeignApi::class)
-actual class Initializer {
+actual object Initializer {
     actual fun initialize(complete: (InitializationStatus) -> Unit) {
         GADMobileAds.sharedInstance().startWithCompletionHandler { status ->
             complete(InitializationStatus(

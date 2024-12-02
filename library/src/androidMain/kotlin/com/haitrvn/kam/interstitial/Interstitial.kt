@@ -8,12 +8,12 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.haitrvn.kam.AdError
 import com.haitrvn.kam.AdRequest
 import com.haitrvn.kam.AdValue
-import com.haitrvn.kam.util.ContextProvider
 import com.haitrvn.kam.FullScreenContent
 import com.haitrvn.kam.ResponseInfo
 import com.haitrvn.kam.RootView
 import com.haitrvn.kam.getRootView
 import com.haitrvn.kam.toCommon
+import com.haitrvn.kam.util.ContextProvider
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -63,30 +63,37 @@ actual class Interstitial(
                 override fun onAdClicked() {
                     super.onAdClicked()
                     trySend(FullScreenContent.Clicked)
+                    println("haitrvn onAdClicked")
                 }
 
                 override fun onAdDismissedFullScreenContent() {
                     super.onAdDismissedFullScreenContent()
                     trySend(FullScreenContent.Dismissed)
+                    println("haitrvn onAdDismissedFullScreenContent")
                 }
 
                 override fun onAdFailedToShowFullScreenContent(p0: com.google.android.gms.ads.AdError) {
                     super.onAdFailedToShowFullScreenContent(p0)
                     trySend(FullScreenContent.ShowFailed(AdError(p0)))
+                    println("haitrvn onAdFailedToShowFullScreenContent")
                 }
 
                 override fun onAdImpression() {
                     super.onAdImpression()
                     trySend(FullScreenContent.Impression)
-
+                    println("haitrvn onAdImpression")
                 }
 
                 override fun onAdShowedFullScreenContent() {
                     super.onAdShowedFullScreenContent()
                     trySend(FullScreenContent.Showed)
+                    println("haitrvn onAdShowedFullScreenContent")
                 }
             }
-            awaitClose { android.fullScreenContentCallback = null }
+            awaitClose {
+                android.fullScreenContentCallback = null
+                println("haitrvn close flow")
+            }
         }
 
     actual val paidEventFlow: Flow<AdValue>

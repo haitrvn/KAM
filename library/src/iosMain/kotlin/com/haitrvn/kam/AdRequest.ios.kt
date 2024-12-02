@@ -2,7 +2,7 @@ package com.haitrvn.kam
 
 actual class AdRequest {
     actual companion object {
-        actual fun createInstance(block: AdRequestBuilder.() -> AdRequestBuilder): AdRequest {
+        actual fun createInstance(block: AdRequestBuilder.() -> Unit): AdRequest {
             TODO("Not yet implemented")
         }
     }

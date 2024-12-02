@@ -2,7 +2,7 @@ package com.haitrvn.kam
 
 expect class AdRequest {
     companion object {
-        fun createInstance(block: AdRequestBuilder.() -> Unit): AdRequest
+        fun createInstance(block: AdRequestBuilder.() -> Unit = {}): AdRequest
     }
 
     val customTargeting: Any

@@ -1,6 +1,6 @@
 package com.haitrvn.kam
 
-expect class Initializer() {
+expect object Initializer {
     fun initialize(complete: (InitializationStatus) -> Unit = {})
 }
 
