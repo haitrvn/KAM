@@ -22,7 +22,7 @@ import kotlin.coroutines.resume
 
 @OptIn(ExperimentalForeignApi::class)
 actual class Interstitial(
-    val ios: GADInterstitialAd
+    private val ios: GADInterstitialAd
 ) {
     actual companion object {
         actual fun isAvailable(unitId: String): Boolean {

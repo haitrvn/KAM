@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.haitrvn.kam.AdRequest
 import com.haitrvn.kam.appopen.AppOpen
 import com.haitrvn.kam.interstitial.Interstitial
+import com.haitrvn.kam.reward.Rewarded
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -38,6 +39,18 @@ class SampleViewModel : ViewModel() {
                     _state.update { (_state.value as InterstitialContract.Loaded).copy(appOpen = appOpen) }
                 } else {
                     _state.update { InterstitialContract.Loaded(appOpen = appOpen) }
+                }
+            }
+        }
+        viewModelScope.launch {
+            Rewarded.load(
+                AdUnitId.REWARDED,
+                AdRequest.createInstance()
+            )?.let { rewarded ->
+                if(_state.value is InterstitialContract.Loaded) {
+                    _state.update { (_state.value as InterstitialContract.Loaded).copy(rewarded = rewarded) }
+                } else {
+                    _state.update { InterstitialContract.Loaded(rewarded = rewarded) }
                 }
             }
         }

@@ -34,5 +34,13 @@ fun App(
         ) {
             Text("Load and Show AppOpen Ad")
         }
+        Button(
+            enabled = interstitialState.value is InterstitialContract.Loaded && (interstitialState.value as InterstitialContract.Loaded).rewarded != null,
+            onClick = {
+                (interstitialState.value as? InterstitialContract.Loaded)?.rewarded?.show(rootView) {}
+            }
+        ) {
+            Text("Load and Show Rewarded Ad")
+        }
     }
 }
