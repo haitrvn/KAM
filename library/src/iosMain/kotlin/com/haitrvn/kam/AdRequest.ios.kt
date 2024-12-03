@@ -10,9 +10,9 @@ actual class AdRequest(
 ) {
     actual companion object {
         actual fun createInstance(block: AdRequestBuilder.() -> Unit): AdRequest {
-            return AdRequest(GADRequest().apply {
-
-            })
+            val builder = AdRequestBuilder()
+            builder.block()
+            return builder.build()
         }
     }
 
