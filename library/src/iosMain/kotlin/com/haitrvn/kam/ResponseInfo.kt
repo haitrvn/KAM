@@ -7,14 +7,18 @@ import kotlinx.cinterop.ExperimentalForeignApi
 actual class ResponseInfo(
     private val ios: GADResponseInfo
 ) {
-    actual val responseExtras: Any
-        get() = ios.extrasDictionary
-    actual val adapterResponseInfo: AdapterResponseInfo?
-        get() = /*ios.loadedAdNetworkResponseInfo*/ TODO()
-    actual val mediationAdapterClassName: String?
-        get() = /*ios.dictionaryRepresentation*/ TODO()
-    actual val responseId: String?
-        get() = ios.responseIdentifier
     actual val adapterResponses: List<AdapterResponseInfo>
         get() = /*ios.adNetworkInfoArray*/ TODO()
+
+    actual val loadedAdapterResponseInfo: AdapterResponseInfo?
+        get() = /*ios.loadedAdNetworkResponseInfo*/ TODO()
+
+    actual val mediationAdapterClassName: String?
+        get() = /*ios.adNetworkClassName*/ TODO()
+
+    actual val responseId: String?
+        get() = ios.responseIdentifier
+
+    actual val responseExtras: Any
+        get() = ios.extrasDictionary
 }

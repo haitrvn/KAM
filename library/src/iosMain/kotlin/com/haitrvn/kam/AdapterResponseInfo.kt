@@ -15,13 +15,13 @@ actual class AdapterResponseInfo(
     actual val adError: AdError?
         get() = ios.error.toCommon()
     actual val adSourceId: String
-        get() = ios.adSourceID ?: ""
+        get() = ios.adSourceID ?: EMPTY_STRING
     actual val adSourceInstanceId: String
-        get() = ios.adSourceInstanceName ?: ""
+        get() = ios.adSourceInstanceName ?: EMPTY_STRING
     actual val adSourceInstanceName: String
-        get() = ios.adSourceInstanceName ?: ""
+        get() = ios.adSourceInstanceName ?: EMPTY_STRING
     actual val adSourceName: String
-        get() = ios.adSourceName ?: ""
+        get() = ios.adSourceName ?: EMPTY_STRING
     actual val adapterClassName: String
         get() = ios.adNetworkClassName
 }

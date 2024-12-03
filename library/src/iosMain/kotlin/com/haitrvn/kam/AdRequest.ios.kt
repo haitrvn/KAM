@@ -23,9 +23,9 @@ actual class AdRequest(
     actual val adString: String?
         get() = ios.adString
     actual val contentUrl: String
-        get() = ios.contentURL ?: ""
+        get() = ios.contentURL ?: EMPTY_STRING
     actual val requestAgent: String
-        get() = ios.requestAgent ?: ""
+        get() = ios.requestAgent ?: EMPTY_STRING
     actual val neighboringContentUrls: List<String>
         get() = ios.neighboringContentURLStrings as? List<String> ?: emptyList()
     actual val keywords: Set<String>
