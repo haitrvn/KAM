@@ -1,10 +1,10 @@
-package com.haitrvn.kam.interstitial
+package com.haitrvn.kam.appopen
 
 import androidx.compose.runtime.Composable
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.appopen.AppOpenAd
 import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.haitrvn.kam.AdError
 import com.haitrvn.kam.AdRequest
 import com.haitrvn.kam.AdValue
@@ -20,32 +20,32 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
-actual class Interstitial(
-    val android: InterstitialAd
+actual class AppOpen(
+    private val android: AppOpenAd
 ) {
     actual companion object {
-        actual suspend fun load(unitId: String, adRequest: AdRequest): Interstitial? {
+        actual suspend fun load(unitId: String, request: AdRequest): AppOpen? {
             return suspendCancellableCoroutine { continuation ->
-                InterstitialAd.load(
+                AppOpenAd.load(
                     ContextProvider.context,
                     unitId,
-                    adRequest.android,
-                    object : InterstitialAdLoadCallback() {
+                    request.android,
+                    object : AppOpenAd.AppOpenAdLoadCallback() {
                         override fun onAdFailedToLoad(p0: LoadAdError) {
                             super.onAdFailedToLoad(p0)
                             continuation.resume(null)
                         }
 
-                        override fun onAdLoaded(p0: InterstitialAd) {
+                        override fun onAdLoaded(p0: AppOpenAd) {
                             super.onAdLoaded(p0)
-                            continuation.resume(Interstitial(p0))
+                            continuation.resume(AppOpen(p0))
                         }
                     })
             }
         }
 
-        actual fun pollAd(unitId: String): Interstitial? =
-            InterstitialAd.pollAd(ContextProvider.context, unitId)?.let { Interstitial(it) }
+        actual fun pollAd(unitId: String): AppOpen? =
+            AppOpenAd.pollAd(ContextProvider.context, unitId)?.let { AppOpen(it) }
 
         actual fun isAvailable(unitId: String): Boolean =
             InterstitialAd.isAdAvailable(ContextProvider.context, unitId)

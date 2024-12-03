@@ -19,12 +19,20 @@ fun App(
     val rootView = getRootView()
     Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         Button(
-            enabled = interstitialState.value is InterstitialContract.Loaded,
+            enabled = interstitialState.value is InterstitialContract.Loaded && (interstitialState.value as InterstitialContract.Loaded).interstitial != null,
             onClick = {
                 (interstitialState.value as? InterstitialContract.Loaded)?.interstitial?.show(rootView)
             }
         ) {
             Text("Load and Show Interstitial Ad")
+        }
+        Button(
+            enabled = interstitialState.value is InterstitialContract.Loaded && (interstitialState.value as InterstitialContract.Loaded).appOpen != null,
+            onClick = {
+                (interstitialState.value as? InterstitialContract.Loaded)?.appOpen?.show(rootView)
+            }
+        ) {
+            Text("Load and Show AppOpen Ad")
         }
     }
 }

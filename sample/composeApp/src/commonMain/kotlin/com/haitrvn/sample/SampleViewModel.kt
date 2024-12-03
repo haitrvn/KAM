@@ -3,6 +3,7 @@ package com.haitrvn.sample
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.haitrvn.kam.AdRequest
+import com.haitrvn.kam.appopen.AppOpen
 import com.haitrvn.kam.interstitial.Interstitial
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,10 +19,26 @@ class SampleViewModel : ViewModel() {
         viewModelScope.launch {
             _state.update { InterstitialContract.Loading }
             Interstitial.load(
-                Config.INTERSTITIAL_AD_UNIT_ID,
+                AdUnitId.INTERSTITIAL,
                 AdRequest.createInstance()
             )?.let { interstitial ->
-                _state.update { InterstitialContract.Loaded(interstitial) }
+                if(_state.value is InterstitialContract.Loaded) {
+                    _state.update { (_state.value as InterstitialContract.Loaded).copy(interstitial = interstitial) }
+                } else {
+                    _state.update { InterstitialContract.Loaded(interstitial = interstitial) }
+                }
+            }
+        }
+        viewModelScope.launch {
+            AppOpen.load(
+                AdUnitId.APP_OPEN,
+                AdRequest.createInstance()
+            )?.let { appOpen ->
+                if(_state.value is InterstitialContract.Loaded) {
+                    _state.update { (_state.value as InterstitialContract.Loaded).copy(appOpen = appOpen) }
+                } else {
+                    _state.update { InterstitialContract.Loaded(appOpen = appOpen) }
+                }
             }
         }
     }
@@ -30,69 +47,3 @@ class SampleViewModel : ViewModel() {
         _state.update { InterstitialContract.Unknown }
     }
 }
-
-/**
- * class SampleViewModel : ViewModel() {
- *     private val _state = MutableStateFlow<InterstitialContract>(InterstitialContract.Unknown)
- *     val state: StateFlow<InterstitialContract> = _state.asStateFlow()
- *
- *     private var currentInterstitial: Interstitial? = null
- *
- *     init {
- *         viewModelScope.launch {
- *             _state.update { InterstitialContract.Loading }
- *             Interstitial.load(
- *                 Config.INTERSTITIAL_AD_UNIT_ID,
- *                 AdRequest.createInstance()
- *             )?.let { interstitial ->
- *                 currentInterstitial = interstitial
- *
- *                 // Theo dõi fullScreenContentFlow
- *                 interstitial.fullScreenContentFlow.collect { fullScreenContent ->
- *                     when (fullScreenContent) {
- *                         is FullScreenContent.Shown -> {
- *                             _state.update { InterstitialContract.Displayed }
- *                         }
- *                         is FullScreenContent.Dismissed -> {
- *                             _state.update { InterstitialContract.Unknown }
- *                             removeInterstitial()
- *                         }
- *                         is FullScreenContent.Failed -> {
- *                             _state.update { InterstitialContract.Error(fullScreenContent.error) }
- *                         }
- *                     }
- *                 }
- *
- *                 // Theo dõi responseInfo
- *                 _state.update {
- *                     InterstitialContract.Loaded(
- *                         interstitial = interstitial,
- *                         responseInfo = interstitial.responseInfo
- *                     )
- *                 }
- *             }
- *         }
- *     }
- *
- *     fun showInterstitial() {
- *         currentInterstitial?.show()
- *     }
- *
- *     fun removeInterstitial() {
- *         currentInterstitial = null
- *         _state.update { InterstitialContract.Unknown }
- *     }
- * }
- *
- * // Mở rộng sealed class để hỗ trợ nhiều trạng thái
- * sealed class InterstitialContract {
- *     object Unknown : InterstitialContract()
- *     object Loading : InterstitialContract()
- *     data class Loaded(
- *         val interstitial: Interstitial,
- *         val responseInfo: ResponseInfo? = null
- *     ) : InterstitialContract()
- *     object Displayed : InterstitialContract()
- *     data class Error(val throwable: Throwable) : InterstitialContract()
- * }
- */
