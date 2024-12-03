@@ -1,7 +1,10 @@
 package com.haitrvn.kam
 
 import cocoapods.Google_Mobile_Ads_SDK.GADRequest
+import cocoapods.Google_Mobile_Ads_SDK.adString
+import kotlinx.cinterop.ExperimentalForeignApi
 
+@OptIn(ExperimentalForeignApi::class)
 actual class AdRequestBuilder {
     private var keywords: MutableList<String> = mutableListOf()
     private var customTargeting: MutableMap<String, String> = mutableMapOf()
@@ -14,11 +17,10 @@ actual class AdRequestBuilder {
     actual fun build(): AdRequest {
         val request = GADRequest().apply {
             this.keywords = this@AdRequestBuilder.keywords
-            this.customTargeting = this@AdRequestBuilder.customTargeting
-            this.adString = this@AdRequestBuilder.adString
-            this.contentUrl = this@AdRequestBuilder.contentUrl
-            this.httpTimeoutMillis = this@AdRequestBuilder.httpTimeoutMillis
-            this.neighboringContentUrls = this@AdRequestBuilder.neighboringContentUrls
+//            this.customTargeting = this@AdRequestBuilder.customTargeting
+//            this.adString = this@AdRequestBuilder.adString
+            this.contentURL = this@AdRequestBuilder.contentUrl
+            this.neighboringContentURLStrings = this@AdRequestBuilder.neighboringContentUrls
             this.requestAgent = this@AdRequestBuilder.requestAgent
         }
         return AdRequest(request)
@@ -42,7 +44,6 @@ actual class AdRequestBuilder {
     }
 
     actual fun addNetworkExtrasBundle(): AdRequestBuilder {
-        //TODO
         return this
     }
 

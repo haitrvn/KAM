@@ -1,13 +1,17 @@
 package com.haitrvn.kam.appopen
 
 import androidx.compose.runtime.Composable
+import cocoapods.Google_Mobile_Ads_SDK.GADAppOpenAd
+import cocoapods.Google_Mobile_Ads_SDK.GADFullScreenContentDelegateProtocol
+import cocoapods.Google_Mobile_Ads_SDK.GADFullScreenPresentingAdProtocol
+import cocoapods.Google_Mobile_Ads_SDK.GADResponseInfo
 import com.haitrvn.kam.AdRequest
 import com.haitrvn.kam.AdValue
 import com.haitrvn.kam.FullScreenContent
 import com.haitrvn.kam.ResponseInfo
 import com.haitrvn.kam.RootView
 import com.haitrvn.kam.getRootView
-import com.haitrvn.kam.interstitial.Interstitial
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -16,6 +20,7 @@ import platform.Foundation.NSError
 import platform.darwin.NSObject
 import kotlin.coroutines.resume
 
+@OptIn(ExperimentalForeignApi::class)
 actual class AppOpen(
     private val ios: GADAppOpenAd
 ) {
@@ -25,9 +30,9 @@ actual class AppOpen(
             request: AdRequest
         ): AppOpen? {
             return suspendCancellableCoroutine { continuation ->
-                GADAppOpenAd.loadWithAdUnitID(unitId, adRequest.ios) { ad, error ->
+                GADAppOpenAd.loadWithAdUnitID(unitId, request.ios) { ad, error ->
                     if (ad != null) {
-                        continuation.resume(Interstitial(ad))
+                        continuation.resume(AppOpen(ad))
                     }
                     continuation.resume(null)
                 }
@@ -99,4 +104,9 @@ actual class AppOpen(
     actual fun show(rootView: RootView) {
         ios.presentFromRootViewController(rootView)
     }
+}
+
+@OptIn(ExperimentalForeignApi::class)
+private fun GADResponseInfo.toCommon(): ResponseInfo {
+    TODO()
 }

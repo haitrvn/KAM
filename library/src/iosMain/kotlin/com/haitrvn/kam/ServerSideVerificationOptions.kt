@@ -1,23 +1,37 @@
 package com.haitrvn.kam
 
-actual class ServerSideVerificationOptions {
+import cocoapods.Google_Mobile_Ads_SDK.GADServerSideVerificationOptions
+import kotlinx.cinterop.ExperimentalForeignApi
+
+@OptIn(ExperimentalForeignApi::class)
+actual class ServerSideVerificationOptions(
+    val ios: GADServerSideVerificationOptions
+) {
     actual companion object {
         actual fun createInstance(block: Builder.() -> Unit): ServerSideVerificationOptions {
-            TODO("Not yet implemented")
+            return Builder().apply(block).build()
         }
     }
 
     actual class Builder {
+        private var customData: String = ""
+        private var userId: String = ""
+
         actual fun setCustomData(customData: String): Builder {
-            TODO("Not yet implemented")
+            this.customData = customData
+            return this
         }
 
         actual fun setUserId(userId: String): Builder {
-            TODO("Not yet implemented")
+            this.userId = userId
+            return this
         }
 
         actual fun build(): ServerSideVerificationOptions {
-            TODO("Not yet implemented")
+            return ServerSideVerificationOptions(GADServerSideVerificationOptions().apply {
+                customRewardString = this@Builder.customData
+                userIdentifier = this@Builder.userId
+            })
         }
     }
 }
