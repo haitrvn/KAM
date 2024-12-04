@@ -4,13 +4,13 @@ import androidx.compose.runtime.Composable
 import cocoapods.Google_Mobile_Ads_SDK.GADFullScreenContentDelegateProtocol
 import cocoapods.Google_Mobile_Ads_SDK.GADFullScreenPresentingAdProtocol
 import cocoapods.Google_Mobile_Ads_SDK.GADInterstitialAd
-import cocoapods.Google_Mobile_Ads_SDK.GADResponseInfo
 import com.haitrvn.kam.AdRequest
 import com.haitrvn.kam.AdValue
 import com.haitrvn.kam.FullScreenContent
 import com.haitrvn.kam.ResponseInfo
 import com.haitrvn.kam.RootView
 import com.haitrvn.kam.getRootView
+import com.haitrvn.kam.toCommon
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -30,7 +30,8 @@ actual class Interstitial(
         }
 
         actual fun pollAd(unitId: String): Interstitial? {
-            return GADInterstitialAd.new()?.let { Interstitial(it) }
+            //ios not support preload
+            return null
         }
 
         actual suspend fun load(
@@ -51,13 +52,15 @@ actual class Interstitial(
 
     actual val unitId: String
         get() = ios.adUnitID
+
     actual val paidEventFlow: Flow<AdValue>
         get() = callbackFlow {
-            ios.setPaidEventHandler { }
+            ios.setPaidEventHandler { it?.let { trySend(AdValue(it)) } }
             awaitClose { ios.paidEventHandler = null }
         }
     actual val responseInfo: ResponseInfo
         get() = ios.responseInfo.toCommon()
+
     actual val fullScreenContentFlow: Flow<FullScreenContent>
         get() = callbackFlow {
             ios.fullScreenContentDelegate =
@@ -104,9 +107,4 @@ actual class Interstitial(
     actual fun show(rootView: RootView) {
         ios.presentFromRootViewController(rootView)
     }
-}
-
-@OptIn(ExperimentalForeignApi::class)
-private fun GADResponseInfo.toCommon(): ResponseInfo {
-    TODO()
 }

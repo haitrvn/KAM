@@ -1,66 +1,89 @@
 package com.haitrvn.kam.banner
 
 import cocoapods.Google_Mobile_Ads_SDK.GADAdSize
+import cocoapods.Google_Mobile_Ads_SDK.GADAdSizeBanner
+import cocoapods.Google_Mobile_Ads_SDK.GADAdSizeFluid
+import cocoapods.Google_Mobile_Ads_SDK.GADAdSizeFullBanner
+import cocoapods.Google_Mobile_Ads_SDK.GADAdSizeInvalid
+import cocoapods.Google_Mobile_Ads_SDK.GADAdSizeLargeBanner
+import cocoapods.Google_Mobile_Ads_SDK.GADAdSizeLeaderboard
+import cocoapods.Google_Mobile_Ads_SDK.GADAdSizeMediumRectangle
+import cocoapods.Google_Mobile_Ads_SDK.GADAdSizeSkyscraper
+import cocoapods.Google_Mobile_Ads_SDK.GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth
+import cocoapods.Google_Mobile_Ads_SDK.GADCurrentOrientationInlineAdaptiveBannerAdSizeWithWidth
+import cocoapods.Google_Mobile_Ads_SDK.GADInlineAdaptiveBannerAdSizeWithWidthAndMaxHeight
+import cocoapods.Google_Mobile_Ads_SDK.GADLandscapeAnchoredAdaptiveBannerAdSizeWithWidth
+import cocoapods.Google_Mobile_Ads_SDK.GADLandscapeInlineAdaptiveBannerAdSizeWithWidth
+import cocoapods.Google_Mobile_Ads_SDK.GADPortraitAnchoredAdaptiveBannerAdSizeWithWidth
+import cocoapods.Google_Mobile_Ads_SDK.GADPortraitInlineAdaptiveBannerAdSizeWithWidth
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.NativePtr
+import kotlinx.cinterop.useContents
 
+@OptIn(ExperimentalForeignApi::class)
 actual open class AdSize(
-    private val ios: GADAdSize
+    val ios: GADAdSize
 ) {
-    actual object Banner : AdSize(GADAdSize.GADAdSizeBanner)
-    actual object FullBanner : AdSize(GADAdSize.GADAdSizeFullBanner)
-    actual object LargeBanner : AdSize(GADAdSize.GADAdSizeLargeBanner)
-    actual object LeaderBoard : AdSize(GADAdSize.GADAdSizeLeaderboard)
-    actual object MediumRectangle : AdSize(GADAdSize.GADAdSizeMediumRectangle)
-    actual object WideSkyScraper : AdSize(GADAdSize.GADAdSizeSkyscraper)
-    actual object Fluid : AdSize(GADAdSize.GADAdSizeFluid)
-    actual object Invalid : AdSize(GADAdSize.GADAdSizeInvalid)
-    actual object Search : AdSize(GADAdSize(-3, 0))
-    actual class Custom(width: Int, height: Int) : AdSize(GADAdSize(width, height))
+    actual object Banner : AdSize(GADAdSizeBanner)
+    actual object FullBanner : AdSize(GADAdSizeFullBanner)
+    actual object LargeBanner : AdSize(GADAdSizeLargeBanner)
+    actual object LeaderBoard : AdSize(GADAdSizeLeaderboard)
+    actual object MediumRectangle : AdSize(GADAdSizeMediumRectangle)
+    actual object WideSkyScraper : AdSize(GADAdSizeSkyscraper)
+    actual object Fluid : AdSize(GADAdSizeFluid)
+    actual object Invalid : AdSize(GADAdSizeInvalid)
+    actual object Search : AdSize(TODO())
+    actual class Custom(width: Int, height: Int) : AdSize(TODO())
     actual companion object {
         actual fun getCurrentOrientationAnchoredAdaptiveBannerAdSize(width: Int): AdSize {
-            return ios.GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(width)
+            return AdSize(GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(width.toDouble()).useContents { this })
         }
 
         actual fun getCurrentOrientationInlineAdaptiveBannerAdSize(width: Int): AdSize {
-            return ios.GADCurrentOrientationInlineAdaptiveBannerAdSizeWithWidth(width)
+            return AdSize(GADCurrentOrientationInlineAdaptiveBannerAdSizeWithWidth(width.toDouble()).useContents { this })
         }
 
         actual fun getInlineAdaptiveBannerAdSize(
             width: Int,
             maxHeight: Int
         ): AdSize {
-            return ios.GADInlineAdaptiveBannerAdSizeWithWidthAndMaxHeight(width, maxHeight)
+            return AdSize(
+                GADInlineAdaptiveBannerAdSizeWithWidthAndMaxHeight(
+                    width.toDouble(),
+                    maxHeight.toDouble()
+                ).useContents { this })
         }
 
         actual fun getLandscapeAnchoredAdaptiveBannerAdSize(width: Int): AdSize {
-            return ios.GADLandscapeAnchoredAdaptiveBannerAdSizeWithWidth(width)
+            return AdSize(GADLandscapeAnchoredAdaptiveBannerAdSizeWithWidth(width.toDouble()).useContents { this })
         }
 
         actual fun getLandscapeInlineAdaptiveBannerAdSize(width: Int): AdSize {
-            return ios.GADLandscapeInlineAdaptiveBannerAdSizeWithWidth(width)
+            return AdSize(GADLandscapeInlineAdaptiveBannerAdSizeWithWidth(width.toDouble()).useContents { this })
         }
 
         actual fun getPortraitAnchoredAdaptiveBannerAdSize(width: Int): AdSize {
-            return ios.GADPortraitAnchoredAdaptiveBannerAdSizeWithWidth(width)
+            return AdSize(GADPortraitAnchoredAdaptiveBannerAdSizeWithWidth(width.toDouble()).useContents { this })
         }
 
         actual fun getPortraitInlineAdaptiveBannerAdSize(width: Int): AdSize {
-            return ios.GADPortraitInlineAdaptiveBannerAdSizeWithWidth(width)
+            return AdSize(GADPortraitInlineAdaptiveBannerAdSizeWithWidth(width.toDouble()).useContents { this })
         }
     }
 
     actual val height: Int
-        get() = TODO("Not yet implemented")
+        get() = ios.size.height.toInt()
     actual val width: Int
-        get() = TODO("Not yet implemented")
+        get() = ios.size.width.toInt()
     actual val heightInPixel: Int
-        get() = TODO("Not yet implemented")
+        get() = ios.size.height.toInt()
     actual val widthInPixel: Int
-        get() = TODO("Not yet implemented")
+        get() = ios.size.width.toInt()
     actual val isAutoHeight: Boolean
-        get() = TODO("Not yet implemented")
+        get() = TODO()
     actual val isFullWidth: Boolean
-        get() = TODO("Not yet implemented")
+        get() = TODO()
     actual val isFluid: Boolean
-        get() = TODO("Not yet implemented")
+        get() = TODO()
 
 }

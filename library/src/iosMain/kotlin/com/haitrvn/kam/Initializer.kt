@@ -34,17 +34,6 @@ actual class AdapterStatus(
 
 }
 
-private const val NOT_READY = 0
-private const val READY = 1
-
-private fun Number.toCommon(): AdapterStatus.State {
-    return when (this) {
-        READY -> AdapterStatus.State.READY
-        NOT_READY -> AdapterStatus.State.NOT_READY
-        else -> error("Unknown state: $this")
-    }
-}
-
 actual class InitializationStatus(
     actual val adapterStatusMap: Map<String, AdapterStatus>
 )

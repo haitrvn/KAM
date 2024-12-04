@@ -31,5 +31,8 @@ expect class Rewarded {
     fun show(rootView: RootView, onUserEarnedReward: (RewardItem) -> Unit)
 }
 
-expect class RewardItem
+expect class RewardItem {
+    val amount: Int
+    val type: String
+}
 

@@ -2,7 +2,6 @@ package com.haitrvn.kam
 
 import cocoapods.Google_Mobile_Ads_SDK.GADAdNetworkResponseInfo
 import kotlinx.cinterop.ExperimentalForeignApi
-import platform.Foundation.NSError
 
 @OptIn(ExperimentalForeignApi::class)
 actual class AdapterResponseInfo(
@@ -33,6 +32,3 @@ actual class AdapterResponseInfo(
         get() = ios.latency.toLong()
 }
 
-private fun NSError?.toCommon(): AdError? {
-    TODO()
-}

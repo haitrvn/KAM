@@ -5,13 +5,9 @@ import com.google.android.gms.ads.rewarded.RewardItem
 actual class RewardItem(
     private val rewardItem: RewardItem
 ) {
-    companion object {
-        val DEFAULT_REWARD = RewardItem(RewardItem.DEFAULT_REWARD)
-    }
-
-    val amount: Int
+    actual val amount: Int
         get() = rewardItem.amount
 
-    val type: String
+    actual val type: String
         get() = rewardItem.type
 }

@@ -4,13 +4,14 @@ import androidx.compose.runtime.Composable
 import cocoapods.Google_Mobile_Ads_SDK.GADAppOpenAd
 import cocoapods.Google_Mobile_Ads_SDK.GADFullScreenContentDelegateProtocol
 import cocoapods.Google_Mobile_Ads_SDK.GADFullScreenPresentingAdProtocol
-import cocoapods.Google_Mobile_Ads_SDK.GADResponseInfo
+import com.haitrvn.kam.AdError
 import com.haitrvn.kam.AdRequest
 import com.haitrvn.kam.AdValue
 import com.haitrvn.kam.FullScreenContent
 import com.haitrvn.kam.ResponseInfo
 import com.haitrvn.kam.RootView
 import com.haitrvn.kam.getRootView
+import com.haitrvn.kam.toCommon
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -64,33 +65,50 @@ actual class AppOpen(
                         didFailToPresentFullScreenContentWithError: NSError
                     ) {
                         super.ad(ad, didFailToPresentFullScreenContentWithError)
+                        trySend(
+                            FullScreenContent.ShowFailed(
+                                AdError(
+                                    didFailToPresentFullScreenContentWithError
+                                )
+                            )
+                        )
                     }
 
                     override fun adDidDismissFullScreenContent(ad: GADFullScreenPresentingAdProtocol) {
                         super.adDidDismissFullScreenContent(ad)
+                        trySend(FullScreenContent.Dismissed)
                     }
 
                     override fun adDidRecordClick(ad: GADFullScreenPresentingAdProtocol) {
                         super.adDidRecordClick(ad)
+                        trySend(FullScreenContent.Clicked)
                     }
 
                     override fun adDidRecordImpression(ad: GADFullScreenPresentingAdProtocol) {
                         super.adDidRecordImpression(ad)
+                        trySend(FullScreenContent.Impression)
                     }
 
                     override fun adWillDismissFullScreenContent(ad: GADFullScreenPresentingAdProtocol) {
                         super.adWillDismissFullScreenContent(ad)
+                        //TODO
                     }
 
                     override fun adWillPresentFullScreenContent(ad: GADFullScreenPresentingAdProtocol) {
                         super.adWillPresentFullScreenContent(ad)
+                        trySend(FullScreenContent.Showed)
                     }
                 }
             awaitClose { ios.fullScreenContentDelegate = null }
         }
 
     actual val paidEventFlow: Flow<AdValue>
-        get() = TODO("Not yet implemented")
+        get() = callbackFlow {
+            ios.setPaidEventHandler {
+                it?.let { trySend(AdValue(it)) }
+            }
+            awaitClose { ios.paidEventHandler = null }
+        }
 
     actual fun setImmersiveMode(immersive: Boolean) {
         //iOS do not thing about immersive mode
@@ -104,9 +122,4 @@ actual class AppOpen(
     actual fun show(rootView: RootView) {
         ios.presentFromRootViewController(rootView)
     }
-}
-
-@OptIn(ExperimentalForeignApi::class)
-private fun GADResponseInfo.toCommon(): ResponseInfo {
-    TODO()
 }

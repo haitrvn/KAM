@@ -1,5 +1,6 @@
 package com.haitrvn.kam
 
+import cocoapods.Google_Mobile_Ads_SDK.GADAdNetworkResponseInfo
 import cocoapods.Google_Mobile_Ads_SDK.GADResponseInfo
 import kotlinx.cinterop.ExperimentalForeignApi
 
@@ -8,13 +9,13 @@ actual class ResponseInfo(
     private val ios: GADResponseInfo
 ) {
     actual val adapterResponses: List<AdapterResponseInfo>
-        get() = /*ios.adNetworkInfoArray*/ TODO()
+        get() = ios.adNetworkInfoArray.map { (it as GADAdNetworkResponseInfo).toCommon() }
 
     actual val loadedAdapterResponseInfo: AdapterResponseInfo?
-        get() = /*ios.loadedAdNetworkResponseInfo*/ TODO()
+        get() = ios.loadedAdNetworkResponseInfo?.toCommon()
 
     actual val mediationAdapterClassName: String?
-        get() = /*ios.adNetworkClassName*/ TODO()
+        get() = TODO()
 
     actual val responseId: String?
         get() = ios.responseIdentifier
