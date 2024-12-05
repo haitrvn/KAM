@@ -49,31 +49,25 @@ actual class AdView(
         get() = callbackFlow {
             ios.delegate = object : NSObject(), GADBannerViewDelegateProtocol {
                 override fun bannerViewWillPresentScreen(bannerView: GADBannerView) {
-                    super.bannerViewWillPresentScreen(bannerView)
                     trySend(AdEvent.Opened)
                 }
 
                 override fun bannerViewWillDismissScreen(bannerView: GADBannerView) {
-                    super.bannerViewWillDismissScreen(bannerView)
                 }
 
                 override fun bannerViewDidRecordImpression(bannerView: GADBannerView) {
-                    super.bannerViewDidRecordImpression(bannerView)
                     trySend(AdEvent.Impression)
                 }
 
                 override fun bannerViewDidRecordClick(bannerView: GADBannerView) {
-                    super.bannerViewDidRecordClick(bannerView)
                     trySend(AdEvent.Clicked)
                 }
 
                 override fun bannerViewDidReceiveAd(bannerView: GADBannerView) {
-                    super.bannerViewDidReceiveAd(bannerView)
                     trySend(AdEvent.Loaded)
                 }
 
                 override fun bannerViewDidDismissScreen(bannerView: GADBannerView) {
-                    super.bannerViewDidDismissScreen(bannerView)
                     trySend(AdEvent.Closed)
                 }
 
@@ -81,7 +75,6 @@ actual class AdView(
                     bannerView: GADBannerView,
                     didFailToReceiveAdWithError: NSError
                 ) {
-                    super.bannerView(bannerView, didFailToReceiveAdWithError)
                     trySend(AdEvent.FailedToLoad(AdError(didFailToReceiveAdWithError)))
                 }
             }
