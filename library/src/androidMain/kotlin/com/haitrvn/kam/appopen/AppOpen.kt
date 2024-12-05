@@ -1,16 +1,15 @@
 package com.haitrvn.kam.appopen
 
 import androidx.compose.runtime.Composable
-import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.appopen.AppOpenAd
 import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.haitrvn.kam.AdError
 import com.haitrvn.kam.AdRequest
 import com.haitrvn.kam.AdValue
 import com.haitrvn.kam.FullScreenContent
 import com.haitrvn.kam.ResponseInfo
 import com.haitrvn.kam.RootView
+import com.haitrvn.kam.fullScreenContentFlow
 import com.haitrvn.kam.getRootView
 import com.haitrvn.kam.toCommon
 import com.haitrvn.kam.util.ContextProvider
@@ -58,37 +57,9 @@ actual class AppOpen(
         get() = android.responseInfo.toCommon()
 
     actual val fullScreenContentFlow: Flow<FullScreenContent>
-        get() = callbackFlow {
-            android.fullScreenContentCallback = object : FullScreenContentCallback() {
-                override fun onAdClicked() {
-                    super.onAdClicked()
-                    trySend(FullScreenContent.Clicked)
-                }
-
-                override fun onAdDismissedFullScreenContent() {
-                    super.onAdDismissedFullScreenContent()
-                    trySend(FullScreenContent.Dismissed)
-                }
-
-                override fun onAdFailedToShowFullScreenContent(p0: com.google.android.gms.ads.AdError) {
-                    super.onAdFailedToShowFullScreenContent(p0)
-                    trySend(FullScreenContent.ShowFailed(AdError(p0)))
-                }
-
-                override fun onAdImpression() {
-                    super.onAdImpression()
-                    trySend(FullScreenContent.Impression)
-                }
-
-                override fun onAdShowedFullScreenContent() {
-                    super.onAdShowedFullScreenContent()
-                    trySend(FullScreenContent.Showed)
-                }
-            }
-            awaitClose {
-                android.fullScreenContentCallback = null
-            }
-        }
+        get() = fullScreenContentFlow({
+            android.fullScreenContentCallback = it
+        }, { android.fullScreenContentCallback = null })
 
     actual val paidEventFlow: Flow<AdValue>
         get() = callbackFlow {

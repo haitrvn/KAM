@@ -1,5 +1,6 @@
 package com.haitrvn.kam
 
+import com.haitrvn.kam.native.VideoOptions
 import com.haitrvn.kam.reward.RewardItem
 
 fun com.google.android.gms.ads.AdValue.toCommon() = AdValue(this)
@@ -15,3 +16,6 @@ fun List<com.google.android.gms.ads.AdapterResponseInfo>.toCommon(): List<Adapte
 fun com.google.android.gms.ads.AdError.toCommon() = AdError(this)
 
 fun com.google.android.gms.ads.rewarded.RewardItem.toCommon() = RewardItem(this)
+
+
+fun com.google.android.gms.ads.VideoOptions.toCommon() = VideoOptions(this)
