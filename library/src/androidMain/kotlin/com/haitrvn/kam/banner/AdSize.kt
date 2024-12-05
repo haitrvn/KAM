@@ -29,7 +29,7 @@ actual open class AdSize(
     actual object WideSkyScraper : AdSize(WIDE_SKYSCRAPER)
     actual object Fluid : AdSize(FLUID)
     actual object Invalid : AdSize(INVALID)
-    actual object Search : AdSize(SEARCH)
+    internal actual object Search : AdSize(SEARCH)
     actual class Custom(width: Int, height: Int) :
         AdSize(com.google.android.gms.ads.AdSize(width, height))
 

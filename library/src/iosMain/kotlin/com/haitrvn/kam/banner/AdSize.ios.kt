@@ -3,6 +3,7 @@ package com.haitrvn.kam.banner
 import cocoapods.Google_Mobile_Ads_SDK.GADAdSize
 import cocoapods.Google_Mobile_Ads_SDK.GADAdSizeBanner
 import cocoapods.Google_Mobile_Ads_SDK.GADAdSizeFluid
+import cocoapods.Google_Mobile_Ads_SDK.GADAdSizeFromCGSize
 import cocoapods.Google_Mobile_Ads_SDK.GADAdSizeFullBanner
 import cocoapods.Google_Mobile_Ads_SDK.GADAdSizeInvalid
 import cocoapods.Google_Mobile_Ads_SDK.GADAdSizeLargeBanner
@@ -17,8 +18,8 @@ import cocoapods.Google_Mobile_Ads_SDK.GADLandscapeInlineAdaptiveBannerAdSizeWit
 import cocoapods.Google_Mobile_Ads_SDK.GADPortraitAnchoredAdaptiveBannerAdSizeWithWidth
 import cocoapods.Google_Mobile_Ads_SDK.GADPortraitInlineAdaptiveBannerAdSizeWithWidth
 import kotlinx.cinterop.ExperimentalForeignApi
-import kotlinx.cinterop.NativePtr
 import kotlinx.cinterop.useContents
+import platform.CoreGraphics.CGSizeMake
 
 @OptIn(ExperimentalForeignApi::class)
 actual open class AdSize(
@@ -32,8 +33,10 @@ actual open class AdSize(
     actual object WideSkyScraper : AdSize(GADAdSizeSkyscraper)
     actual object Fluid : AdSize(GADAdSizeFluid)
     actual object Invalid : AdSize(GADAdSizeInvalid)
-    actual object Search : AdSize(TODO())
-    actual class Custom(width: Int, height: Int) : AdSize(TODO())
+    internal actual object Search : AdSize(GADAdSizeFromCGSize(CGSizeMake(250.0, 250.0)))
+    actual class Custom(width: Int, height: Int) :
+        AdSize(GADAdSizeFromCGSize(CGSizeMake(width.toDouble(), height.toDouble())))
+
     actual companion object {
         actual fun getCurrentOrientationAnchoredAdaptiveBannerAdSize(width: Int): AdSize {
             return AdSize(GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(width.toDouble()).useContents { this })
@@ -73,17 +76,23 @@ actual open class AdSize(
 
     actual val height: Int
         get() = ios.size.height.toInt()
+
     actual val width: Int
         get() = ios.size.width.toInt()
+
     actual val heightInPixel: Int
         get() = ios.size.height.toInt()
+
     actual val widthInPixel: Int
         get() = ios.size.width.toInt()
+
     actual val isAutoHeight: Boolean
-        get() = TODO()
+        get() = height == -2
+
     actual val isFullWidth: Boolean
-        get() = TODO()
+        get() = width == -1
+
     actual val isFluid: Boolean
-        get() = TODO()
+        get() = width == -3 && height == -4
 
 }

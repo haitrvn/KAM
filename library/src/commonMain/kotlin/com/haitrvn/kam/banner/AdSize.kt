@@ -9,7 +9,7 @@ expect open class AdSize {
     object WideSkyScraper : AdSize
     object Fluid : AdSize
     object Invalid : AdSize
-    object Search : AdSize
+    internal object Search : AdSize
     class Custom : AdSize
 
     companion object {

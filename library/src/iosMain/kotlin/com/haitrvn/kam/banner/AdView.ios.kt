@@ -34,7 +34,12 @@ actual class AdView(
         get() = ios.responseInfo?.toCommon()
 
     actual val paidEventFlow: Flow<AdValue>
-        get() = TODO("Not yet implemented")
+        get() = callbackFlow {
+            ios.setPaidEventHandler {
+                it?.let { trySend(AdValue(it)) }
+            }
+            awaitClose { ios.paidEventHandler = null }
+        }
 
     actual val adSize: AdSize?
         get() = ios.adSize.toCommon()
