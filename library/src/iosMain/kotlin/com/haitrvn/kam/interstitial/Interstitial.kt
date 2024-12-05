@@ -69,27 +69,21 @@ actual class Interstitial(
                         ad: GADFullScreenPresentingAdProtocol,
                         didFailToPresentFullScreenContentWithError: NSError
                     ) {
-                        super.ad(ad, didFailToPresentFullScreenContentWithError)
                     }
 
                     override fun adDidDismissFullScreenContent(ad: GADFullScreenPresentingAdProtocol) {
-                        super.adDidDismissFullScreenContent(ad)
                     }
 
                     override fun adDidRecordClick(ad: GADFullScreenPresentingAdProtocol) {
-                        super.adDidRecordClick(ad)
                     }
 
                     override fun adDidRecordImpression(ad: GADFullScreenPresentingAdProtocol) {
-                        super.adDidRecordImpression(ad)
                     }
 
                     override fun adWillDismissFullScreenContent(ad: GADFullScreenPresentingAdProtocol) {
-                        super.adWillDismissFullScreenContent(ad)
                     }
 
                     override fun adWillPresentFullScreenContent(ad: GADFullScreenPresentingAdProtocol) {
-                        super.adWillPresentFullScreenContent(ad)
                     }
                 }
             awaitClose { ios.fullScreenContentDelegate = null }

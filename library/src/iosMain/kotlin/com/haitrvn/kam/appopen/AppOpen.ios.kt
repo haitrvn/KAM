@@ -64,7 +64,6 @@ actual class AppOpen(
                         ad: GADFullScreenPresentingAdProtocol,
                         didFailToPresentFullScreenContentWithError: NSError
                     ) {
-                        super.ad(ad, didFailToPresentFullScreenContentWithError)
                         trySend(
                             FullScreenContent.ShowFailed(
                                 AdError(
@@ -75,27 +74,22 @@ actual class AppOpen(
                     }
 
                     override fun adDidDismissFullScreenContent(ad: GADFullScreenPresentingAdProtocol) {
-                        super.adDidDismissFullScreenContent(ad)
                         trySend(FullScreenContent.Dismissed)
                     }
 
                     override fun adDidRecordClick(ad: GADFullScreenPresentingAdProtocol) {
-                        super.adDidRecordClick(ad)
                         trySend(FullScreenContent.Clicked)
                     }
 
                     override fun adDidRecordImpression(ad: GADFullScreenPresentingAdProtocol) {
-                        super.adDidRecordImpression(ad)
                         trySend(FullScreenContent.Impression)
                     }
 
                     override fun adWillDismissFullScreenContent(ad: GADFullScreenPresentingAdProtocol) {
-                        super.adWillDismissFullScreenContent(ad)
                         //TODO
                     }
 
                     override fun adWillPresentFullScreenContent(ad: GADFullScreenPresentingAdProtocol) {
-                        super.adWillPresentFullScreenContent(ad)
                         trySend(FullScreenContent.Showed)
                     }
                 }
