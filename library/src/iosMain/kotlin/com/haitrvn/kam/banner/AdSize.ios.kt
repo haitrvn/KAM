@@ -33,9 +33,9 @@ actual open class AdSize(
     actual object WideSkyScraper : AdSize(GADAdSizeSkyscraper)
     actual object Fluid : AdSize(GADAdSizeFluid)
     actual object Invalid : AdSize(GADAdSizeInvalid)
-    internal actual object Search : AdSize(GADAdSizeFromCGSize(CGSizeMake(250.0, 250.0)))
+    internal actual object Search : AdSize(GADAdSizeFromCGSize(CGSizeMake(250.0, 250.0)).useContents { this })
     actual class Custom(width: Int, height: Int) :
-        AdSize(GADAdSizeFromCGSize(CGSizeMake(width.toDouble(), height.toDouble())))
+        AdSize(GADAdSizeFromCGSize(CGSizeMake(width.toDouble(), height.toDouble())).useContents { this })
 
     actual companion object {
         actual fun getCurrentOrientationAnchoredAdaptiveBannerAdSize(width: Int): AdSize {
