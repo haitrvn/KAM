@@ -21,5 +21,7 @@ expect class AdLoader {
     val isLoading: Boolean
 }
 
-expect class NativeAd {
+sealed interface UnconfirmedClickEvent {
+    data object Canceled: UnconfirmedClickEvent
+    data class Received(val value: String): UnconfirmedClickEvent
 }

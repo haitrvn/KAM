@@ -4,7 +4,7 @@ import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.LoadAdError
 
 class AdListenerGroup(
-    private val listListener: MutableList<AdListener> = mutableListOf()
+    val listListener: MutableList<AdListener> = mutableListOf()
 ) : AdListener() {
     override fun onAdClicked() {
         super.onAdClicked()

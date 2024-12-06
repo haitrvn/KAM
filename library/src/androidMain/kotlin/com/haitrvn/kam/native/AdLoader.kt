@@ -7,13 +7,6 @@ import com.haitrvn.kam.AdRequest
 import com.haitrvn.kam.util.ContextProvider
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
-import com.google.android.gms.ads.nativead.NativeAd as AndroidNativeAd
-
-actual class NativeAd(
-    private val android: AndroidNativeAd
-) {
-    lateinit var listenerGroup: AdListenerGroup
-}
 
 actual class AdLoader(
     private val android: AdLoader
