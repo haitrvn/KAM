@@ -4,14 +4,15 @@ import cocoapods.Google_Mobile_Ads_SDK.GADAdValue
 import kotlinx.cinterop.ExperimentalForeignApi
 
 @OptIn(ExperimentalForeignApi::class)
-actual class AdValue(
-    private val ios: GADAdValue
+actual data class AdValue(
+    actual val precisionType: PrecisionType,
+    actual val valueMicros: Long,
+    actual val currencyCode: String,
 ) {
-    actual val precisionType: PrecisionType
-        get() = PrecisionType.entries.find { it.value == ios.precision.toInt() }
-            ?: PrecisionType.UNKNOWN
-    actual val valueMicros: Long
-        get() = ios.value.longValue
-    actual val currencyCode: String
-        get() = ios.currencyCode
+    constructor(ios: GADAdValue): this(
+        precisionType = PrecisionType.entries.find { it.value == ios.precision.toInt() }
+            ?: PrecisionType.UNKNOWN,
+        valueMicros = ios.value.longValue,
+        currencyCode = ios.currencyCode,
+    )
 }

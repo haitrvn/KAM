@@ -13,11 +13,3 @@ actual data class Image(
         uri = android.uri?.let { Uri(it) }
     )
 }
-
-actual class Drawable(
-    private val android: android.graphics.drawable.Drawable
-)
-
-actual class Uri(
-    private val android: android.net.Uri
-)

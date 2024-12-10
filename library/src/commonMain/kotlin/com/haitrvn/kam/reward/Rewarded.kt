@@ -30,9 +30,3 @@ expect class Rewarded {
     fun setImmersiveMode(immersive: Boolean)
     fun show(rootView: RootView, onUserEarnedReward: (RewardItem) -> Unit)
 }
-
-expect class RewardItem {
-    val amount: Int
-    val type: String
-}
-

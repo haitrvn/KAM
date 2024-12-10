@@ -1,6 +1,6 @@
 package com.haitrvn.kam.native
 
-actual class AdOptions actual constructor(
+actual class AdOptions (
     mediaAspectRatio: NativeMediaAspectRatio?,
     adChoices: AdChoices?,
     isShouldRequestMultipleImages: Boolean?,

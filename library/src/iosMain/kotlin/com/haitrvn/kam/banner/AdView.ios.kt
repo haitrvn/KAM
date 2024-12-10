@@ -7,7 +7,7 @@ import com.haitrvn.kam.AdError
 import com.haitrvn.kam.AdEvent
 import com.haitrvn.kam.AdRequest
 import com.haitrvn.kam.AdValue
-import com.haitrvn.kam.EMPTY_STRING
+import com.haitrvn.kam.until.EMPTY_STRING
 import com.haitrvn.kam.ResponseInfo
 import com.haitrvn.kam.toCommon
 import kotlinx.cinterop.CValue

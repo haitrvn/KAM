@@ -1,20 +1,19 @@
 package com.haitrvn.kam
 
+import com.haitrvn.kam.until.EMPTY_STRING
 import platform.Foundation.NSError
 import platform.Foundation.NSUnderlyingErrorKey
 
-actual class AdError(
-    private val ios: NSError
+actual data class AdError (
+    actual val code: Long,
+    actual val cause: AdError?,
+    actual val domain: String,
+    actual val message: String,
 ) {
-    actual val domain: String
-        get() = ios.domain ?: EMPTY_STRING
-
-    actual val code: Long
-        get() = ios.code
-
-    actual val message: String
-        get() = ios.description ?: EMPTY_STRING
-
-    actual val cause: AdError?
-        get() = (ios.userInfo[NSUnderlyingErrorKey] as? NSError)?.let { AdError(it) }
+    constructor(ios: NSError) : this(
+        code = ios.code.toLong(),
+        cause = (ios.userInfo[NSUnderlyingErrorKey] as? NSError)?.let { AdError(it) },
+        domain = ios.domain ?: EMPTY_STRING,
+        message = ios.description ?: EMPTY_STRING,
+    )
 }

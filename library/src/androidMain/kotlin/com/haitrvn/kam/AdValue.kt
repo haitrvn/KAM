@@ -1,16 +1,18 @@
 package com.haitrvn.kam
 
+import com.google.android.gms.ads.AdValue as AndroidAdValue
 
-actual class AdValue(
-    private val android: com.google.android.gms.ads.AdValue
+actual data class AdValue(
+    actual val precisionType: PrecisionType,
+    actual val valueMicros: Long,
+    actual val currencyCode: String,
 ) {
-    actual val precisionType: PrecisionType
-        get() = PrecisionType.entries.find { it.value == android.precisionType }
-            ?: PrecisionType.UNKNOWN
-    actual val valueMicros: Long
-        get() = android.valueMicros
-    actual val currencyCode: String
-        get() = android.currencyCode
+    constructor(android: AndroidAdValue) : this(
+        precisionType = PrecisionType.entries.find { it.value == android.precisionType }
+            ?: PrecisionType.UNKNOWN,
+        valueMicros = android.valueMicros,
+        currencyCode = android.currencyCode,
+    )
 }
 
 

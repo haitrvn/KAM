@@ -29,16 +29,11 @@ actual class AdapterStatus(
 
     actual val description: String
         get() = android.description
-
-    actual enum class State {
-        NOT_READY,
-        READY
-    }
 }
 
-private fun com.google.android.gms.ads.initialization.AdapterStatus.State.toCommon(): AdapterStatus.State {
+private fun com.google.android.gms.ads.initialization.AdapterStatus.State.toCommon(): State {
     return when (this) {
-        com.google.android.gms.ads.initialization.AdapterStatus.State.NOT_READY -> AdapterStatus.State.NOT_READY
-        com.google.android.gms.ads.initialization.AdapterStatus.State.READY -> AdapterStatus.State.READY
+        com.google.android.gms.ads.initialization.AdapterStatus.State.NOT_READY -> State.NOT_READY
+        com.google.android.gms.ads.initialization.AdapterStatus.State.READY -> State.READY
     }
 }

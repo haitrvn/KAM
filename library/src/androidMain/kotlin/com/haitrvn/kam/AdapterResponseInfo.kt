@@ -1,29 +1,25 @@
 package com.haitrvn.kam
 
-actual class AdapterResponseInfo(
-    private val android: com.google.android.gms.ads.AdapterResponseInfo
+import com.google.android.gms.ads.AdapterResponseInfo as AndroidAdapterResponseInfo
+
+actual data class AdapterResponseInfo (
+    actual val adError: AdError?,
+    actual val adSourceId: String,
+    actual val adSourceInstanceId: String,
+    actual val adapterClassName: String,
+    actual val adSourceName: String,
+    actual val adSourceInstanceName: String,
+    actual val credentials: Any,
+    actual val latencyInMillis: Long,
 ) {
-    actual val adError: AdError?
-        get() = android.adError?.toCommon()
-
-    actual val adSourceId: String
-        get() = android.adSourceId
-
-    actual val adSourceInstanceId: String
-        get() = android.adSourceInstanceId
-
-    actual val adSourceInstanceName: String
-        get() = android.adSourceInstanceName
-
-    actual val adSourceName: String
-        get() = android.adSourceName
-
-    actual val adapterClassName: String
-        get() = android.adapterClassName
-
-    actual val credentials: Any
-        get() = android.credentials
-
-    actual val latencyInMillis: Long
-        get() = android.latencyMillis
+    constructor(android: AndroidAdapterResponseInfo) : this(
+        adError = android.adError?.toCommon(),
+        adSourceId = android.adSourceId,
+        adSourceInstanceId = android.adSourceInstanceId,
+        adSourceInstanceName = android.adSourceInstanceName,
+        adSourceName = android.adSourceName,
+        adapterClassName = android.adapterClassName,
+        credentials = android.credentials,
+        latencyInMillis = android.latencyMillis,
+    )
 }

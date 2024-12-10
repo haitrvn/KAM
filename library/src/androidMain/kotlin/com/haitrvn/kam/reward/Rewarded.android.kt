@@ -1,13 +1,13 @@
 package com.haitrvn.kam.reward
 
-import com.google.android.gms.ads.rewarded.RewardItem
+import com.google.android.gms.ads.rewarded.RewardItem as AndroidRewardItem
 
-actual class RewardItem(
-    private val rewardItem: RewardItem
+actual data class RewardItem(
+    actual val amount: Int,
+    actual val type: String,
 ) {
-    actual val amount: Int
-        get() = rewardItem.amount
-
-    actual val type: String
-        get() = rewardItem.type
+    constructor(android: AndroidRewardItem) : this(
+        amount = android.amount,
+        type = android.type,
+    )
 }

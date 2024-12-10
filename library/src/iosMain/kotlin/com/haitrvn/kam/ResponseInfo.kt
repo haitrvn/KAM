@@ -5,21 +5,19 @@ import cocoapods.Google_Mobile_Ads_SDK.GADResponseInfo
 import kotlinx.cinterop.ExperimentalForeignApi
 
 @OptIn(ExperimentalForeignApi::class)
-actual class ResponseInfo(
-    private val ios: GADResponseInfo
+actual data class ResponseInfo (
+    actual val adapterResponses: List<AdapterResponseInfo>,
+    actual val loadedAdapterResponseInfo: AdapterResponseInfo?,
+    actual val mediationAdapterClassName: String?,
+    actual val responseId: String?,
+    actual val responseExtras: Any,
 ) {
-    actual val adapterResponses: List<AdapterResponseInfo>
-        get() = ios.adNetworkInfoArray.map { (it as GADAdNetworkResponseInfo).toCommon() }
 
-    actual val loadedAdapterResponseInfo: AdapterResponseInfo?
-        get() = ios.loadedAdNetworkResponseInfo?.toCommon()
-
-    actual val mediationAdapterClassName: String?
-        get() = TODO()
-
-    actual val responseId: String?
-        get() = ios.responseIdentifier
-
-    actual val responseExtras: Any
-        get() = ios.extrasDictionary
+    constructor(ios: GADResponseInfo) : this(
+        adapterResponses = ios.adNetworkInfoArray.map { (it as GADAdNetworkResponseInfo).toCommon() },
+        loadedAdapterResponseInfo = ios.loadedAdNetworkResponseInfo?.toCommon(),
+        mediationAdapterClassName = TODO(),
+        responseId = ios.responseIdentifier,
+        responseExtras = ios.extrasDictionary,
+    )
 }

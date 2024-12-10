@@ -2,7 +2,7 @@ package com.haitrvn.kam.native
 
 import com.google.android.gms.ads.nativead.NativeAdOptions
 
-actual data class AdOptions actual constructor(
+actual data class AdOptions(
     actual val mediaAspectRatio: NativeMediaAspectRatio?,
     actual val adChoices: AdChoices?,
     actual val isShouldRequestMultipleImages: Boolean?,

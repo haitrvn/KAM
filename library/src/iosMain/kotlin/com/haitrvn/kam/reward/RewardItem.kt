@@ -4,12 +4,12 @@ import cocoapods.Google_Mobile_Ads_SDK.GADAdReward
 import kotlinx.cinterop.ExperimentalForeignApi
 
 @OptIn(ExperimentalForeignApi::class)
-actual class RewardItem(
-    private val ios: GADAdReward
+actual data class RewardItem(
+    actual val amount: Int,
+    actual val type: String,
 ) {
-    actual val amount: Int
-        get() = ios.amount.intValue
-
-    actual val type: String
-        get() = ios.type
+    constructor(ios: GADAdReward): this (
+        amount = ios.amount.intValue,
+        type = ios.type
+    )
 }

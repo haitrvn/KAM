@@ -27,11 +27,6 @@ actual class AdapterStatus(
         get() = ios.state.toCommon()
     actual val description: String
         get() = ios.description.toString()
-
-    actual enum class State {
-        NOT_READY, READY
-    }
-
 }
 
 actual class InitializationStatus(

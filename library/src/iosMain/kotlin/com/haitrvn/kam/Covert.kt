@@ -21,10 +21,10 @@ fun NSError?.toCommon(): AdError? {
 private const val NOT_READY = 0
 private const val READY = 1
 
-fun Number.toCommon(): AdapterStatus.State {
+fun Number.toCommon(): State {
     return when (this) {
-        READY -> AdapterStatus.State.READY
-        NOT_READY -> AdapterStatus.State.NOT_READY
+        READY -> State.READY
+        NOT_READY -> State.NOT_READY
         else -> error("Unknown state: $this")
     }
 }

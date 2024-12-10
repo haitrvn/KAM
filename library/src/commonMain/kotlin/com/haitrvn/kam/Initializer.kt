@@ -8,10 +8,10 @@ expect class AdapterStatus {
     val latency: Int
     val state: State
     val description: String
+}
 
-    enum class State {
-        NOT_READY, READY
-    }
+enum class State {
+    NOT_READY, READY
 }
 
 expect class InitializationStatus {

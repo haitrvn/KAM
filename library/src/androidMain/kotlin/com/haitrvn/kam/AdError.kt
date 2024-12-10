@@ -1,17 +1,17 @@
 package com.haitrvn.kam
 
-actual class AdError(
-    private val android: com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdError as AndroidError
+
+actual data class AdError(
+    actual val code: Long,
+    actual val cause: AdError?,
+    actual val domain: String,
+    actual val message: String,
 ) {
-    actual val domain: String
-        get() = android.domain
-
-    actual val code: Long
-        get() = android.code.toLong()
-
-    actual val message: String
-        get() = android.message
-
-    actual val cause: AdError?
-        get() = android.cause?.toCommon()
+    constructor(android: AndroidError) : this(
+        code = android.code.toLong(),
+        cause = android.cause?.toCommon(),
+        domain = android.domain,
+        message = android.message,
+    )
 }

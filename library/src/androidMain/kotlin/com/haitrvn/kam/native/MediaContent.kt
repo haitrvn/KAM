@@ -1,25 +1,6 @@
 package com.haitrvn.kam.native
 
 import com.google.android.gms.ads.MediaContent as AndroidMediaContent
-import com.google.android.gms.ads.MuteThisAdReason as AndroidMuteThisAdReason
-import com.google.android.gms.ads.nativead.NativeAd.AdChoicesInfo as AndroidAdChoicesInfo
-
-actual class MuteThisAdReason(
-    val android: AndroidMuteThisAdReason
-) {
-    actual val description: String
-        get() = android.description
-}
-
-actual data class AdChoicesInfo(
-    actual val text: String,
-    actual val images: List<Image>,
-) {
-    constructor(android: AndroidAdChoicesInfo) : this(
-        text = android.text.toString(),
-        images = android.images.map { Image(it) }
-    )
-}
 
 actual data class MediaContent(
     actual val aspectRatio: Float,
@@ -38,7 +19,3 @@ actual data class MediaContent(
         isHasVideoContent = android.hasVideoContent(),
     )
 }
-
-actual class VideoController(
-    private val android: com.google.android.gms.ads.VideoController
-)

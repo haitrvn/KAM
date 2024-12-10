@@ -1,20 +1,19 @@
 package com.haitrvn.kam
 
-actual class ResponseInfo(
-    private val android: com.google.android.gms.ads.ResponseInfo
+import com.google.android.gms.ads.ResponseInfo as AndroidResponseInfo
+
+actual data class ResponseInfo (
+    actual val adapterResponses: List<AdapterResponseInfo>,
+    actual val loadedAdapterResponseInfo: AdapterResponseInfo?,
+    actual val mediationAdapterClassName: String?,
+    actual val responseId: String?,
+    actual val responseExtras: Any,
 ) {
-    actual val adapterResponses: List<AdapterResponseInfo>
-        get() = android.adapterResponses.toCommon()
-
-    actual val loadedAdapterResponseInfo: AdapterResponseInfo?
-        get() = android.loadedAdapterResponseInfo?.toCommon()
-
-    actual val mediationAdapterClassName: String?
-        get() = android.mediationAdapterClassName
-
-    actual val responseId: String?
-        get() = android.responseId
-
-    actual val responseExtras: Any
-        get() = android.responseExtras
+    constructor(android: AndroidResponseInfo) : this(
+        adapterResponses = android.adapterResponses.toCommon(),
+        loadedAdapterResponseInfo = android.loadedAdapterResponseInfo?.toCommon(),
+        mediationAdapterClassName = android.mediationAdapterClassName,
+        responseId = android.responseId,
+        responseExtras = android.responseExtras,
+    )
 }
