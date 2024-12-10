@@ -4,12 +4,19 @@ import com.haitrvn.kam.appopen.AppOpen
 import com.haitrvn.kam.interstitial.Interstitial
 import com.haitrvn.kam.reward.Rewarded
 
-sealed interface InterstitialContract {
-    data object Loading : InterstitialContract
-    data object Unknown : InterstitialContract
-    data class Loaded(
-        val interstitial: Interstitial? = null,
-        val appOpen: AppOpen? = null,
-        val rewarded: Rewarded? = null
-    ) : InterstitialContract
+data class UiState(
+    val interstitial: Interstitial? = null,
+    val appOpen: AppOpen? = null,
+    val rewarded: Rewarded? = null,
+    val isInterstitialLoading: Boolean,
+    val isAppOpenLoading: Boolean,
+    val isRewardedLoading: Boolean,
+) {
+    companion object {
+        val LOADING = UiState(
+            isInterstitialLoading = true,
+            isAppOpenLoading = true,
+            isRewardedLoading = true,
+        )
+    }
 }

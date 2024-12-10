@@ -1,7 +1,8 @@
 package com.haitrvn.sample
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -14,30 +15,34 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 @Preview
 fun App(
-    interstitialState: State<InterstitialContract>
+    uiState: State<UiState>
 ) {
     val rootView = getRootView()
-    Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+        Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
         Button(
-            enabled = interstitialState.value is InterstitialContract.Loaded && (interstitialState.value as InterstitialContract.Loaded).interstitial != null,
+            enabled = !uiState.value.isInterstitialLoading,
             onClick = {
-                (interstitialState.value as? InterstitialContract.Loaded)?.interstitial?.show(rootView)
+                uiState.value.interstitial?.show(rootView)
             }
         ) {
             Text("Load and Show Interstitial Ad")
         }
         Button(
-            enabled = interstitialState.value is InterstitialContract.Loaded && (interstitialState.value as InterstitialContract.Loaded).appOpen != null,
+            enabled = !uiState.value.isAppOpenLoading,
             onClick = {
-                (interstitialState.value as? InterstitialContract.Loaded)?.appOpen?.show(rootView)
+                uiState.value.appOpen?.show(rootView)
             }
         ) {
             Text("Load and Show AppOpen Ad")
         }
         Button(
-            enabled = interstitialState.value is InterstitialContract.Loaded && (interstitialState.value as InterstitialContract.Loaded).rewarded != null,
+            enabled = !uiState.value.isRewardedLoading,
             onClick = {
-                (interstitialState.value as? InterstitialContract.Loaded)?.rewarded?.show(rootView) {}
+                uiState.value.rewarded?.show(rootView) {}
             }
         ) {
             Text("Load and Show Rewarded Ad")

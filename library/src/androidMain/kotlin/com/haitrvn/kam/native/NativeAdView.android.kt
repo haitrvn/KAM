@@ -6,54 +6,54 @@ actual class NativeAdView(
     private val android: NativeAdView
 ) {
     fun setAdChoicesView() {
-        android.setAdChoicesView()
+        TODO()
     }
 
     fun setAdvertiserView() {
-        android.setAdvertiserView()
+        TODO()
     }
 
     fun setBodyView() {
-        android.setBodyView()
+        TODO()
     }
 
     fun setCallToActionView() {
-        android.setCallToActionView()
+        TODO()
     }
 
     fun setClickConfirmingView() {
-        android.setClickConfirmingView()
+        TODO()
     }
 
     fun setHeadlineView() {
-        android.setHeadlineView()
+        TODO()
     }
 
     fun setIconView() {
-        android.setIconView()
+        TODO()
     }
 
     fun setImageView() {
-        android.setImageView()
+        TODO()
     }
 
     fun setMediaView() {
-        android.setMediaView()
+        TODO()
     }
 
     fun setNativeAd() {
-        android.setNativeAd()
+        TODO()
     }
 
     fun setPriceView() {
-        android.setPriceView()
+        TODO()
     }
 
     fun setStarRatingView() {
-        android.setStarRatingView()
+        TODO()
     }
 
     fun setStoreView() {
-        android.setStoreView()
+        TODO()
     }
 }

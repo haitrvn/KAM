@@ -26,5 +26,5 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun AppAndroidPreview() {
-    App(remember { mutableStateOf(InterstitialContract.Loading) })
+    App(remember { mutableStateOf(UiState.LOADING) })
 }
