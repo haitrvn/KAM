@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application>
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            android:enabled="true"
+            tools:node="merge">
+
+            <meta-data
+                android:name="com.haitrvn.kam.util.ContextInitialization"
+                android:value="androidx.startup" />
+        </provider>
+    </application>
+</manifest>
