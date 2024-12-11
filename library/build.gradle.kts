@@ -13,6 +13,7 @@ group = "io.github.haitrvn"
 version = "0.0.1"
 
 kotlin {
+    jvmToolchain(17)
     androidTarget {
         compilations.all {
             kotlinOptions {

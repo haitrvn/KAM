@@ -8,10 +8,7 @@ actual class AdChoicesView
 
 actual class NativeAdView(
     private val string: String
-) {
-    actual fun setAdChoicesView(adChoicesView: AdChoicesView) {
-    }
-}
+)
 
 @Composable
 actual fun NativeAdView(
