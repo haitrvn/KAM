@@ -22,22 +22,27 @@ kotlin {
         }
         publishAllLibraryVariants()
     }
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
 
-    cocoapods {
-        summary = "Some description for the Shared Module"
-        homepage = "Link to the Shared Module homepage"
-        version = "1.0"
-        ios.deploymentTarget = "16.0"
-        podfile = project.file("podfile/Podfile")
-        framework {
-            baseName = "shared"
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.binaries.framework {
+            baseName = "ComposeApp"
             isStatic = true
         }
+    }
+
+    cocoapods {
+        ios.deploymentTarget = libs.versions.ios.deploymentTarget.get()
+        framework {
+            baseName = "KAM"
+        }
+        noPodspec()
         pod("Google-Mobile-Ads-SDK") {
-            moduleName = "GoogleMobileAds"
+//            moduleName = "GoogleMobileAds"
+            version = libs.versions.admob.cocoapods.get()
             extraOpts += listOf("-compiler-option", "-fmodules")
         }
     }

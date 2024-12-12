@@ -10,7 +10,9 @@ androidx-uiTest = "1.7.5"
 kermit = "2.0.5"
 kotlinx-coroutines = "1.9.0"
 androidx-lifecycle = "2.8.4"
-
+ios-deploymentTarget = "13.0"
+admob-cocoapods = "11.13.0"
+constraintlayout = "2.2.0"
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 startup-runtime = { module = "androidx.startup:startup-runtime", version.ref = "startupRuntime" }
@@ -25,6 +27,7 @@ kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutine
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 androidx-lifecycle-viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtime-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 
 [plugins]
 androidLibrary = { id = "com.android.library", version.ref = "agp" }

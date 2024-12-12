@@ -16,17 +16,16 @@ expect fun NativeAdView(
 
 interface NativeAdViewBinding {
     val rootView: NativeAdView
-    val adChoicesView: AdChoicesView
-    val advertiserView: View
+    val adChoicesView: AdChoicesView?
+    val advertiserView: View?
     val bodyView: View
-    val callToActionView: View
+    val callToActionView: View?
     val clickConfirmingView: View
     val headlineView: View
     val iconView: View
-    val imageView: View
+    val imageView: View?
     val mediaView: MediaView
-    val nativeAd: NativeAd
-    val priceView: View
+    val priceView: View?
     val starRatingView: View
-    val storeView: View
+    val storeView: View?
 }

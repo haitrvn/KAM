@@ -19,8 +19,21 @@ actual fun NativeAdView(
 ) {
     AndroidView(
         factory = {
-            binding.apply {
-                rootView.android
+            binding.rootView.android.apply {
+                setNativeAd(nativeAd.android)
+                adChoicesView = binding.adChoicesView
+                advertiserView = binding.advertiserView
+                bodyView = binding.bodyView
+                callToActionView = binding.callToActionView
+                setClickConfirmingView(binding.clickConfirmingView)
+                headlineView = binding.headlineView
+                iconView = binding.iconView
+                imageView = binding.imageView
+                mediaView = binding.mediaView
+                priceView = binding.priceView
+                starRatingView = binding.starRatingView
+                storeView = binding.storeView
+                setNativeAd(nativeAd.android)
             }
             binding.rootView.android
         },
