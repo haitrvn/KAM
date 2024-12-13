@@ -3,7 +3,7 @@ on:
   release:
     types: [released, prereleased]
   pull_request:
-    branches: [ "develop" ]
+    branches: [ "admob/develop" ]
 jobs:
   publish:
     name: Release build and publish
