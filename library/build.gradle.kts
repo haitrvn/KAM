@@ -42,7 +42,7 @@ kotlin {
         }
         noPodspec()
         pod("Google-Mobile-Ads-SDK") {
-            linkOnly = true
+            // linkOnly = true
             moduleName = "GoogleMobileAds"
             version = libs.versions.admob.cocoapods.get()
             extraOpts += listOf("-compiler-option", "-fmodules")
