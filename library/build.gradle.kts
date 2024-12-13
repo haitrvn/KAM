@@ -23,10 +23,17 @@ kotlin {
         publishAllLibraryVariants()
     }
 
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.binaries.framework {
+            baseName = "kam"
+            isStatic = true
+            freeCompilerArgs += listOf("-Xverbose-phases=Linker")
+        }
+    }
 
     cocoapods {
         ios.deploymentTarget = libs.versions.ios.deploymentTarget.get()
@@ -35,7 +42,8 @@ kotlin {
         }
         noPodspec()
         pod("Google-Mobile-Ads-SDK") {
-           moduleName = "GoogleMobileAds"
+            linkOnly = true
+            moduleName = "GoogleMobileAds"
             version = libs.versions.admob.cocoapods.get()
             extraOpts += listOf("-compiler-option", "-fmodules")
         }
