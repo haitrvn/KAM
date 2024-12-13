@@ -23,16 +23,10 @@ kotlin {
         publishAllLibraryVariants()
     }
 
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
-            baseName = "ComposeApp"
-            isStatic = true
-        }
-    }
+    iosX64(),
+    iosArm64(),
+    iosSimulatorArm64()
+
 
     cocoapods {
         ios.deploymentTarget = libs.versions.ios.deploymentTarget.get()
