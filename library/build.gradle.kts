@@ -30,12 +30,7 @@ kotlin {
     ).forEach {
         it.binaries.framework {
             baseName = "ComposeApp"
-        }
-        it.binaries.all {
-            linkerOpts("-ObjC")
-            linkerOpts(opts)
             linkerOpts("-L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/$platform")
-            linkerOpts("-L/usr/lib/swift/")
         }
     }
 
@@ -46,7 +41,7 @@ kotlin {
         }
         noPodspec()
         pod("Google-Mobile-Ads-SDK") {
-            moduleName = "GoogleMobileAds"
+           moduleName = "GoogleMobileAds"
             version = libs.versions.admob.cocoapods.get()
             extraOpts += listOf("-compiler-option", "-fmodules")
         }
