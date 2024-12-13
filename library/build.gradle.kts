@@ -30,14 +30,14 @@ kotlin {
     ).forEach {
         it.binaries.framework {
             baseName = "ComposeApp"
-            // isStatic = true
+            isStatic = true
         }
     }
 
     cocoapods {
         ios.deploymentTarget = libs.versions.ios.deploymentTarget.get()
         framework {
-            baseName = "shared"
+            baseName = "kam"
         }
         noPodspec()
         pod("Google-Mobile-Ads-SDK") {
