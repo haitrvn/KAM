@@ -45,10 +45,6 @@ kotlin {
             version = libs.versions.admob.cocoapods.get()
             extraOpts += listOf("-compiler-option", "-fmodules")
         }
-        pod("Google-Mobile-Ads-SDK"){
-           version =	"11.10.0"
-           extraOpts += listOf("-compiler-option", "-fmodules")
-       }
     }
 
     sourceSets {
