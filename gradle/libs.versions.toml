@@ -1,6 +1,6 @@
 [versions]
 agp = "8.2.2"
-kotlin = "2.1.0"
+kotlin = "2.0.21"
 androidx-activityCompose = "1.9.3"
 composeMultiplatform = "1.7.1"
 startupRuntime = "1.2.0"
