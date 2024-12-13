@@ -30,7 +30,12 @@ kotlin {
     ).forEach {
         it.binaries.framework {
             baseName = "ComposeApp"
-            isStatic = true
+        }
+        it.binaries.all {
+            linkerOpts("-ObjC")
+            linkerOpts(opts)
+            linkerOpts("-L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/$platform")
+            linkerOpts("-L/usr/lib/swift/")
         }
     }
 
