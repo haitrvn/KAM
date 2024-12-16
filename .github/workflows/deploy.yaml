@@ -17,6 +17,10 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 21
+
+      - name: Setup cocoapods
+        run: gem install cocoapods-generate
+        
       - name: build
         run: ./gradlew build
 
