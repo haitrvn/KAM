@@ -30,6 +30,7 @@ kotlin {
     ).forEach {
         it.binaries.framework {
             baseName = "kam"
+            isStatic = true
             freeCompilerArgs += listOf("-Xverbose-phases=Linker")
         }
     }
@@ -38,6 +39,7 @@ kotlin {
         ios.deploymentTarget = libs.versions.ios.deploymentTarget.get()
         framework {
             baseName = "kam"
+            isStatic = true
         }
         noPodspec()
         pod("Google-Mobile-Ads-SDK") {

@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlinCocoapods)
 }
 
 kotlin {
@@ -26,14 +27,26 @@ kotlin {
         }
     }
 
+    cocoapods {
+        ios.deploymentTarget = "16.0"
+        noPodspec()
+        framework {
+            baseName = "shared"
+            isStatic = true
+        }
+        pod("GoogleMobileAds") {
+            source = path("/Users/haitrvn/AndroidStudioProjects/KamSample/library/build/cocoapods/publish/release")
+        }
+    }
+
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.library)
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
+            api(projects.library)
+            api(compose.runtime)
+            api(compose.foundation)
+            api(compose.material3)
+            api(compose.components.resources)
+            api(compose.components.uiToolingPreview)
             implementation(libs.kermit)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.androidx.lifecycle.viewmodel)
