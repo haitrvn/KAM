@@ -30,7 +30,6 @@ kotlin {
     ).forEach {
         it.binaries.framework {
             baseName = "kam"
-            isStatic = true
             freeCompilerArgs += listOf("-Xverbose-phases=Linker")
         }
     }
@@ -42,9 +41,8 @@ kotlin {
         }
         noPodspec()
         pod("Google-Mobile-Ads-SDK") {
-            // linkOnly = true
             moduleName = "GoogleMobileAds"
-            version = "11.0"
+            version = libs.versions.admob.cocoapods.get()
             extraOpts += listOf("-compiler-option", "-fmodules")
         }
     }
