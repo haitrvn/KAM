@@ -11,7 +11,7 @@ kermit = "2.0.5"
 kotlinx-coroutines = "1.9.0"
 androidx-lifecycle = "2.8.4"
 ios-deploymentTarget = "13.0"
-admob-cocoapods = "11.6"
+admob-cocoapods = "11.5"
 constraintlayout = "2.2.0"
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
