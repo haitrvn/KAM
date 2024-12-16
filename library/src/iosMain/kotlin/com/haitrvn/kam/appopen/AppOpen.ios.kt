@@ -51,7 +51,7 @@ actual class AppOpen(
     }
 
     actual val unitId: String
-        get() = ios.adUnitID
+        get() = "" //TODO()
 
     actual val responseInfo: ResponseInfo
         get() = ios.responseInfo.toCommon()
