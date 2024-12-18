@@ -22,7 +22,7 @@ jobs:
         run: gem install cocoapods-generate
 
       - name: Build sample
-        run: ./gradlew :sample:build
+        run: ./gradlew :sample:embedAndSignAppleFrameworkForXcode
 
       - name: podPublishXCFramework
         run: ./gradlew :library:podPublishXCFramework --no-configuration-cache
