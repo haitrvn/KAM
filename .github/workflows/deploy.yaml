@@ -21,6 +21,9 @@ jobs:
       - name: Setup cocoapods
         run: gem install cocoapods-generate
 
+      - name: Build sample
+        run: ./gradlew :sample:build
+
       - name: podPublishXCFramework
         run: ./gradlew :library:podPublishXCFramework --no-configuration-cache
 

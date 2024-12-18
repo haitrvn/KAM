@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlinCocoapods)
 }
 
 kotlin {
@@ -24,18 +23,6 @@ kotlin {
         it.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
-        }
-    }
-
-    cocoapods {
-        ios.deploymentTarget = "16.0"
-        noPodspec()
-        framework {
-            baseName = "shared"
-            isStatic = true
-        }
-        pod("GoogleMobileAds") {
-            source = path("/Users/haitrvn/AndroidStudioProjects/KamSample/library/build/cocoapods/publish/release")
         }
     }
 

@@ -30,8 +30,8 @@ kotlin {
     ).forEach {
         it.binaries.framework {
             baseName = "kam"
+            xcf.add(this)
             isStatic = true
-            freeCompilerArgs += listOf("-Xverbose-phases=Linker")
         }
     }
 
