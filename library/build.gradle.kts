@@ -1,4 +1,5 @@
 import com.vanniktech.maven.publish.SonatypeHost
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -23,27 +24,29 @@ kotlin {
         publishAllLibraryVariants()
     }
 
+    val xcf = XCFramework()
     listOf(
         iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
-            baseName = "kam"
+            baseName = "library"
             isStatic = true
+            xcf.add(this)
         }
     }
 
     cocoapods {
         ios.deploymentTarget = libs.versions.ios.deploymentTarget.get()
         framework {
-            baseName = "kam"
+            baseName = "library"
             isStatic = true
         }
         noPodspec()
         pod("Google-Mobile-Ads-SDK") {
             moduleName = "GoogleMobileAds"
-            version = libs.versions.admob.cocoapods.get()
+//            version = libs.versions.admob.cocoapods.get()
             extraOpts += listOf("-compiler-option", "-fmodules")
         }
     }
