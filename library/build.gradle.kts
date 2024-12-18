@@ -30,7 +30,6 @@ kotlin {
     ).forEach {
         it.binaries.framework {
             baseName = "kam"
-            xcf.add(this)
             isStatic = true
         }
     }
