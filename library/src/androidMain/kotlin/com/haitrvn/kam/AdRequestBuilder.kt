@@ -2,9 +2,9 @@ package com.haitrvn.kam
 
 import android.os.Bundle
 import com.google.android.gms.ads.mediation.MediationExtrasReceiver
-
+import com.google.android.gms.ads.AdRequest as AndroidAdRequest
 actual class AdRequestBuilder(
-    private val android: com.google.android.gms.ads.AdRequest.Builder
+    private val android: AndroidAdRequest.Builder
 ) {
     actual fun build(): AdRequest {
         return AdRequest(android.build())

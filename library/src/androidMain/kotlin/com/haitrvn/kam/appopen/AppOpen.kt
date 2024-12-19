@@ -1,5 +1,6 @@
 package com.haitrvn.kam.appopen
 
+import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.appopen.AppOpenAd
@@ -74,6 +75,7 @@ actual class AppOpen(
     }
 
     @Composable
+    @SuppressLint("ComposableNaming")
     actual fun show() {
         android.show(getRootView())
     }

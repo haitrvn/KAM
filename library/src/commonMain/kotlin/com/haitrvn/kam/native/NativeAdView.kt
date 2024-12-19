@@ -18,14 +18,14 @@ interface NativeAdViewBinding {
     val rootView: NativeAdView
     val adChoicesView: AdChoicesView?
     val advertiserView: View?
-    val bodyView: View
+    val bodyView: View?
     val callToActionView: View?
-    val clickConfirmingView: View
+    val clickConfirmingView: View?
     val headlineView: View
-    val iconView: View
+    val iconView: View?
     val imageView: View?
     val mediaView: MediaView
     val priceView: View?
-    val starRatingView: View
+    val starRatingView: View?
     val storeView: View?
 }

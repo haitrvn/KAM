@@ -11,6 +11,7 @@ actual data class ResponseInfo (
     actual val mediationAdapterClassName: String?,
     actual val responseId: String?,
     actual val responseExtras: Any,
+    val isCollapsible: Boolean,
 ) {
 
     constructor(ios: GADResponseInfo) : this(
@@ -19,5 +20,6 @@ actual data class ResponseInfo (
         mediationAdapterClassName = TODO(),
         responseId = ios.responseIdentifier,
         responseExtras = ios.extrasDictionary,
+        isCollapsible = ios.isCollapsible
     )
 }
