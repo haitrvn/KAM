@@ -2,6 +2,11 @@ package com.haitrvn.kamsample
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RatingBar
+import android.widget.TextView
 import com.haitrvn.kam.native.AdChoicesView
 import com.haitrvn.kam.native.MediaView
 import com.haitrvn.kam.native.NativeAdView
@@ -20,15 +25,15 @@ class NativeView(context: Context): NativeAdViewBinding {
         get() = null
     override val advertiserView: View?
         get() = null
-    override val bodyView: View
+    override val bodyView: TextView
         get() = binding.body
     override val callToActionView: View?
         get() = null
-    override val clickConfirmingView: View
+    override val clickConfirmingView: Button
         get() = binding.cta
-    override val headlineView: View
+    override val headlineView: LinearLayout
         get() = binding.headline
-    override val iconView: View
+    override val iconView: ImageView
         get() = binding.icon
     override val imageView: View?
         get() = null
@@ -36,7 +41,7 @@ class NativeView(context: Context): NativeAdViewBinding {
         get() = binding.mediaView
     override val priceView: View?
         get() = null
-    override val starRatingView: View
+    override val starRatingView: RatingBar
         get() = binding.ratingBar
     override val storeView: View?
         get() = null
