@@ -7,7 +7,6 @@ import com.haitrvn.kam.FullScreenContent
 import com.haitrvn.kam.appopen.AppOpen
 import com.haitrvn.kam.interstitial.Interstitial
 import com.haitrvn.kam.native.AdLoader
-import com.haitrvn.kam.native.NativeAdViewBinding
 import com.haitrvn.kam.reward.Rewarded
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -24,18 +23,18 @@ class SampleViewModel : ViewModel() {
         loadInterstitial()
         loadAppOpen()
         loadRewarded()
-        loadNative()
+//        loadNative()
     }
 
-    private fun loadNative() {
-        viewModelScope.launch {
-            _state.getAndUpdate { it.copy(isNativeLoading = true) }
-            val nativeAd = AdLoader.load(AdUnitId.NATIVE, createInstance())
-            _state.getAndUpdate {
-                it.copy(isNativeLoading = false, nativeAd = nativeAd)
-            }
-        }
-    }
+//    private fun loadNative() {
+//        viewModelScope.launch {
+//            _state.getAndUpdate { it.copy(isNativeLoading = true) }
+//            val nativeAd = AdLoader.load(AdUnitId.NATIVE, createInstance())
+//            _state.getAndUpdate {
+//                it.copy(isNativeLoading = false, nativeAd = nativeAd)
+//            }
+//        }
+//    }
 
     private fun loadInterstitial() {
         viewModelScope.launch {

@@ -6,10 +6,11 @@ import com.haitrvn.kam.ResponseInfo
 import kotlinx.coroutines.flow.Flow
 
 expect class NativeAd {
+    internal val adChoicesInfo: AdChoicesInfo?
+
     val extras: Any
     val mediaContent: MediaContent?
     val responseInfo: ResponseInfo?
-    val adChoicesInfo: AdChoicesInfo?
     val icon: Image?
     val starRating: Double?
     val advertiser: String?

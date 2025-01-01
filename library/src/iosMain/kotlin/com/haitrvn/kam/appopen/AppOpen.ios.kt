@@ -34,8 +34,9 @@ actual class AppOpen(
                 GADAppOpenAd.loadWithAdUnitID(unitId, request.ios) { ad, error ->
                     if (ad != null) {
                         continuation.resume(AppOpen(ad))
+                    } else {
+                        continuation.resume(null)
                     }
-                    continuation.resume(null)
                 }
                 continuation.invokeOnCancellation { }
             }

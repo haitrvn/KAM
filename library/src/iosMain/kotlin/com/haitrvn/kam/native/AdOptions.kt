@@ -1,20 +1,16 @@
 package com.haitrvn.kam.native
 
-actual class AdOptions (
-    mediaAspectRatio: NativeMediaAspectRatio?,
-    adChoices: AdChoices?,
-    isShouldRequestMultipleImages: Boolean?,
-    isShouldReturnUrlsForImageAssets: Boolean?,
-    videoOptions: VideoOptions?
-) {
-    actual val mediaAspectRatio: NativeMediaAspectRatio?
-        get() = TODO("Not yet implemented")
-    actual val adChoices: AdChoices?
-        get() = TODO("Not yet implemented")
-    actual val isShouldRequestMultipleImages: Boolean?
-        get() = TODO("Not yet implemented")
-    actual val isShouldReturnUrlsForImageAssets: Boolean?
-        get() = TODO("Not yet implemented")
+import cocoapods.Google_Mobile_Ads_SDK.GADNativeAdMediaAdLoaderOptions
+
+actual class AdOptions(
+    actual val mediaAspectRatio: NativeMediaAspectRatio?,
+    actual val adChoices: AdChoices?,
+    actual val isShouldRequestMultipleImages: Boolean?,
+    actual val isShouldReturnUrlsForImageAssets: Boolean?,
     actual val videoOptions: VideoOptions?
-        get() = TODO("Not yet implemented")
+) {
+//    constructor(ios: GADNativeAdMediaAdLoaderOptions) : this(
+//        mediaAspectRatio = ios.mediaAspectRatio,
+//        adChoices = ios.
+//        )
 }

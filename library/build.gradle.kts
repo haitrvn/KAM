@@ -32,7 +32,6 @@ kotlin {
     ).forEach {
         it.binaries.framework {
             baseName = "library"
-            isStatic = true
             xcf.add(this)
         }
     }
@@ -41,7 +40,6 @@ kotlin {
         ios.deploymentTarget = libs.versions.ios.deploymentTarget.get()
         framework {
             baseName = "library"
-            isStatic = true
         }
         noPodspec()
         pod("Google-Mobile-Ads-SDK") {

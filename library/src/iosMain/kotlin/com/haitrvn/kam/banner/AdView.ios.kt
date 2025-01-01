@@ -10,7 +10,6 @@ import com.haitrvn.kam.AdValue
 import com.haitrvn.kam.until.EMPTY_STRING
 import com.haitrvn.kam.ResponseInfo
 import com.haitrvn.kam.toCommon
-import com.haitrvn.kam.until.orFalse
 import kotlinx.cinterop.CValue
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.readValue
@@ -46,7 +45,7 @@ actual class AdView(
         get() = ios.adSize.toCommon()
 
     actual val isCollapsible: Boolean
-        get() = responseInfo?.isCollapsible.orFalse()
+        get() = false
 
     actual val isLoading: Boolean
         get() = false

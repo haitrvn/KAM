@@ -1,50 +1,65 @@
 package com.haitrvn.kam.native
 
+import cocoapods.Google_Mobile_Ads_SDK.GADNativeAd
 import com.haitrvn.kam.AdEvent
 import com.haitrvn.kam.AdRequest
 import com.haitrvn.kam.AdValue
 import com.haitrvn.kam.ResponseInfo
+import com.haitrvn.kam.toCommon
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 
-actual class NativeAd {
+@OptIn(ExperimentalForeignApi::class)
+actual class NativeAd(
+    val ios: GADNativeAd
+) {
+    internal actual val adChoicesInfo: AdChoicesInfo?
+        get() = TODO("Not yet implemented")
+
     actual val extras: Any
         get() = TODO("Not yet implemented")
     actual val mediaContent: MediaContent?
         get() = TODO("Not yet implemented")
     actual val responseInfo: ResponseInfo?
-        get() = TODO("Not yet implemented")
-    actual val adChoicesInfo: AdChoicesInfo?
-        get() = TODO("Not yet implemented")
+        get() = ios.responseInfo.toCommon()
     actual val icon: Image?
         get() = TODO("Not yet implemented")
     actual val starRating: Double?
-        get() = TODO("Not yet implemented")
+        get() = ios.starRating?.doubleValue
     actual val advertiser: String?
-        get() = TODO("Not yet implemented")
+        get() = ios.advertiser
     actual val body: String?
-        get() = TODO("Not yet implemented")
+        get() = ios.body
     actual val callToAction: String?
-        get() = TODO("Not yet implemented")
+        get() = ios.callToAction
     actual val headline: String?
-        get() = TODO("Not yet implemented")
+        get() = ios.headline
     actual val price: String?
-        get() = TODO("Not yet implemented")
+        get() = ios.price
     actual val store: String?
-        get() = TODO("Not yet implemented")
+        get() = ios.store
     actual val images: List<Image>
         get() = TODO("Not yet implemented")
     actual val muteThisAdReasons: List<MuteThisAdReason>
         get() = TODO("Not yet implemented")
     actual val isCustomMuteThisAdEnabled: Boolean
-        get() = TODO("Not yet implemented")
+        get() = ios.isCustomMuteThisAdAvailable()
     actual val paidEventFlow: Flow<AdValue>
-        get() = TODO("Not yet implemented")
+        get() = callbackFlow {
+            ios.setPaidEventHandler {
+                it?.let { trySend(AdValue(it)) }
+            }
+            awaitClose { ios.paidEventHandler = null }
+        }
     actual val unconfirmedClickFlow: Flow<UnconfirmedClickEvent>
         get() = TODO("Not yet implemented")
     actual val adMutedFlow: Flow<Unit>
-        get() = TODO("Not yet implemented")
+        get() = callbackFlow {
+        }
     actual val adListenerEvent: Flow<AdEvent>
-        get() = TODO("Not yet implemented")
+        get() = TODO()
 
     actual fun cancelUnconfirmedClick() {
     }
@@ -53,6 +68,8 @@ actual class NativeAd {
     }
 
     actual fun muteThisAd(reason: MuteThisAdReason) {
+//        ios.muteThisAdWithReason(reason)
+        TODO()
     }
 
     actual fun performClick(bundle: Any) {
@@ -66,12 +83,14 @@ actual class NativeAd {
 }
 
 actual class AdLoader {
+    @OptIn(ExperimentalForeignApi::class)
     actual companion object {
         actual suspend fun load(
             unitId: String,
             request: AdRequest,
             adOptions: AdOptions?
         ): NativeAd? {
+//            GADAdLoader(unitId, null, listOf(GADAdLoaderAdTypeNative), adOptions)
             TODO("Not yet implemented")
         }
 
