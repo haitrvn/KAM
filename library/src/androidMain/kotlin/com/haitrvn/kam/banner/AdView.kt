@@ -11,9 +11,10 @@ import com.haitrvn.kam.toCommon
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import com.google.android.gms.ads.AdView as AndroidAdView
 
 actual class AdView(
-    private val android: com.google.android.gms.ads.AdView
+    private val android: AndroidAdView
 ) {
     actual var unitId: String
         get() = android.adUnitId

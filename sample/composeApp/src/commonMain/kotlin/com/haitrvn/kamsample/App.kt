@@ -9,7 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.haitrvn.kam.Initializer
 import com.haitrvn.kam.getRootView
+import com.haitrvn.kam.native.NativeAdView
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -47,5 +49,8 @@ fun App(
         ) {
             Text("Load and Show Rewarded Ad")
         }
+//        if (uiState.value.nativeAd != null) {
+//            NativeAdView(uiState.value.nativeAd!!, createNativeBinding())
+//        }
     }
 }

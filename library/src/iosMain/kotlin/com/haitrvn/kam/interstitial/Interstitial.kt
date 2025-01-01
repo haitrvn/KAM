@@ -42,8 +42,9 @@ actual class Interstitial(
                 GADInterstitialAd.loadWithAdUnitID(unitId, adRequest.ios) { ad, error ->
                     if (ad != null) {
                         continuation.resume(Interstitial(ad))
+                    } else {
+                        continuation.resume(null)
                     }
-                    continuation.resume(null)
                 }
                 continuation.invokeOnCancellation { }
             }

@@ -1,6 +1,6 @@
 [versions]
 agp = "8.2.2"
-kotlin = "2.1.0"
+kotlin = "2.0.21"
 androidx-activityCompose = "1.9.3"
 composeMultiplatform = "1.7.1"
 startupRuntime = "1.2.0"
@@ -11,7 +11,7 @@ kermit = "2.0.5"
 kotlinx-coroutines = "1.9.0"
 androidx-lifecycle = "2.8.4"
 ios-deploymentTarget = "13.0"
-admob-cocoapods = "11.13.0"
+admob-cocoapods = "11.5"
 constraintlayout = "2.2.0"
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }

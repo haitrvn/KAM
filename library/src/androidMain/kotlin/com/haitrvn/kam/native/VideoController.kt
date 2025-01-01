@@ -1,5 +1,7 @@
 package com.haitrvn.kam.native
 
+import com.google.android.gms.ads.VideoController as AndroidVideoController
+
 actual class VideoController(
-    private val android: com.google.android.gms.ads.VideoController
+    private val android: AndroidVideoController
 )

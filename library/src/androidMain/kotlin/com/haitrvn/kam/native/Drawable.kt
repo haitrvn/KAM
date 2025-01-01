@@ -1,5 +1,6 @@
 package com.haitrvn.kam.native
 
+import android.graphics.drawable.Drawable as AndroidAdmobDrawable
 actual class Drawable(
-    private val android: android.graphics.drawable.Drawable
+    private val android: AndroidAdmobDrawable
 )

@@ -45,7 +45,7 @@ actual class AdView(
         get() = ios.adSize.toCommon()
 
     actual val isCollapsible: Boolean
-        get() = ios.isCollapsible
+        get() = false
 
     actual val isLoading: Boolean
         get() = false

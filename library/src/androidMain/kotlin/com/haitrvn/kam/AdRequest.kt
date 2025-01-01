@@ -2,13 +2,14 @@ package com.haitrvn.kam
 
 import com.google.android.gms.ads.mediation.MediationExtrasReceiver
 import com.haitrvn.kam.util.ContextProvider
+import com.google.android.gms.ads.AdRequest as AndroidAdRequest
 
 actual class AdRequest internal constructor(
-    val android: com.google.android.gms.ads.AdRequest
+    val android: AndroidAdRequest
 ) {
     actual companion object {
         actual fun createInstance(block: AdRequestBuilder.() -> Unit): AdRequest {
-            val builder = AdRequestBuilder(com.google.android.gms.ads.AdRequest.Builder())
+            val builder = AdRequestBuilder(AndroidAdRequest.Builder())
             builder.block()
             return builder.build()
         }

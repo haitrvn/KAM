@@ -3,6 +3,7 @@ package com.haitrvn.kam.native
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.nativead.NativeAdOptions
 import com.haitrvn.kam.AdRequest
 import com.haitrvn.kam.util.ContextProvider
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -27,8 +28,8 @@ actual class AdLoader(
                 }
                 val listenerGroup = AdListenerGroup(mutableListOf(adListener))
                 AdLoader.Builder(ContextProvider.context, unitId).apply {
-                    adOptions?.android?.let { it1 -> withNativeAdOptions(it1) }
-                    withAdListener(listenerGroup)
+                    adOptions?.android?.let { it1 -> withNativeAdOptions(it1) } ?: NativeAdOptions.Builder().build()
+                    withAdListener(adListener)
                     forNativeAd {
                         continuation.resume(NativeAd(it).apply {
                             this.listenerGroup = listenerGroup

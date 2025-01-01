@@ -3,19 +3,30 @@ on:
   release:
     types: [released, prereleased]
   pull_request:
-    branches: [ "develop" ]
+    branches: [ "admob/develop" ]
 jobs:
   publish:
     name: Release build and publish
-    runs-on: macOS-latest
+    runs-on: macos-latest
     steps:
       - name: Check out code
         uses: actions/checkout@v4
+
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: 21
+
+      - name: Setup cocoapods
+        run: gem install cocoapods-generate
+
+      - name: Build sample
+        run: ./gradlew :sample:composeApp:embedAndSignAppleFrameworkForXcode
+
+      - name: podPublishXCFramework
+        run: ./gradlew :library:podPublishXCFramework --no-configuration-cache
+
       - name: Publish to MavenCentral
         run: ./gradlew publishToMavenCentral --no-configuration-cache
         env:

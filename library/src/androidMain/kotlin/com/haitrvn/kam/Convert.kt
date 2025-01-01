@@ -2,20 +2,26 @@ package com.haitrvn.kam
 
 import com.haitrvn.kam.native.VideoOptions
 import com.haitrvn.kam.reward.RewardItem
+import com.google.android.gms.ads.AdValue as AndroidAdValue
+import com.google.android.gms.ads.ResponseInfo as AndroidResponseInfo
+import com.google.android.gms.ads.AdapterResponseInfo as AndroidAdapterResponseInfo
+import com.google.android.gms.ads.AdError as AndroidError
+import com.google.android.gms.ads.rewarded.RewardItem as AndroidRewardItem
+import com.google.android.gms.ads.VideoOptions as AndroidVideoOptions
 
-fun com.google.android.gms.ads.AdValue.toCommon() = AdValue(this)
+fun AndroidAdValue.toCommon() = AdValue(this)
 
-fun com.google.android.gms.ads.ResponseInfo.toCommon() = ResponseInfo(this)
+fun AndroidResponseInfo.toCommon() = ResponseInfo(this)
 
-fun com.google.android.gms.ads.AdapterResponseInfo.toCommon() = AdapterResponseInfo(this)
+fun AndroidAdapterResponseInfo.toCommon() = AdapterResponseInfo(this)
 
-fun List<com.google.android.gms.ads.AdapterResponseInfo>.toCommon(): List<AdapterResponseInfo> {
+fun List<AndroidAdapterResponseInfo>.toCommon(): List<AdapterResponseInfo> {
     return this.map { AdapterResponseInfo(it) }
 }
 
-fun com.google.android.gms.ads.AdError.toCommon() = AdError(this)
+fun AndroidError.toCommon() = AdError(this)
 
-fun com.google.android.gms.ads.rewarded.RewardItem.toCommon() = RewardItem(this)
+fun AndroidRewardItem.toCommon() = RewardItem(this)
 
 
-fun com.google.android.gms.ads.VideoOptions.toCommon() = VideoOptions(this)
+fun AndroidVideoOptions.toCommon() = VideoOptions(this)

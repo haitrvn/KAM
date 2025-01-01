@@ -16,10 +16,11 @@ import com.google.android.gms.ads.AdSize.getLandscapeInlineAdaptiveBannerAdSize
 import com.google.android.gms.ads.AdSize.getPortraitAnchoredAdaptiveBannerAdSize
 import com.google.android.gms.ads.AdSize.getPortraitInlineAdaptiveBannerAdSize
 import com.haitrvn.kam.util.ContextProvider
+import com.google.android.gms.ads.AdSize as AndroidAdSize
 import com.google.android.gms.ads.AdSize.getInlineAdaptiveBannerAdSize as getAndroidInlineAdaptiveBannerAdSize
 
 actual open class AdSize(
-    val android: com.google.android.gms.ads.AdSize
+    val android: AndroidAdSize
 ) {
     actual object Banner : AdSize(BANNER)
     actual object FullBanner : AdSize(FULL_BANNER)
@@ -31,7 +32,7 @@ actual open class AdSize(
     actual object Invalid : AdSize(INVALID)
     internal actual object Search : AdSize(SEARCH)
     actual class Custom(width: Int, height: Int) :
-        AdSize(com.google.android.gms.ads.AdSize(width, height))
+        AdSize(AndroidAdSize(width, height))
 
     actual companion object {
         actual fun getCurrentOrientationAnchoredAdaptiveBannerAdSize(width: Int): AdSize {

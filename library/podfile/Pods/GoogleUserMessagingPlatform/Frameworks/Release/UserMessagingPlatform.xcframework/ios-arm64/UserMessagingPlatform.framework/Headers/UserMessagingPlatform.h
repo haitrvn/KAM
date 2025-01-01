@@ -1,5 +1,0 @@
-#import "UMPConsentForm.h"
-#import "UMPConsentInformation.h"
-#import "UMPDebugSettings.h"
-#import "UMPError.h"
-#import "UMPRequestParameters.h"

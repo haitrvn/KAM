@@ -3,6 +3,7 @@ package com.haitrvn.kam
 import com.google.android.gms.ads.FullScreenContentCallback
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
+import com.google.android.gms.ads.AdError as AndroidAdError
 
 fun fullScreenContentFlow(callback: (FullScreenContentCallback) -> Unit, onClose: () -> Unit) =
     callbackFlow {
@@ -17,7 +18,7 @@ fun fullScreenContentFlow(callback: (FullScreenContentCallback) -> Unit, onClose
                 trySend(FullScreenContent.Dismissed)
             }
 
-            override fun onAdFailedToShowFullScreenContent(p0: com.google.android.gms.ads.AdError) {
+            override fun onAdFailedToShowFullScreenContent(p0: AndroidAdError) {
                 super.onAdFailedToShowFullScreenContent(p0)
                 trySend(FullScreenContent.ShowFailed(AdError(p0)))
             }
